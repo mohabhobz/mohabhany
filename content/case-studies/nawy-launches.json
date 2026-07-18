@@ -1,0 +1,377 @@
+{
+  "slug": "nawy-launches",
+  "projectSlug": "nawy",
+  "title": "Website",
+  "sections": [
+    {
+      "id": "k5zmowr6",
+      "title": "The problem\n",
+      "rows": [
+        {
+          "id": "71wny0i8",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "vc59xdqk",
+                "kind": "paragraph",
+                "text": "Nawy is the largest proptech platform in Africa. Listings and search are where most people decide whether to keep exploring or leave — and 58% of them left."
+              },
+              {
+                "id": "v8ozbt8k",
+                "kind": "paragraph",
+                "text": "Listings were structured compound-first: you browsed compounds, then drilled in to find units. That mirrored how sales qualified a lead on the phone — \"Which compound are you interested in?\" — and stakeholders were confident it was right."
+              },
+              {
+                "id": "un1d7uvn",
+                "kind": "pullquote",
+                "text": "A 73% drop-off on the most important page in the product is not a styling problem."
+              },
+              {
+                "id": "bnw0t4zx",
+                "kind": "image",
+                "src": "/uploads/1784396541239-Screenshot-2026-07-18-at-5.38.15-PM.png",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural"
+              }
+            ]
+          ]
+        },
+        {
+          "id": "eqtdt4yt",
+          "layout": "1",
+          "cells": [
+            []
+          ]
+        },
+        {
+          "id": "yr55iimi",
+          "layout": "1",
+          "cells": [
+            []
+          ]
+        }
+      ],
+      "icon": "problem"
+    },
+    {
+      "id": "swyj9p8w",
+      "title": "What research showed\n",
+      "rows": [
+        {
+          "id": "lfvh30ha",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "xnoithxa",
+                "kind": "paragraph",
+                "text": "I ran interviews with buyers to map how they actually search for a home. The finding was consistent, and it contradicted the model the product was built on."
+              },
+              {
+                "id": "c1nhrw0y",
+                "kind": "quote",
+                "text": "I want a 3-bedroom apartment in a compound like SODIC.",
+                "attribution": "The pattern across interviews"
+              },
+              {
+                "id": "5wxd12a3",
+                "kind": "paragraph",
+                "text": "Buyers search unit-first. The compound is an attribute of the unit — a filter on it, not the way in. The old structure forced people to do the platform's filtering for it: pick a compound, then hope the right unit existed inside. If it didn't, they bounced."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "research"
+    },
+    {
+      "id": "liz6a9wo",
+      "title": "The structure was the problem",
+      "rows": [
+        {
+          "id": "mfa541za",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "vsycrse9",
+                "kind": "paragraph",
+                "text": "The mismatch wasn't visual. It was structural — the product's information architecture asked a question buyers weren't ready to answer."
+              },
+              {
+                "id": "80p4atqt",
+                "kind": "pullquote",
+                "text": "The product was organised around how the company sold. Buyers were organised around how they live."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "structure"
+    },
+    {
+      "id": "gsmdc4pp",
+      "title": "The decision I had to argue for",
+      "rows": [
+        {
+          "id": "0n1317fb",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "5cinnqu5",
+                "kind": "heading",
+                "level": 2,
+                "text": "Keep compound-first"
+              },
+              {
+                "id": "kq33rufp",
+                "kind": "paragraph",
+                "text": "It matches the sales script, needs no data restructuring, and nobody has to be convinced. But it keeps asking buyers to name a compound before they can see a single unit."
+              },
+              {
+                "id": "olvjv1qd",
+                "kind": "heading",
+                "level": 2,
+                "text": "Lead with the unit"
+              },
+              {
+                "id": "yanfa4k3",
+                "kind": "paragraph",
+                "text": "The card surfaces the unit — type, size, key details — with the compound name beside it as context. Tapping a compound then reveals the units inside it."
+              },
+              {
+                "id": "at7j0h3w",
+                "kind": "paragraph",
+                "text": "A restructure of how results were assembled, and a harder conversation with stakeholders. I brought the interviews and the drop-off number rather than an opinion, and kept the compound view one tap away behind a property/compound switch — so the change read as an addition, not a rejection of how sales worked."
+              },
+              {
+                "id": "452kw1hc",
+                "kind": "beforeAfter",
+                "before": "/uploads/1784396792783-Area-Search-Properties.png",
+                "after": "/uploads/1784396939946-Area-Search-Compound.png",
+                "caption": "Drag to compare."
+              }
+            ]
+          ]
+        },
+        {
+          "id": "ri81cqh1",
+          "layout": "1",
+          "cells": [
+            []
+          ]
+        },
+        {
+          "id": "3onrhr6r",
+          "layout": "1",
+          "cells": [
+            []
+          ]
+        }
+      ],
+      "icon": "decision"
+    },
+    {
+      "id": "p6c7rf0e",
+      "title": "Filters people could actually use",
+      "rows": [
+        {
+          "id": "qyrui1aq",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "pff9u9ds",
+                "kind": "paragraph",
+                "text": "The filter set had grown by accretion. Every request added another control, and the ones that decided a purchase were buried among the ones that didn't. I reordered them around the decisions buyers actually make."
+              },
+              {
+                "id": "9jpm495b",
+                "kind": "list",
+                "items": [
+                  "Payment plans and instalment years promoted to first-class filters",
+                  "not footnotes",
+                  "Property type and finishing expanded",
+                  "because buyers genuinely filter on both",
+                  "Every filter group resets independently",
+                  "so nobody has to start over to change one thing"
+                ]
+              },
+              {
+                "id": "hrmiaqk1",
+                "kind": "paragraph",
+                "text": "The test wasn't whether the filters looked cleaner. It was whether someone could go from \"I have EGP 20K a month\" to a shortlist without asking anyone."
+              },
+              {
+                "id": "bfei9j9w",
+                "kind": "image",
+                "src": "/uploads/1784397421044-Filters.png",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural"
+              }
+            ]
+          ]
+        },
+        {
+          "id": "4a1zx62o",
+          "layout": "1",
+          "cells": [
+            []
+          ]
+        }
+      ],
+      "icon": "filter"
+    },
+    {
+      "id": "hut3yd2i",
+      "title": "Removing the sticker shock",
+      "rows": [
+        {
+          "id": "lt31twey",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "w7d9o6ch",
+                "kind": "paragraph",
+                "text": "A second research thread looked at how developers actually price and sell. Leading with the full property price created sticker shock — people bounced on a number in the millions before they understood that nobody pays it at once."
+              },
+              {
+                "id": "rpfqq1ug",
+                "kind": "table",
+                "head": [
+                  "Before",
+                  "After"
+                ],
+                "rows": [
+                  [
+                    "Starts at EGP 9M",
+                    "Down payment from EGP 150K · instalments up to 9 years"
+                  ],
+                  [
+                    "",
+                    "or from EGP 20K / month"
+                  ]
+                ]
+              },
+              {
+                "id": "b4v396w2",
+                "kind": "paragraph",
+                "text": "Tapping the card now goes straight into the payment plan, so people explore affordability instead of bouncing on a big number. It widened reach to affordability-driven buyers, who were then qualified in the CRM — so volume didn't come at the cost of lead quality."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "speed"
+    },
+    {
+      "id": "fr0ud6qo",
+      "title": "Also shipped",
+      "rows": [
+        {
+          "id": "o8pz04yk",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "ol726bbb",
+                "kind": "stat",
+                "value": "Compare",
+                "label": "side-by-side comparison across compounds and properties"
+              },
+              {
+                "id": "ndhmbxva",
+                "kind": "stat",
+                "value": "Offers",
+                "label": "developer offers surfaced where buyers were already deciding"
+              },
+              {
+                "id": "b4tc3mwf",
+                "kind": "stat",
+                "value": "Property page and Compound page",
+                "label": "floor plans, master plan, and location on one page"
+              },
+              {
+                "id": "tv7ao17w",
+                "kind": "stat",
+                "value": "SEO",
+                "label": "page structure and content rebuilt for search"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "outcome"
+    },
+    {
+      "id": "9vr09fr4",
+      "title": "Try the prototype",
+      "rows": [
+        {
+          "id": "tcxh4btr",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "1eukp93h",
+                "kind": "figma",
+                "src": "https://embed.figma.com/proto/TqL4B0kwZOSPLOGHW59ILB/Nawy?node-id=1-186702&viewport=2053%2C2222%2C0.23&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A186702&page-id=1%3A186139&embed-host=share",
+                "caption": ""
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "design"
+    },
+    {
+      "id": "hjwfqamw",
+      "title": "Reflection",
+      "rows": [
+        {
+          "id": "w226l5xo",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "77gsu3s1",
+                "kind": "paragraph",
+                "text": "The lesson wasn't about cards or pricing. It was that the fastest way to move a metric is often to fix a mental-model mismatch — the product describing the world one way while its users live in another."
+              },
+              {
+                "id": "eaensbfi",
+                "kind": "paragraph",
+                "text": "And the fastest way to ship that fix is to bring stakeholders evidence rather than taste, then give them a solution that includes how they work instead of overriding it."
+              },
+              {
+                "id": "kh2gnbfn",
+                "kind": "button",
+                "label": "See it live",
+                "href": "https://www.nawy.com/"
+              },
+              {
+                "id": "qpogk75a",
+                "kind": "image",
+                "src": "/uploads/1784397545321-3b0e09c3-17e5-47ab-b4f6-53955b81a59a_rw_.png",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "layers"
+    }
+  ],
+  "status": "draft",
+  "updatedAt": "2026-07-18T18:41:46.250Z"
+}

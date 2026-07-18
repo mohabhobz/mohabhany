@@ -1,0 +1,440 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* ============================================================
+   BASE — derived entirely from tokens.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  font-weight: var(--weight-regular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--color-accent); color: var(--color-accent-ink); }
+
+a { color: inherit; text-decoration: none; }
+img, video, svg { display: block; max-width: 100%; height: auto; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   TYPOGRAPHY — the only text styles that exist.
+   Use these classes. Do not set font-size inline.
+   ============================================================ */
+
+.t-display {
+  font-size: var(--text-display);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-tight);
+  max-width: var(--measure-head);
+}
+.t-h1 {
+  font-size: var(--text-h1);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  max-width: var(--measure-head);
+}
+.t-h2 {
+  font-size: var(--text-h2);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-snug);
+}
+.t-h3 {
+  font-size: var(--text-h3);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-snug);
+}
+.t-lead {
+  font-size: var(--text-lead);
+  font-weight: var(--weight-regular);
+  line-height: 1.55;
+  color: var(--color-muted);
+  max-width: var(--measure-lead);
+}
+.t-body {
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-muted);
+  max-width: var(--measure-body);
+}
+.t-body strong { color: var(--color-ink); font-weight: var(--weight-medium); }
+.t-small {
+  font-size: var(--text-small);
+  line-height: 1.55;
+  color: var(--color-muted);
+}
+.t-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-dim);
+}
+.t-arabic { font-family: var(--font-arabic); }
+
+/* The signature: an orange full stop. Used once per heading, max. */
+.dot { color: var(--color-accent); }
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+
+.page  { max-width: var(--width-page);  margin-inline: auto; padding-inline: var(--gutter); }
+.prose { max-width: var(--width-prose); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: var(--space-24); }
+
+/* ============================================================
+   IMAGES — how every image in this site is displayed.
+   No image appears without a frame and a caption.
+   ============================================================ */
+
+.figure { margin-block: var(--space-8); }
+
+.frame {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-surface);
+  position: relative;
+}
+.frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* NATURAL — the frame takes the image's own shape. Nothing is cropped.
+   This is the default, because a screenshot with its header sliced off
+   is worse than a screenshot that isn't the same height as its neighbour. */
+.frame--natural { aspect-ratio: auto; height: auto; }
+.frame--natural img { height: auto; object-fit: contain; }
+
+/* Fixed aspect ratios — an image may only use one of these. */
+.ratio-wide  { aspect-ratio: 16 / 9; }
+.ratio-page  { aspect-ratio: 4 / 3; }
+.ratio-square{ aspect-ratio: 1 / 1; }
+.ratio-phone { aspect-ratio: 9 / 16; }
+
+/* Caption always sits below the frame, in mono, and explains WHY. */
+.caption {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: var(--color-dim);
+  margin-top: var(--space-3);
+  max-width: var(--measure-body);
+}
+
+/* Placeholder while real screens are missing */
+.frame--empty {
+  background: repeating-linear-gradient(135deg,
+    var(--color-surface), var(--color-surface) 10px,
+    var(--color-bg) 10px, var(--color-bg) 20px);
+  display: grid;
+  place-items: center;
+  color: var(--color-dim);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-align: center;
+  padding: var(--space-6);
+}
+
+/* ---- Full-bleed project cover --------------------------------
+   Edge to edge, above everything. Sits outside .prose on purpose. */
+.cover {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+/* FILL — a cinematic band. Crops the top and bottom of the frame.
+   Right for photography, wrong for anything with UI in it. */
+.cover--fill { height: clamp(320px, 62vh, 760px); }
+.cover--fill img, .cover--fill video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+
+/* STANDARD — full width, with a deliberate sliver cropped off.
+   16/8.8 against a 16/9 source trims about 2%: the cover still stops
+   short of the fold so the eye keeps going, but almost nothing is lost.
+   max-height is the binding constraint on wide screens — raise both
+   together or the taller ratio has no effect. */
+.cover--fit { aspect-ratio: 16 / 8.8; max-height: 88vh; }
+.cover--fit img, .cover--fit video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+
+/* ---- Scroll cue -----------------------------------------------
+   A line that fills downward, sitting over the bottom of the cover.
+   Says "there is more" without a word. */
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-8);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  z-index: 2;
+  pointer-events: none;
+}
+.scroll-cue .t-label { color: var(--color-ink); opacity: .75; }
+.scroll-cue .bar {
+  width: 1px;
+  height: 40px;
+  background: color-mix(in srgb, var(--color-ink) 35%, transparent);
+  position: relative;
+  overflow: hidden;
+}
+.scroll-cue .bar::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: -100%;
+  height: 100%;
+  background: var(--color-accent);
+  animation: scroll-cue 1.9s var(--ease-in-out) infinite;
+}
+@keyframes scroll-cue {
+  0%        { top: -100%; }
+  60%, 100% { top: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue .bar::after { animation: none; top: 0; opacity: .5; }
+}
+
+/* Lets the page title breathe over a busy photo without dimming the whole thing. */
+.cover::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    transparent 45%,
+    color-mix(in srgb, var(--color-bg) 55%, transparent) 78%,
+    var(--color-bg) 100%);
+  pointer-events: none;
+}
+
+.cover--empty {
+  display: grid;
+  place-items: center;
+  background: repeating-linear-gradient(135deg,
+    var(--color-surface), var(--color-surface) 10px,
+    var(--color-bg) 10px, var(--color-bg) 20px);
+  height: clamp(200px, 32vh, 340px);
+}
+.cover--empty::after { display: none; }
+
+/* ---- Company logo plate --------------------------------------
+   Always white, in light and dark alike, so a client logo never
+   disappears into a dark background. Padding gives it room to sit. */
+.logo-plate {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-md);
+  background: var(--color-logo-plate);
+  border: 1px solid var(--color-line);
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.logo-plate img { width: 100%; height: 100%; object-fit: contain; }
+.logo-plate .t-label { color: #9AA096; font-size: 9px; }
+
+/* Image grids */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+@media (max-width: 760px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   MOTION — reveal on scroll.
+   Animates transform + opacity only, for 60fps.
+   ============================================================ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition:
+    opacity   var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+  will-change: transform, opacity;
+}
+.reveal[data-visible="true"] { opacity: 1; transform: none; will-change: auto; }
+
+.reveal[data-delay="1"] { transition-delay: calc(var(--reveal-stagger) * 1); }
+.reveal[data-delay="2"] { transition-delay: calc(var(--reveal-stagger) * 2); }
+.reveal[data-delay="3"] { transition-delay: calc(var(--reveal-stagger) * 3); }
+.reveal[data-delay="4"] { transition-delay: calc(var(--reveal-stagger) * 4); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ============================================================
+   EDITOR CHROME
+   Controls appear on the thing you are pointing at, and nowhere
+   else. Showing every control at once buries the content the
+   controls are meant to serve.
+   ============================================================ */
+
+.ed-block { position: relative; }
+.ed-tools {
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+/* Keyboard users get the same affordance as mouse users. */
+.ed-block:hover > .ed-tools,
+.ed-block:focus-within > .ed-tools,
+.ed-tools[data-open="true"] { opacity: 1; }
+
+.ed-cell {
+  border: 1px dashed transparent;
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+.ed-cell:hover, .ed-cell:focus-within { border-color: var(--color-line); }
+
+.ed-row { position: relative; }
+.ed-row > .ed-rowbar { opacity: 0; transition: opacity var(--duration-fast) var(--ease-out); }
+.ed-row:hover > .ed-rowbar,
+.ed-row:focus-within > .ed-rowbar,
+.ed-rowbar[data-open="true"] { opacity: 1; }
+
+.ed-add { opacity: .45; transition: opacity var(--duration-fast) var(--ease-out); }
+.ed-cell:hover .ed-add, .ed-cell:focus-within .ed-add { opacity: 1; }
+
+
+/* ============================================================
+   SKELETON
+   Shown while a case study loads. Keeps the page from collapsing
+   to nothing, so the shell above never jumps.
+   ============================================================ */
+
+.skel {
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    90deg,
+    var(--color-surface) 0%,
+    color-mix(in srgb, var(--color-surface) 60%, var(--color-line)) 50%,
+    var(--color-surface) 100%
+  );
+  background-size: 200% 100%;
+  animation: skel-sweep 1.4s ease-in-out infinite;
+}
+@keyframes skel-sweep {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skel { animation: none; background: var(--color-surface); }
+}
+
+
+/* ============================================================
+   LISTS
+   Tailwind's reset strips list markers, and a plain disc reads
+   dated. A short rule in the margin marks each item instead —
+   quiet, modern, and no colour needed to carry it.
+   ============================================================ */
+
+.t-list { list-style: none; padding: 0; margin: 0; }
+
+.t-list li {
+  position: relative;
+  padding-left: var(--space-8);
+  margin-bottom: var(--space-4);
+  color: var(--color-muted);
+  line-height: var(--leading-body);
+  max-width: var(--measure-body);
+}
+.t-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.85em;                 /* sits on the first line's optical centre */
+  width: var(--space-4);
+  height: 1px;
+  background: var(--color-line-strong);
+}
+.t-list li:last-child { margin-bottom: 0; }
+.t-list li strong { color: var(--color-ink); font-weight: var(--weight-medium); }
+
+
+/* Visible to screen readers, not to the eye. */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+/* ============================================================
+   IMAGE SIZING
+   Some artwork — device mockups, renders — already carries its own
+   margin and edge. Framing it again boxes a box.
+   ============================================================ */
+
+.frame--bare {
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.img-narrow { max-width: 62%; margin-inline: auto; }
+.img-column { max-width: 100%; }
+
+/* Breaks out of the reading column to the full page width. */
+.img-wide {
+  width: min(var(--width-page), 100vw - (var(--gutter) * 2));
+  max-width: none;
+  margin-inline: calc(50% - min(var(--width-page), 100vw - (var(--gutter) * 2)) / 2);
+}
+@media (max-width: 900px) {
+  .img-narrow { max-width: 100%; }
+  .img-wide { width: 100%; margin-inline: 0; }
+}
+
+
+/* Lightbox */
+@keyframes lb-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  [role="dialog"] { animation: none !important; }
+}
+.zoomable { cursor: zoom-in; }

@@ -1,0 +1,252 @@
+"use client";
+
+import { useState } from "react";
+import type { Block, BlockKind, Row, RowLayout, Section } from "@/lib/types";
+import { BLOCK_LABELS, CELLS_PER_LAYOUT, GRID_FOR_LAYOUT, newBlock, uid } from "@/lib/types";
+import { BlockView } from "@/components/blocks/BlockView";
+import { BlockEditor } from "@/components/editor/BlockEditor";
+import { Btn, DeleteBtn, Editable, Toolbar } from "@/components/editor/ui";
+import { Icon, ICON_NAMES, type IconName } from "@/components/ui/Icon";
+
+const LAYOUTS: { id: RowLayout; label: string }[] = [
+  { id: "1", label: "Full" }, { id: "1-1", label: "Half" },
+  { id: "1-1-1", label: "Thirds" }, { id: "1-1-1-1", label: "Quarters" },
+  { id: "2-1", label: "2 / 1" }, { id: "1-2", label: "1 / 2" },
+];
+
+/**
+ * Change a row's column count after the fact.
+ * Growing adds empty cells; shrinking pushes the orphaned blocks into the
+ * last surviving cell rather than deleting them — losing content silently
+ * because someone clicked a layout button would be unforgivable.
+ */
+function relayout(row: Row, layout: RowLayout): Row {
+  const want = CELLS_PER_LAYOUT[layout];
+  const cells = row.cells.slice(0, want);
+  while (cells.length < want) cells.push([]);
+  if (row.cells.length > want) {
+    const orphans = row.cells.slice(want).flat();
+    if (orphans.length) cells[want - 1] = [...cells[want - 1], ...orphans];
+  }
+  return { ...row, layout, cells };
+}
+
+function blockHasContent(b: Block): boolean {
+  const strip = (x: unknown) => JSON.stringify(x).replace(/"id":"[^"]+"/, "");
+  return strip(b) !== strip(newBlock(b.kind));
+}
+
+/**
+ * The section → row → cell → block editor.
+ * Shared by the project intro and every case study, so both behave identically.
+ */
+export function SectionsEditor({ sections, onChange, editing, onUpload, addLabel = "+ Add section" }: {
+  sections: Section[];
+  onChange: (next: Section[]) => void;
+  editing: boolean;
+  onUpload: (cb: (url: string) => void) => void;
+  addLabel?: string;
+}) {
+  const [openBlock, setOpenBlock] = useState<string | null>(null);
+  const [openRow, setOpenRow] = useState<string | null>(null);
+  const [openIcon, setOpenIcon] = useState<string | null>(null);
+
+  const patch = (sid: string, fn: (s: Section) => Section) =>
+    onChange(sections.map((s) => (s.id === sid ? fn(s) : s)));
+
+  const move = (sid: string, dir: -1 | 1) => {
+    const i = sections.findIndex((s) => s.id === sid);
+    const j = i + dir;
+    if (i < 0 || j < 0 || j >= sections.length) return;
+    const next = [...sections];
+    [next[i], next[j]] = [next[j], next[i]];
+    onChange(next);
+  };
+
+  return (
+    <>
+      {sections.map((s, si) => (
+        <section key={s.id} className="section">
+          <div style={{
+            display: "flex", justifyContent: "space-between", gap: "var(--space-4)",
+            flexWrap: "wrap", alignItems: "baseline",
+          }}>
+            {(s.title || editing) && (
+              <h2 className="t-h2" style={{ display: "flex", alignItems: "center", gap: "var(--space-4)" }}>
+                {s.icon && ICON_NAMES.includes(s.icon as IconName) && (
+                  <span style={{ color: "var(--color-accent-text)", display: "inline-flex" }}>
+                    <Icon name={s.icon as IconName} size={30} />
+                  </span>
+                )}
+                {editing
+                  ? <Editable value={s.title ?? ""} onChange={(v) => patch(s.id, (x) => ({ ...x, title: v }))} placeholder="Section title — leave blank for none" />
+                  : s.title}
+              </h2>
+            )}
+            {editing && (
+              <div style={{ display: "flex", gap: "var(--space-2)" }}>
+                <Btn
+                  onClick={() => move(s.id, -1)}
+                  disabled={si === 0}
+                  title={si === 0 ? "Already first" : "Move up"}
+                >↑</Btn>
+                <Btn
+                  onClick={() => move(s.id, 1)}
+                  disabled={si === sections.length - 1}
+                  title={si === sections.length - 1 ? "Already last" : "Move down"}
+                >↓</Btn>
+                <Btn onClick={() => setOpenIcon(openIcon === s.id ? null : s.id)}>
+                  {s.icon ? "Icon" : "+ Icon"}
+                </Btn>
+                <DeleteBtn label="Delete section"
+                  hasContent={s.rows.some((r) => r.cells.some((c) => c.length > 0))}
+                  onConfirm={() => onChange(sections.filter((x) => x.id !== s.id))} />
+              </div>
+            )}
+          </div>
+
+          {editing && openIcon === s.id && (
+            <div style={{
+              display: "flex", flexWrap: "wrap", gap: "var(--space-2)",
+              alignItems: "center", marginTop: "var(--space-4)",
+              padding: "var(--space-4)", border: "1px solid var(--color-line)",
+              borderRadius: "var(--radius-md)", background: "var(--color-surface)",
+            }}>
+              {ICON_NAMES.map((n) => (
+                <button
+                  key={n}
+                  title={n}
+                  onClick={() => patch(s.id, (x) => ({ ...x, icon: n }))}
+                  style={{
+                    width: 44, height: 44, display: "grid", placeItems: "center",
+                    borderRadius: "var(--radius-sm)",
+                    border: `1px solid ${s.icon === n ? "var(--color-accent)" : "var(--color-line)"}`,
+                    color: s.icon === n ? "var(--color-accent-text)" : "var(--color-muted)",
+                  }}
+                >
+                  <Icon name={n} size={20} />
+                </button>
+              ))}
+              {s.icon && (
+                <Btn onClick={() => patch(s.id, (x) => ({ ...x, icon: undefined }))}>No icon</Btn>
+              )}
+            </div>
+          )}
+
+          {s.rows.map((r) => (
+            <div key={r.id} className="ed-row" style={{ marginTop: "var(--space-8)" }}>
+              <div style={{ display: "grid", gridTemplateColumns: GRID_FOR_LAYOUT[r.layout], gap: "var(--space-6)" }}>
+                {r.cells.map((cell, ci) => (
+                  <div key={ci} className={editing ? "ed-cell" : undefined} style={{
+                    minHeight: editing ? 72 : undefined,
+                    padding: editing ? "var(--space-4)" : undefined,
+                  }}>
+                    {cell.map((b) => (
+                      <div key={b.id} className={editing ? "ed-block" : undefined}
+                           style={{ marginBottom: "var(--space-4)" }}>
+                        <BlockView block={b} />
+                        {editing && (
+                          <>
+                            <Toolbar className="ed-tools" open={openBlock === b.id}>
+                              <Btn onClick={() => setOpenBlock(openBlock === b.id ? null : b.id)}>
+                                {openBlock === b.id ? "Close" : `Edit ${BLOCK_LABELS[b.kind]}`}
+                              </Btn>
+                              <DeleteBtn label="Delete block" hasContent={blockHasContent(b)}
+                                onConfirm={() => patch(s.id, (x) => ({
+                                  ...x, rows: x.rows.map((rr) => rr.id !== r.id ? rr : {
+                                    ...rr, cells: rr.cells.map((c, i) => i === ci ? c.filter((y) => y.id !== b.id) : c),
+                                  }),
+                                }))} />
+                            </Toolbar>
+                            {openBlock === b.id && (
+                              <div style={{
+                                marginTop: "var(--space-3)", padding: "var(--space-4)",
+                                background: "var(--color-surface)", borderRadius: "var(--radius-md)",
+                                border: "1px solid var(--color-line)",
+                              }}>
+                                <BlockEditor block={b} onUpload={onUpload}
+                                  onChange={(nb) => patch(s.id, (x) => ({
+                                    ...x, rows: x.rows.map((rr) => rr.id !== r.id ? rr : {
+                                      ...rr, cells: rr.cells.map((c, i) => i === ci ? c.map((y) => y.id === nb.id ? nb : y) : c),
+                                    }),
+                                  }))} />
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    ))}
+
+                    {editing && (
+                      <details>
+                        <summary className="t-label" style={{ cursor: "pointer" }}>+ Add block</summary>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: "var(--space-3)" }}>
+                          {(Object.keys(BLOCK_LABELS) as BlockKind[]).map((k) => (
+                            <Btn key={k} onClick={() => patch(s.id, (x) => ({
+                              ...x, rows: x.rows.map((rr) => rr.id !== r.id ? rr : {
+                                ...rr, cells: rr.cells.map((c, i) => i === ci ? [...c, newBlock(k)] : c),
+                              }),
+                            }))}>{BLOCK_LABELS[k]}</Btn>
+                          ))}
+                        </div>
+                      </details>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {editing && (
+                <div className="ed-rowbar" data-open={openRow === r.id}
+                     style={{
+                       display: "flex", gap: "var(--space-2)", flexWrap: "wrap",
+                       alignItems: "center", marginTop: "var(--space-3)",
+                     }}>
+                  <Btn onClick={() => setOpenRow(openRow === r.id ? null : r.id)}>
+                    {openRow === r.id ? "Close row" : `Row · ${LAYOUTS.find((l) => l.id === r.layout)?.label ?? ""}`}
+                  </Btn>
+                  {openRow === r.id && (
+                    <>
+                      {LAYOUTS.map((l) => (
+                        <Btn
+                          key={l.id}
+                          tone={r.layout === l.id ? "accent" : undefined}
+                          disabled={r.layout === l.id}
+                          title={r.layout === l.id ? "Current layout" : `Switch to ${l.label}`}
+                          onClick={() => patch(s.id, (x) => ({
+                            ...x, rows: x.rows.map((rr) => rr.id === r.id ? relayout(rr, l.id) : rr),
+                          }))}
+                        >{l.label}</Btn>
+                      ))}
+                      <DeleteBtn label="Delete row" hasContent={r.cells.some((c) => c.length > 0)}
+                        onConfirm={() => patch(s.id, (x) => ({ ...x, rows: x.rows.filter((rr) => rr.id !== r.id) }))} />
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
+
+          {editing && (
+            <Toolbar>
+              <span className="t-label">+ Row:</span>
+              {LAYOUTS.map((l) => (
+                <Btn key={l.id} onClick={() => patch(s.id, (x) => ({
+                  ...x,
+                  rows: [...x.rows, { id: uid(), layout: l.id, cells: Array.from({ length: CELLS_PER_LAYOUT[l.id] }, () => []) }],
+                }))}>{l.label}</Btn>
+              ))}
+            </Toolbar>
+          )}
+        </section>
+      ))}
+
+      {editing && (
+        <div style={{ marginTop: "var(--space-8)" }}>
+          <Btn tone="accent" onClick={() => onChange([...sections, { id: uid(), title: "", rows: [] }])}>
+            {addLabel}
+          </Btn>
+        </div>
+      )}
+    </>
+  );
+}

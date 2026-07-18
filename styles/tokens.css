@@ -1,0 +1,185 @@
+/* ============================================================
+   HOBZ DESIGN SYSTEM — TOKENS
+   Single source of truth. Nothing in this project may use a
+   raw value that is not defined here.
+
+   Colour has two layers:
+     1. PRIMITIVES  — the raw palette. Never used directly in UI.
+     2. SEMANTIC    — what you actually use. Switches with theme.
+   ============================================================ */
+
+/* ---------- 1. PRIMITIVES ----------------------------------
+   The raw palette. Do NOT reference these in components. */
+:root {
+  /* warm near-blacks */
+  --hz-black-900: #0B0D0B;
+  --hz-black-800: #111311;
+  --hz-black-700: #15170F;
+  --hz-black-600: #23271F;
+  --hz-black-500: #2F342B;
+
+  /* warm off-whites */
+  --hz-white-100: #FFFFFF;
+  --hz-white-200: #FAF9F5;
+  --hz-white-300: #F2F1EA;
+  --hz-white-400: #E3E2DA;
+  --hz-white-500: #CFCEC4;
+
+  /* greys */
+  --hz-grey-400: #8A9084;  /* on dark  */
+  --hz-grey-500: #6C726A;  /* on dark  */
+  --hz-grey-600: #5A5F55;  /* on light */
+  --hz-grey-700: #74796F;  /* on light */
+
+  /* ink */
+  --hz-ink-light: #F4F5F2;
+  --hz-ink-dark:  #14160F;
+
+  /* the orange — two values, because contrast differs by theme */
+  --hz-orange-500: #FF5C1A;  /* fills, graphics, on dark   */
+  --hz-orange-700: #C2410C;  /* accessible text on light   */
+  --hz-orange-ink: #1A0D05;
+}
+
+/* ---------- 2. SEMANTIC — DARK (brand default) ------------- */
+:root {
+  color-scheme: dark;
+
+  --color-bg:          var(--hz-black-900);
+  --color-surface:     var(--hz-black-800);
+  --color-surface-2:   var(--hz-black-700);
+  --color-line:        var(--hz-black-600);
+  --color-line-strong: var(--hz-black-500);
+
+  --color-ink:   var(--hz-ink-light);
+  --color-muted: var(--hz-grey-400);
+  --color-dim:   var(--hz-grey-500);
+
+  --color-accent:      var(--hz-orange-500);
+  --color-accent-text: var(--hz-orange-500);  /* readable on dark */
+  --color-accent-ink:  var(--hz-orange-ink);
+
+  /* Client logos are drawn for light backgrounds. This plate stays white in
+     BOTH themes on purpose — the one token that must not follow the theme. */
+  --color-logo-plate: var(--hz-white-100);
+}
+
+/* ---------- SEMANTIC — LIGHT -------------------------------
+   Applied when the visitor's system prefers light AND they
+   haven't explicitly chosen dark. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+
+    /* Page is pure white; surfaces step *down* into the warm off-whites so
+       cards still read as raised. Flipping only the page would make every
+       card vanish into it. */
+    --color-bg:          var(--hz-white-100);
+    --color-surface:     var(--hz-white-200);
+    --color-surface-2:   var(--hz-white-300);
+    --color-line:        var(--hz-white-400);
+    --color-line-strong: var(--hz-white-500);
+
+    --color-ink:   var(--hz-ink-dark);
+    --color-muted: var(--hz-grey-600);
+    --color-dim:   var(--hz-grey-700);
+
+    --color-accent:      var(--hz-orange-500);
+    --color-accent-text: var(--hz-orange-700);  /* darker: passes AA on light */
+    --color-accent-ink:  var(--hz-white-100);
+  }
+}
+
+/* Explicit choice always wins over the system setting. */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --color-bg:          var(--hz-white-100);
+  --color-surface:     var(--hz-white-200);
+  --color-surface-2:   var(--hz-white-300);
+  --color-line:        var(--hz-white-400);
+  --color-line-strong: var(--hz-white-500);
+
+  --color-ink:   var(--hz-ink-dark);
+  --color-muted: var(--hz-grey-600);
+  --color-dim:   var(--hz-grey-700);
+
+  --color-accent:      var(--hz-orange-500);
+  --color-accent-text: var(--hz-orange-700);
+  --color-accent-ink:  var(--hz-white-100);
+}
+
+/* ---------- 3. EVERYTHING ELSE (theme-independent) --------- */
+@theme inline {
+  --color-bg:          var(--color-bg);
+  --color-surface:     var(--color-surface);
+  --color-surface-2:   var(--color-surface-2);
+  --color-line:        var(--color-line);
+  --color-line-strong: var(--color-line-strong);
+  --color-ink:         var(--color-ink);
+  --color-muted:       var(--color-muted);
+  --color-dim:         var(--color-dim);
+  --color-accent:      var(--color-accent);
+  --color-accent-text: var(--color-accent-text);
+  --color-accent-ink:  var(--color-accent-ink);
+}
+
+@theme {
+  /* ---------- TYPEFACES ------------------------------------
+     Three families. No fourth family. Ever. */
+  --font-display: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-mono:    var(--font-space-mono), ui-monospace, monospace;
+  --font-arabic:  var(--font-plex-arabic), system-ui, sans-serif;
+
+  /* ---------- TYPE SCALE ----------------------------------- */
+  --text-display: clamp(2.5rem, 6vw, 5.5rem);
+  --text-h1:      clamp(2rem, 4.5vw, 3.75rem);
+  --text-h2:      clamp(1.5rem, 3.2vw, 2.25rem);
+  --text-h3:      clamp(1.25rem, 2.2vw, 1.5rem);
+  --text-lead:    clamp(1.0625rem, 2vw, 1.3125rem);
+  --text-body:    1.0625rem;
+  --text-small:   0.875rem;
+  --text-label:   0.75rem;
+
+  /* ---------- WEIGHTS — two only: 500 and 700 -------------- */
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-bold:    700;
+
+  /* ---------- LINE HEIGHT & TRACKING ----------------------- */
+  --leading-display: 1.02;
+  --leading-heading: 1.1;
+  --leading-body:    1.72;
+  --tracking-tight:  -0.03em;
+  --tracking-snug:   -0.02em;
+  --tracking-label:  0.14em;
+
+  /* ---------- MEASURE -------------------------------------- */
+  --measure-body: 62ch;
+  --measure-lead: 56ch;
+  --measure-head: 19ch;
+
+  /* ---------- SPACING (4px base) --------------------------- */
+  --space-1: 0.25rem;  --space-2: 0.5rem;   --space-3: 0.75rem;
+  --space-4: 1rem;     --space-6: 1.5rem;   --space-8: 2rem;
+  --space-12: 3rem;    --space-16: 4rem;    --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* ---------- LAYOUT --------------------------------------- */
+  --width-prose: 880px;
+  --width-page:  1180px;
+  --gutter:      2rem;
+
+  /* ---------- RADIUS --------------------------------------- */
+  --radius-sm: 8px;  --radius-md: 12px;
+  --radius-lg: 16px; --radius-pill: 999px;
+
+  /* ---------- MOTION --------------------------------------- */
+  --duration-fast: 0.2s;
+  --duration-base: 0.4s;
+  --duration-slow: 0.8s;
+  --ease-out:    cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --reveal-distance: 26px;
+  --reveal-stagger:  0.07s;
+}

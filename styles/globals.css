@@ -815,36 +815,68 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .client-cell:hover .client-cell__name { opacity: 1; color: var(--color-ink); }
 
-/* ---- Work ------------------------------------------------------- */
-.work-list {
+/* ---- Work board -------------------------------------------------
+   Cards, not rows. A row list says "here is an index"; a board says
+   "here is the work". The cover carries the weight and the text sits
+   under it, so the grid reads as images first. */
+.work-board {
   margin-top: var(--heading-gap);
-  border-top: 1px solid var(--color-line);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--space-8);
 }
 
-.work-row {
-  display: flex; align-items: center; gap: var(--space-6);
-  padding: var(--space-6) var(--space-2);
-  border-bottom: 1px solid var(--color-line);
-  color: var(--color-ink);
-  transition: padding-inline var(--duration-fast) var(--ease-out),
-              background var(--duration-fast) var(--ease-out);
-}
-.work-row:hover {
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-5);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
   background: var(--color-surface);
-  padding-inline: var(--space-4) var(--space-2);
+  color: var(--color-ink);
+  height: 100%;
+  transition: border-color var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+.card:hover {
+  border-color: color-mix(in srgb, var(--color-ink) 32%, transparent);
+  transform: translateY(-2px);
 }
 
-.work-row__logo { flex-shrink: 0; }
-.work-row__text { display: flex; flex-direction: column; gap: var(--space-2); flex: 1; min-width: 0; }
-.work-row__slogan { opacity: .7; }
-.work-row__tags { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-1); }
-.work-row__tag {
+/* A fixed ratio, so a card with a tall cover cannot make its whole row
+   tall. Every card in the grid is the same shape whatever it holds. */
+.card__media {
+  display: block;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg);
+}
+.card__media img,
+.card__media video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.card__media--empty {
+  display: block; width: 100%; height: 100%;
+  background: repeating-linear-gradient(135deg,
+    var(--color-surface), var(--color-surface) 10px,
+    var(--color-bg) 10px, var(--color-bg) 20px);
+}
+
+.card__body { display: flex; align-items: center; gap: var(--space-4); }
+.card__logo { width: 52px; height: 52px; flex-shrink: 0; }
+.card__text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.card__slogan { opacity: .65; }
+
+.card__tags { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: auto; }
+.card__tag {
   border: 1px solid var(--color-line);
   border-radius: var(--radius-pill);
-  padding: 4px 10px;
+  padding: 5px 11px;
 }
-.work-row__go { flex-shrink: 0; color: var(--color-accent-text); opacity: 0; transition: opacity var(--duration-fast); }
-.work-row:hover .work-row__go { opacity: 1; }
 
 /* ---- Entries: Background and Consulting share one row --------
    Mark on the leading edge, then name, role, description, and the dates

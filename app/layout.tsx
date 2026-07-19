@@ -55,6 +55,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
+      /* Tells Next this page opts into smooth scrolling, so it disables it
+         for the duration of a route change. Without it, Next's scroll-to-top
+         is animated and races the new page's layout: the sticky cover
+         resolves its height mid-animation and the scroll lands partway down,
+         which is why opening a project arrived at the logo instead of the
+         top of the page. */
+      data-scroll-behavior="smooth"
       className={`${display.variable} ${mono.variable} ${arabic.variable}`}
     >
       <head>

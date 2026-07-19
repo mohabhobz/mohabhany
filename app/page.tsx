@@ -1,9 +1,9 @@
-import Link from "next/link";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { listProjects, listStudies } from "@/lib/storage";
 import { Reveal } from "@/components/ui/Reveal";
 import { SiteNav } from "@/components/ui/SiteNav";
+import { WorkCard } from "@/components/ui/WorkCard";
 
 export const dynamic = "force-dynamic";
 
@@ -88,36 +88,14 @@ export default async function Home() {
           <p className="t-section-title section-title">{site.work.title}</p>
         </Reveal>
 
-        <div className="work-list">
-          {projects.map((p, i) => {
-            const mine = studies.filter((c) => c.projectSlug === p.slug);
-            const first = mine[0];
-            return (
-              <Reveal key={p.slug} delay={(i % 3) as 0 | 1 | 2}>
-                <Link
-                  href={first ? `/case-study/${first.slug}` : "/work"}
-                  className="work-row"
-                >
-                  <span className="logo-plate work-row__logo">
-                    {p.logo ? <img src={p.logo} alt="" /> : <span className="t-label">{p.name.slice(0, 2)}</span>}
-                  </span>
-
-                  <span className="work-row__text">
-                    <span className="t-h3">{p.name}</span>
-                    {p.slogan && <span className="t-small work-row__slogan">{p.slogan}</span>}
-                    <span className="work-row__tags">
-                      {mine.map((c) => (
-                        <span key={c.slug} className="t-label work-row__tag">{c.title}</span>
-                      ))}
-                    </span>
-                  </span>
-
-                  <span className="t-label work-row__go" aria-hidden="true">View</span>
-                </Link>
-              </Reveal>
-            );
-          })}
+        <div className="work-board">
+          {projects.map((p, i) => (
+            <Reveal key={p.slug} delay={(i % 3) as 0 | 1 | 2}>
+              <WorkCard project={p} studies={studies.filter((c) => c.projectSlug === p.slug)} />
+            </Reveal>
+          ))}
         </div>
+
       </section>
 
       {/* ---------------- BACKGROUND ---------------- */}

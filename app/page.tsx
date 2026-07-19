@@ -89,11 +89,19 @@ export default async function Home() {
         </Reveal>
 
         <div className="work-board">
-          {projects.map((p, i) => (
-            <Reveal key={p.slug} delay={(i % 3) as 0 | 1 | 2}>
-              <WorkCard project={p} studies={studies.filter((c) => c.projectSlug === p.slug)} />
-            </Reveal>
-          ))}
+          {/* Published only. A card that leads to a 404 is worse than a
+              project the visitor never knew existed. */}
+          {projects
+            .map((p) => ({
+              project: p,
+              live: studies.filter((c) => c.projectSlug === p.slug && c.status === "published"),
+            }))
+            .filter(({ live }) => live.length > 0)
+            .map(({ project, live }, i) => (
+              <Reveal key={project.slug} delay={(i % 3) as 0 | 1 | 2}>
+                <WorkCard project={project} studies={live} />
+              </Reveal>
+            ))}
         </div>
 
       </section>

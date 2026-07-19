@@ -42,6 +42,9 @@ export function CaseStudyEditor({ initial, project, siblings = [] }: {
   const [message, setMessage] = useState("");
   const auth = useAuth();
   const router = useRouter();
+  /* Tabs are state, and the URL stays on /projects/<project>. Rewriting it
+     to /case-study/<slug> would mean a refresh landed on the read-only
+     public page instead of back in the editor. */
   const goTo = (slug: string) => {
     if (slug === activeSlug) return;
 
@@ -50,8 +53,6 @@ export function CaseStudyEditor({ initial, project, siblings = [] }: {
     if (dirty && !confirm("You have unsaved changes here. Switch anyway?")) return;
 
     setActiveSlug(slug);
-    /* Keep the URL honest and shareable without handing control to the router. */
-    window.history.replaceState(null, "", `/case-study/${slug}`);
   };
 
   const canEdit = USING_SUPABASE ? auth.signedIn : true;

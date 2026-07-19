@@ -23,7 +23,7 @@ import type { Project, CaseStudy } from "@/lib/types";
  */
 export function WorkCard({ project, studies }: { project: Project; studies: CaseStudy[] }) {
   const [ratio, setRatio] = useState<string>();
-  const href = studies[0] ? `/case-study/${studies[0].slug}` : "/work";
+  const href = `/case-study/${studies[0].slug}`;
   /* The dedicated card asset if there is one, otherwise the project cover.
      The fallback matters: without it a project shows an empty tile until
      someone remembers to upload a second image, and a board full of

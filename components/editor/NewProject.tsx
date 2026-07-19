@@ -23,8 +23,7 @@ export function NewProject() {
     const err2 = await createStudy(projectSlug, title);
     if (err2) { setError(err2); return; }
 
-    const slug = `${projectSlug}-${title}`.toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-|-$/g, "");
-    router.push(`/case-study/${slug}`);
+    router.push(`/projects/${projectSlug}`);
     router.refresh();
   }
 

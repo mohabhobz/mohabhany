@@ -60,16 +60,14 @@ export function ProjectShell({
     setError("");
     const err = await createStudy(p.slug, newTitle);
     if (err) { setError(err); return; }
-    const slug = `${p.slug}-${newTitle}`.toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-|-$/g, "");
     setAdding(false); setNewTitle("");
-    router.push(`/case-study/${slug}`);
+    /* Stay in the editor. refresh() re-runs the server component, which
+       re-reads the studies and the new tab appears in place. */
     router.refresh();
   }
 
   async function removeStudy(slug: string) {
     await deleteStudy(slug);
-    const rest = studies.filter((s) => s.slug !== slug);
-    router.push(rest.length ? `/case-study/${rest[0].slug}` : "/work");
     router.refresh();
   }
 

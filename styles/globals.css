@@ -995,3 +995,29 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .site-nav__list { gap: var(--space-4); }
 }
 
+
+/* ---- Liquid hero ------------------------------------------------
+   The canvas fills the intro section and sits behind everything in it.
+   See components/ui/LiquidHero.tsx.
+
+   position: absolute inside the section rather than fixed, so it scrolls
+   away with the hero instead of sitting under the whole page. The mask
+   dissolves its bottom edge into --color-bg so the section below starts
+   on flat colour with no seam. */
+.section-intro { position: relative; isolation: isolate; }
+
+.liquid {
+  position: absolute;
+  inset: calc(-1 * var(--nav-h)) 0 0 0;   /* up under the sticky header */
+  width: 100%;
+  height: calc(100% + var(--nav-h));
+  z-index: -1;
+  display: block;
+  pointer-events: none;                   /* the pointer is read on window */
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+}
+
+/* The intro text sits on moving colour, so it needs its own floor of
+   contrast rather than trusting the liquid to stay dark under it. */
+.section-intro > * { position: relative; }

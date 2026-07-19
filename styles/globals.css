@@ -816,39 +816,47 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .work-row__go { flex-shrink: 0; color: var(--color-accent-text); opacity: 0; transition: opacity var(--duration-base); }
 .work-row:hover .work-row__go { opacity: 1; }
 
-/* ---- Background -------------------------------------------------
-   The period sits in its own column so the dates line up vertically
-   and the eye can scan the timeline without reading any of it. */
-.career { list-style: none; padding: 0; margin: var(--space-12) 0 0; }
+/* ---- Entries: Background and Consulting share one row --------
+   Mark on the leading edge, then name, role, description, and the dates
+   last. A period placed before the work says "here is a timeline"; placed
+   after it says "here is what I built, and it took this long".
 
-.career__row {
+   Greyscale until the row is hovered, matching the tiles above. Hovering
+   anywhere on the row lights the mark, so the target is the whole entry
+   and not a 64px square. */
+.entries { list-style: none; padding: 0; margin: var(--space-12) 0 0; }
+
+.entry {
   display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: var(--space-8);
+  grid-template-columns: 64px 1fr;
+  gap: var(--space-6);
+  align-items: start;
   padding-block: var(--space-8);
   border-top: 1px solid var(--color-line);
 }
-.career__period { padding-top: .35em; opacity: .7; }
-.career__body { display: flex; flex-direction: column; gap: var(--space-2); }
-.career__company {
-  display: flex; align-items: center; gap: var(--space-4);
-}
 
-/* Full colour here, unlike the greyscale tiles above. That row is a list
-   where no single brand should shout; this is one company at a time, and
-   its mark is the fastest way to recognise it. */
-.career__logo {
-  width: 44px; height: 44px;
+.entry__mark { width: 64px; }
+.entry__mark img {
+  width: 64px; height: 64px;
   border-radius: var(--radius-md);
   object-fit: cover;
-  flex-shrink: 0;
+  filter: grayscale(1);
+  opacity: .55;
+  transition: filter var(--duration-base) var(--ease-out, ease-out),
+              opacity var(--duration-base) var(--ease-out, ease-out);
 }
+.entry:hover .entry__mark img { filter: grayscale(0); opacity: 1; }
 
-.career__title { opacity: .7; }
-.career__line { margin-top: var(--space-2); max-width: 62ch; }
+.entry__body { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+.entry__sub  { opacity: .7; }
+.entry__line { margin-top: var(--space-2); max-width: 62ch; }
+.entry__meta { margin-top: var(--space-4); opacity: .5; }
+.entry__meta:empty { display: none; }
 
 @media (max-width: 720px) {
-  .career__row { grid-template-columns: 1fr; gap: var(--space-3); }
+  .entry { grid-template-columns: 48px 1fr; gap: var(--space-4); }
+  .entry__mark, .entry__mark img { width: 48px; }
+  .entry__mark img { height: 48px; }
 }
 
 /* ---- Contact ----------------------------------------------------

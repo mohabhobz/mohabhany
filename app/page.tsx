@@ -129,18 +129,18 @@ export default async function Home() {
           </p>
         </Reveal>
 
-        <ol className="career">
+        <ol className="entries">
           {site.career.roles.map((r, i) => (
             <Reveal as="li" key={`${r.company}-${r.period}`} delay={(i % 3) as 0 | 1 | 2}>
-              <div className="career__row">
-                <span className="t-label career__period">{r.period}</span>
-                <div className="career__body">
-                  <p className="career__company">
-                    {r.logo && <img className="career__logo" src={r.logo} alt="" />}
-                    <span className="t-h3">{r.company}</span>
-                  </p>
-                  <p className="t-small career__title">{r.title} · {r.place}</p>
-                  <p className="t-body career__line">{r.line}</p>
+              <div className="entry">
+                <div className="entry__mark">
+                  {r.logo && <img src={r.logo} alt="" />}
+                </div>
+                <div className="entry__body">
+                  <p className="t-h3">{r.company}</p>
+                  <p className="t-small entry__sub">{r.title} · {r.place}</p>
+                  <p className="t-body entry__line">{r.line}</p>
+                  <p className="t-label entry__meta">{r.period}</p>
                 </div>
               </div>
             </Reveal>
@@ -157,23 +157,21 @@ export default async function Home() {
           </p>
         </Reveal>
 
-        <ul className="consulting">
+        <ul className="entries">
           {site.consulting.items.map((c, i) => (
             <Reveal as="li" key={c.name} delay={(i % 3) as 0 | 1 | 2}>
-              <div className="consulting__row">
-                <div className="consulting__body">
+              <div className="entry">
+                {/* The column keeps its width with or without a file, so
+                    rows stay aligned while logos are still being found. */}
+                <div className="entry__mark">
+                  {c.logo && <img src={c.logo} alt="" />}
+                </div>
+                <div className="entry__body">
                   <p className="t-h3">{c.name}</p>
-                  <p className="t-body consulting__line">{c.line}</p>
-                  <p className="t-label consulting__meta">
+                  <p className="t-body entry__line">{c.line}</p>
+                  <p className="t-label entry__meta">
                     {[c.place, c.period].filter(Boolean).join(" · ")}
                   </p>
-                </div>
-
-                {/* Right-hand column holds the mark, or nothing at all. The
-                    column keeps its width either way so every row lines up
-                    while the missing logos are still being tracked down. */}
-                <div className="consulting__mark">
-                  {c.logo && <img src={c.logo} alt="" />}
                 </div>
               </div>
             </Reveal>

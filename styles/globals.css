@@ -482,6 +482,76 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 /* Lightbox */
 @keyframes lb-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---- Lightbox ---------------------------------------------------
+   See components/ui/Lightbox.tsx for the two states. */
+.lb {
+  position: fixed; inset: 0; z-index: 100;
+  background: color-mix(in srgb, var(--color-bg) 94%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: lb-in .2s var(--ease-out);
+}
+
+.lb__scroll {
+  position: absolute; inset: 0;
+  overflow: auto;
+  overscroll-behavior: contain;   /* stop the page behind from taking over */
+  display: grid;
+  place-items: center;
+  padding: var(--space-8);
+}
+
+.lb__img {
+  display: block;
+  border-radius: var(--radius-md);
+  cursor: zoom-in;
+  /* FIT: the whole thing, inside the viewport, minus the padding. */
+  max-width: 100%;
+  max-height: calc(100vh - var(--space-16));
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ACTUAL: full width, natural height, scrolled. align-items: start is what
+   lets a tall image begin at the top instead of being centred and clipped
+   at both ends by the grid. */
+.lb[data-zoomed="true"] .lb__scroll {
+  align-items: start;
+  padding: 0;
+}
+.lb[data-zoomed="true"] .lb__img {
+  cursor: zoom-out;
+  max-width: none;
+  max-height: none;
+  width: 100vw;
+  height: auto;
+  border-radius: 0;
+}
+
+.lb__close {
+  position: fixed; top: var(--space-6); right: var(--space-6);
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-line-strong);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  z-index: 2;
+}
+
+.lb__hint {
+  position: fixed; bottom: var(--space-6); left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-bg) 80%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2;
+  pointer-events: none;
+}
 @media (prefers-reduced-motion: reduce) {
   [role="dialog"] { animation: none !important; }
 }

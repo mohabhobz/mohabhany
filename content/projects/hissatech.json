@@ -1,0 +1,14 @@
+{
+  "slug": "hissatech",
+  "name": "Hissatech",
+  "logo": "/uploads/1784470170717-Hissatech.jpeg",
+  "description": "Hissatech lets someone in Saudi Arabia own a share of an income-generating\nproperty instead of the whole building. The share is registered, the rent\narrives monthly, and the whole thing happens in an app. My work was the\nproduct experience: making an abstract financial instrument feel as\nconcrete as a title deed.",
+  "slogan": "Fractional real estate, Saudi Arabia",
+  "role": "Senior Product Designer",
+  "period": "Dec 2025 – Jan 2026",
+  "cover": {
+    "kind": "image",
+    "src": "/uploads/1784470891665-Hisatech-Landing-page-AR.jpg",
+    "fit": "fill"
+  }
+}

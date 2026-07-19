@@ -997,27 +997,29 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 
 /* ---- Liquid hero ------------------------------------------------
-   The canvas fills the intro section and sits behind everything in it.
-   See components/ui/LiquidHero.tsx.
+   The pour. See components/ui/LiquidHero.tsx.
 
-   position: absolute inside the section rather than fixed, so it scrolls
-   away with the hero instead of sitting under the whole page. The mask
-   dissolves its bottom edge into --color-bg so the section below starts
-   on flat colour with no seam. */
+   Full bleed: .section-intro is inside .page, which is a centred column
+   with a max-width, so `inset: 0` would have confined the canvas to the
+   reading measure. 100vw pulled back by half its own width escapes that
+   without needing the canvas to move out of the section in the markup.
+
+   z-index -1 inside an isolated stacking context puts it behind the hero
+   content and nothing else. Content does not move. */
 .section-intro { position: relative; isolation: isolate; }
 
 .liquid {
   position: absolute;
-  inset: calc(-1 * var(--nav-h)) 0 0 0;   /* up under the sticky header */
-  width: 100%;
+  top: calc(-1 * var(--nav-h));
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
   height: calc(100% + var(--nav-h));
   z-index: -1;
   display: block;
-  pointer-events: none;                   /* the pointer is read on window */
-  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease-out);
 }
 
-/* The intro text sits on moving colour, so it needs its own floor of
-   contrast rather than trusting the liquid to stay dark under it. */
-.section-intro > * { position: relative; }
+.section-intro > *:not(.liquid) { position: relative; }

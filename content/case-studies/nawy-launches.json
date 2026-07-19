@@ -15,12 +15,12 @@
               {
                 "id": "vc59xdqk",
                 "kind": "paragraph",
-                "text": "Nawy is the largest proptech platform in Africa. Listings and search are where most people decide whether to keep exploring or leave — and 58% of them left."
+                "text": "Nawy is the largest proptech platform in Africa. Listings and search are where most people decide whether to keep exploring or leave, and 58% of them left."
               },
               {
                 "id": "v8ozbt8k",
                 "kind": "paragraph",
-                "text": "Listings were structured compound-first: you browsed compounds, then drilled in to find units. That mirrored how sales qualified a lead on the phone — \"Which compound are you interested in?\" — and stakeholders were confident it was right."
+                "text": "Listings were structured compound-first: you browsed compounds, then drilled in to find units. That mirrored how sales qualified a lead on the phone, \"Which compound are you interested in?\", and stakeholders were confident it was right."
               },
               {
                 "id": "un1d7uvn",
@@ -79,7 +79,7 @@
               {
                 "id": "5wxd12a3",
                 "kind": "paragraph",
-                "text": "Buyers search unit-first. The compound is an attribute of the unit — a filter on it, not the way in. The old structure forced people to do the platform's filtering for it: pick a compound, then hope the right unit existed inside. If it didn't, they bounced."
+                "text": "Buyers search unit-first. The compound is an attribute of the unit, a filter on it, not the way in. The old structure forced people to do the platform's filtering for it: pick a compound, then hope the right unit existed inside. If it didn't, they bounced."
               }
             ]
           ]
@@ -99,7 +99,7 @@
               {
                 "id": "vsycrse9",
                 "kind": "paragraph",
-                "text": "The mismatch wasn't visual. It was structural — the product's information architecture asked a question buyers weren't ready to answer."
+                "text": "The mismatch wasn't visual. It was structural. The product's information architecture asked a question buyers weren't ready to answer."
               },
               {
                 "id": "80p4atqt",
@@ -141,12 +141,12 @@
               {
                 "id": "yanfa4k3",
                 "kind": "paragraph",
-                "text": "The card surfaces the unit — type, size, key details — with the compound name beside it as context. Tapping a compound then reveals the units inside it."
+                "text": "The card surfaces the unit, its type, size and key details, with the compound name beside it as context. Tapping a compound then reveals the units inside it."
               },
               {
                 "id": "at7j0h3w",
                 "kind": "paragraph",
-                "text": "A restructure of how results were assembled, and a harder conversation with stakeholders. I brought the interviews and the drop-off number rather than an opinion, and kept the compound view one tap away behind a property/compound switch — so the change read as an addition, not a rejection of how sales worked."
+                "text": "A restructure of how results were assembled, and a harder conversation with stakeholders. I brought the interviews and the drop-off number rather than an opinion, and kept the compound view one tap away behind a property/compound switch, so the change read as an addition, not a rejection of how sales worked."
               },
               {
                 "id": "452kw1hc",
@@ -240,7 +240,7 @@
               {
                 "id": "w7d9o6ch",
                 "kind": "paragraph",
-                "text": "A second research thread looked at how developers actually price and sell. Leading with the full property price created sticker shock — people bounced on a number in the millions before they understood that nobody pays it at once."
+                "text": "A second research thread looked at how developers actually price and sell. Leading with the full property price created sticker shock. People bounced on a number in the millions before they understood that nobody pays it at once."
               },
               {
                 "id": "rpfqq1ug",
@@ -263,7 +263,7 @@
               {
                 "id": "b4v396w2",
                 "kind": "paragraph",
-                "text": "Tapping the card now goes straight into the payment plan, so people explore affordability instead of bouncing on a big number. It widened reach to affordability-driven buyers, who were then qualified in the CRM — so volume didn't come at the cost of lead quality."
+                "text": "Tapping the card now goes straight into the payment plan, so people explore affordability instead of bouncing on a big number. It widened reach to affordability-driven buyers, who were then qualified in the CRM, so volume didn't come at the cost of lead quality."
               }
             ]
           ]
@@ -343,7 +343,7 @@
               {
                 "id": "77gsu3s1",
                 "kind": "paragraph",
-                "text": "The lesson wasn't about cards or pricing. It was that the fastest way to move a metric is often to fix a mental-model mismatch — the product describing the world one way while its users live in another."
+                "text": "The lesson wasn't about cards or pricing. It was that the fastest way to move a metric is often to fix a mental-model mismatch, the product describing the world one way while its users live in another."
               },
               {
                 "id": "eaensbfi",
@@ -363,7 +363,9 @@
                 "alt": "",
                 "caption": "",
                 "ratio": "wide",
-                "fit": "natural"
+                "fit": "natural",
+                "framed": false,
+                "size": "wide"
               }
             ]
           ]
@@ -373,5 +375,5 @@
     }
   ],
   "status": "draft",
-  "updatedAt": "2026-07-18T18:41:46.250Z"
+  "updatedAt": "2026-07-18T18:58:11.273Z"
 }

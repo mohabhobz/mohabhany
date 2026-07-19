@@ -72,14 +72,14 @@ export function SectionsEditor({ sections, onChange, editing, onUpload, addLabel
             flexWrap: "wrap", alignItems: "baseline",
           }}>
             {(s.title || editing) && (
-              <h2 className="t-h2" style={{ display: "flex", alignItems: "center", gap: "var(--space-4)" }}>
+              <h2 className="t-section-title">
                 {s.icon && ICON_NAMES.includes(s.icon as IconName) && (
-                  <span style={{ color: "var(--color-accent-text)", display: "inline-flex" }}>
-                    <Icon name={s.icon as IconName} size={30} />
+                  <span className="section-icon" aria-hidden="true">
+                    <Icon name={s.icon as IconName} size={38} />
                   </span>
                 )}
                 {editing
-                  ? <Editable value={s.title ?? ""} onChange={(v) => patch(s.id, (x) => ({ ...x, title: v }))} placeholder="Section title — leave blank for none" />
+                  ? <Editable value={s.title ?? ""} onChange={(v) => patch(s.id, (x) => ({ ...x, title: v }))} placeholder="Section title (leave blank for none)" />
                   : s.title}
               </h2>
             )}

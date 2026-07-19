@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Project } from "@/lib/types";
 import { Btn, DeleteBtn } from "@/components/editor/ui";
 
@@ -31,11 +31,22 @@ export function ProjectCover({ project, editing, onChange, onUpload }: {
     return () => v.removeEventListener("volumechange", enforce);
   }, [cover?.src]);
 
+  /* Fades the scroll cue out once the reader has taken the hint. */
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   if (!hasCover && !editing) return null;
 
   return (
     <>
-      <div className={hasCover ? `cover cover--${fit}` : "cover cover--empty"}>
+      <div className={hasCover
+        ? `cover cover--${fit} cover--sticky${scrolled ? " is-scrolled" : ""}`
+        : "cover cover--empty"}>
         {hasCover && cover.kind === "video" ? (
           <video
             ref={videoRef}
@@ -87,12 +98,12 @@ export function ProjectCover({ project, editing, onChange, onUpload }: {
               <Btn
                 tone={fit === "fit" ? "accent" : undefined}
                 onClick={() => onChange({ ...project, cover: { ...cover, fit: "fit" } })}
-                title="Full width, lightly cropped — hints at content below"
+                title="Full width, lightly cropped, hints at content below"
               >Standard</Btn>
               <Btn
                 tone={fit === "fill" ? "accent" : undefined}
                 onClick={() => onChange({ ...project, cover: { ...cover, fit: "fill" } })}
-                title="Tall cinematic band — crops more"
+                title="Tall cinematic band, crops more"
               >Cinematic</Btn>
 
               <DeleteBtn label="Remove cover"

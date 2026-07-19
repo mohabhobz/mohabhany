@@ -43,9 +43,6 @@ function toStudy(r: Record<string, unknown>): CaseStudy {
     slug: r.slug as string,
     projectSlug: r.project_slug as string,
     title: (r.title as string) ?? "",
-    tension: (r.tension as string) ?? "",
-    meta: (r.meta as CaseStudy["meta"]) ?? [],
-    problem: (r.problem as CaseStudy["problem"]) ?? { label: "The problem", body: "" },
     sections: (r.sections as CaseStudy["sections"]) ?? [],
     status: (r.status as CaseStudy["status"]) ?? "draft",
     order: (r.order_index as number) ?? 0,
@@ -71,9 +68,8 @@ export async function sbGetStudy(slug: string): Promise<CaseStudy | null> {
 export async function sbSaveStudy(c: CaseStudy): Promise<string | null> {
   const { error } = await getSupabase().from("case_studies").upsert(
     {
-      slug: c.slug, project_slug: c.projectSlug, title: c.title, tension: c.tension,
-      meta: c.meta, problem: c.problem, sections: c.sections,
-      status: c.status, order_index: c.order ?? 0,
+      slug: c.slug, project_slug: c.projectSlug, title: c.title,
+      sections: c.sections, status: c.status, order_index: c.order ?? 0,
     },
     { onConflict: "slug" },
   );

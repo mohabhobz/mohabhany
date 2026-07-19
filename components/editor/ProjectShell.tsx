@@ -74,7 +74,7 @@ export function ProjectShell({
   }
 
   return (
-    <header>
+    <header className="hangs-outer">
       {/* ---------- project identity ---------- */}
       <Reveal>
         {/* Logo sits beside the name and a single-line slogan — both short,
@@ -94,7 +94,7 @@ export function ProjectShell({
             {(p.slogan || editing) && (
               <p className="t-lead" style={{ marginTop: "var(--space-2)", maxWidth: "40ch" }}>
                 {editing
-                  ? <Editable value={p.slogan ?? ""} onChange={(v) => persistProject({ ...p, slogan: v })} placeholder="One line — what the company is." />
+                  ? <Editable value={p.slogan ?? ""} onChange={(v) => persistProject({ ...p, slogan: v })} placeholder="One line, what the company is." />
                   : p.slogan}
               </p>
             )}
@@ -104,7 +104,7 @@ export function ProjectShell({
         {(p.description || editing) && (
           <p className="t-body" style={{ marginTop: "var(--space-8)", maxWidth: "none" }}>
             {editing
-              ? <Editable value={p.description} onChange={(v) => persistProject({ ...p, description: v })} placeholder="The longer description — what you owned across your whole time there." />
+              ? <Editable value={p.description} onChange={(v) => persistProject({ ...p, description: v })} placeholder="The longer description, what you owned across your whole time there." />
               : p.description}
           </p>
         )}
@@ -156,7 +156,7 @@ export function ProjectShell({
       <Reveal delay={2}>
         <div style={{ marginTop: "var(--space-24)" }}>
           <h2 className="t-h1" style={{ marginBottom: "var(--space-8)" }}>
-            Case studies<span className="dot">.</span>
+            {studies.length === 1 ? "Case study" : "Case studies"}
           </h2>
           <div style={{
             display: "flex", gap: "var(--space-2)", flexWrap: "wrap", alignItems: "center",

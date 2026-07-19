@@ -51,8 +51,7 @@ export const createStudy = (projectSlug: string, title: string): Promise<string 
   USING_SUPABASE
     ? sbSaveStudy({
         slug: `${projectSlug}-${title}`.toLowerCase().replace(/[^a-z0-9-]+/g, "-"),
-        projectSlug, title, tension: "", meta: [],
-        problem: { label: "The problem", body: "" }, sections: [],
+        projectSlug, title, sections: [],
         status: "draft", updatedAt: new Date().toISOString(),
       })
     : localCreateStudy(projectSlug, title);

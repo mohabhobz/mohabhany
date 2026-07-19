@@ -57,6 +57,55 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   letter-spacing: var(--tracking-tight);
   max-width: var(--measure-head);
 }
+/* Pulls a block out to the outer edge, level with the section icons.
+   This is the structural edge: project identity, the case-studies header,
+   the tabs. Body copy and section titles stay on the inner edge. Two
+   edges is only a system if each one consistently owns a kind of thing;
+   the moment a paragraph lands out here it stops being a system and
+   starts being a mistake. */
+.hangs-outer { margin-inline-start: calc(-1 * var(--icon-outdent)); }
+
+@media (max-width: 1180px) {
+  /* Same breakpoint as the icon: no margin to hang in, so nothing hangs. */
+  .hangs-outer { margin-inline-start: 0; }
+}
+
+/* The icon hangs in the margin so the title keeps the same left edge as
+   the body text below it. Put the icon in the text flow and it pushes the
+   title inward, and the page ends up with two left edges for the eye to
+   track. A decorative mark must never set the edge of the reading column.
+
+   Logical properties throughout, because this site does RTL. */
+.t-section-title { position: relative; }
+
+.section-icon {
+  position: absolute;
+  inset-inline-end: 100%;
+  margin-inline-end: var(--space-4);
+  top: 0.08em;
+  color: var(--color-accent-text);
+  display: inline-flex;
+  line-height: 1;
+}
+
+/* Below this width there is no margin left to hang anything in, so the
+   icon returns to the flow and stacks above the title. Still one edge. */
+@media (max-width: 1180px) {
+  .section-icon {
+    position: static;
+    margin: 0 0 var(--space-3);
+    display: block;
+  }
+}
+
+.t-section-title {
+  font-size: var(--text-section);
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
 .t-h2 {
   font-size: var(--text-h2);
   font-weight: var(--weight-medium);
@@ -122,6 +171,12 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   background: var(--color-surface);
   position: relative;
 }
+/* Every framed image carries the shadow, on every page and both themes.
+   frame--bare is excluded on purpose: those are transparent PNGs such as
+   device mockups, and a rectangular shadow behind a non-rectangular image
+   draws a box that is not there. */
+.frame:not(.frame--bare) { box-shadow: var(--shadow-image); }
+
 .frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* NATURAL — the frame takes the image's own shape. Nothing is cropped.
@@ -438,3 +493,352 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   [role="dialog"] { animation: none !important; }
 }
 .zoomable { cursor: zoom-in; }
+
+/* ============================================================
+   STICKY COVER — experiment
+   The cover pins to the top of the viewport and the rest of the
+   page rides up over it on a frosted sheet, so a cover video keeps
+   playing behind the content instead of scrolling away.
+
+   Two rules make it work:
+     .cover--sticky   pins the cover, z-index 0
+     .glass-sheet     the sheet that travels over it, z-index 1
+   The site header sits at z-index 40 and is unaffected.
+   ============================================================ */
+
+.cover--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+}
+
+/* The bottom of a pinned cover meets the page background as a hard cut.
+   This fades the last third of the frame into --color-bg so the video
+   dissolves into the page instead of stopping at a line.
+
+   It sits above the media (which is why it needs z-index) but below the
+   scroll cue at z-index 2, and takes no pointer events. */
+.cover--sticky::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* Eight stops following a smoothstep curve, not three.
+
+     A gradient with few stops changes its rate of change abruptly at
+     each one, and the eye reads that break in the derivative as a line
+     across the image. More stops on an S-curve means the rate never
+     jumps, so there is nothing to see. */
+  background: linear-gradient(to bottom,
+    transparent 40%,
+    color-mix(in srgb, var(--color-bg)   3%, transparent) 49%,
+    color-mix(in srgb, var(--color-bg)  12%, transparent) 58%,
+    color-mix(in srgb, var(--color-bg)  27%, transparent) 67%,
+    color-mix(in srgb, var(--color-bg)  50%, transparent) 76%,
+    color-mix(in srgb, var(--color-bg)  73%, transparent) 85%,
+    color-mix(in srgb, var(--color-bg)  92%, transparent) 94%,
+    var(--color-bg) 100%);
+}
+
+/* The cue has done its job once you have started scrolling. */
+.cover--sticky .scroll-cue {
+  transition: opacity .4s var(--ease-out, ease-out);
+}
+.cover--sticky.is-scrolled .scroll-cue { opacity: 0; }
+
+/* THE BLUR — done on the media, not with backdrop-filter.
+   backdrop-filter asks the compositor to re-sample everything behind a
+   full-page scrolling surface on every frame; it is the most expensive
+   thing this page could do, and it silently refuses to apply in a number
+   of stacking-context arrangements (this was one of them).
+
+   Blurring the cover itself is one filter, on one element, on its own
+   compositing layer — the GPU does it once and reuses it while you
+   scroll. The scale(1.08) hides the transparent fringe a blur leaves at
+   the edges of its own box. */
+.cover--sticky video,
+.cover--sticky img {
+  transition: filter var(--duration-slow, .5s) var(--ease-out, ease-out),
+              transform var(--duration-slow, .5s) var(--ease-out, ease-out);
+}
+.cover--sticky.is-scrolled video,
+.cover--sticky.is-scrolled img {
+  filter: blur(22px) saturate(115%);
+  transform: scale(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover--sticky video,
+  .cover--sticky img { transition: none; }
+}
+
+.glass-sheet {
+  position: relative;
+  z-index: 1;
+  /* No radius, no top border, no hard edge. The sheet has to arrive as
+     a density change, not as an object with a lid — a curve and a line
+     announce "a panel started here", which is the one thing this effect
+     must not do.
+
+     The gradient fades in over 300px and then holds: a gradient's last
+     stop extends for the remaining height, so the whole sheet below the
+     fade sits at a flat 87%. */
+  background: linear-gradient(to bottom,
+    transparent 0,
+    color-mix(in srgb, var(--color-bg)  3%, transparent)  42px,
+    color-mix(in srgb, var(--color-bg) 11%, transparent)  84px,
+    color-mix(in srgb, var(--color-bg) 24%, transparent) 126px,
+    color-mix(in srgb, var(--color-bg) 44%, transparent) 168px,
+    color-mix(in srgb, var(--color-bg) 63%, transparent) 210px,
+    color-mix(in srgb, var(--color-bg) 78%, transparent) 252px,
+    color-mix(in srgb, var(--color-bg) 87%, transparent) 300px);
+  /* Must be tall enough to cover the pinned cover on the way past,
+     or the last screen of the page shows raw video behind the footer. */
+  min-height: 100vh;
+
+  /* Every surface inside the sheet is redefined here rather than in the
+     ten places that consume it. Cards, frames, table headers and section
+     shells all read var(--color-surface); overriding the token once makes
+     the whole subtree translucent, so the blurred cover shows through
+     instead of solid patches stamped on the glass.
+
+     Surfaces sit at 52% against the sheet's 76%. They are LIGHTER than
+     what they stand on, not denser — that is the whole trick. The cover
+     behind is already blurred at source, so anything translucent in
+     front of it is frosted glass for free. Stacking two dense layers
+     was what made the cards read as flat plates.
+
+     Both derive from --color-bg, so this holds in light and dark
+     without a second rule. */
+  --color-surface: color-mix(in srgb, var(--color-bg) 52%, transparent);
+  --color-line:    color-mix(in srgb, var(--color-ink) 22%, transparent);
+}
+
+/* The two cues that separate "translucent rectangle" from "glass":
+   a lit top edge where light would catch, and a soft drop shadow that
+   lifts the panel off the surface behind it. */
+.glass-sheet .frame:not(.frame--bare) {
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--color-ink) 14%, transparent),
+    var(--shadow-image);
+}
+
+/* Images and video are the exception: a see-through screenshot is not a
+   design, it is a bug. The frame goes glass, its contents stay opaque.
+
+   :not(.frame--bare) matters. "No frame" has to mean no plate either —
+   a transparent PNG (a device mockup, a logo) is chosen precisely so it
+   sits on the page with nothing behind it. */
+.glass-sheet .frame:not(.frame--bare) img,
+.glass-sheet .frame:not(.frame--bare) video { background: var(--color-bg); }
+
+/* If the browser cannot blur the media, text would be sitting on sharp
+   moving video. Go solid instead — unreadable is worse than plain. */
+@supports not (filter: blur(1px)) {
+  .glass-sheet { background: var(--color-bg); }
+}
+
+/* Motion behind text the whole way down the page is exactly what reduced
+   motion is asking us not to do. */
+@media (prefers-reduced-motion: reduce) {
+  .glass-sheet { background: var(--color-bg); }
+}
+
+/* ---- Wordmark -------------------------------------------------
+   Hobz on rest, Mohab Hany on hover, at a constant width, letters
+   staggered. See components/ui/Wordmark.tsx. */
+.wordmark {
+  display: inline-grid;
+  grid-template-areas: "mark";
+  align-items: baseline;
+  justify-items: start;
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: 19px;
+  letter-spacing: var(--tracking-snug);
+  color: var(--color-ink);
+
+  /* Matched to the reference: 300ms, ease-in. The step is the one value
+     that is mine. The reference runs ~110ms between letters, which over a
+     ten-letter name takes well past a second to finish; 55ms keeps the
+     unfurl legible without making the header wait on it. */
+  --wm-dur: 300ms;
+  --wm-step: 55ms;
+  --wm-ease: ease-in;
+}
+
+.wordmark__part {
+  grid-area: mark;
+  white-space: nowrap;
+  display: inline-flex;
+}
+
+.wordmark__ch {
+  display: inline-block;
+  will-change: transform, opacity;
+  transition:
+    transform var(--wm-dur) var(--wm-ease),
+    opacity   var(--wm-dur) var(--wm-ease);
+  transition-delay: calc(var(--i) * var(--wm-step));
+}
+
+/* Resting state: the full name waits just below the baseline. */
+.wordmark__part--full .wordmark__ch {
+  opacity: 0;
+  transform: translateY(.6em);
+}
+
+/* Hover: the short mark keeps travelling upward and out, the full name
+   arrives from below. One direction for both, so it reads as a roll and
+   not as a swap. */
+.wordmark:hover .wordmark__part--short .wordmark__ch,
+.wordmark:focus-visible .wordmark__part--short .wordmark__ch {
+  opacity: 0;
+  transform: translateY(-.6em);
+}
+
+.wordmark:hover .wordmark__part--full .wordmark__ch,
+.wordmark:focus-visible .wordmark__part--full .wordmark__ch {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Letters leaving are led by the last one, so the two labels do not both
+   crowd the left edge at the midpoint of the transition. */
+.wordmark__part--short .wordmark__ch {
+  transition-delay: calc((3 - var(--i)) * var(--wm-step));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wordmark__ch { transition: opacity 1ms linear; transform: none !important; }
+  .wordmark__part--full .wordmark__ch { opacity: 0; }
+  .wordmark:hover .wordmark__part--full .wordmark__ch { opacity: 1; }
+}
+
+/* ============================================================
+   LANDING PAGE
+   Five sections on one column. The rhythm between them is the
+   only thing separating them, so the spacing is doing real work
+   and is not decoration.
+   ============================================================ */
+
+.section-intro { padding-block: clamp(var(--space-24), 18vh, var(--space-32)) var(--space-24); }
+.section-block { padding-block: var(--space-24); }
+.section-contact { padding-bottom: var(--space-32); }
+
+/* ---- Worked with -----------------------------------------------
+   Uniform cells so no logo dominates by being wider. Greyscale at
+   rest and colour on hover keeps twelve brands from turning the
+   section into a fruit salad. */
+.client-grid {
+  list-style: none; padding: 0; margin: var(--space-8) 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--color-line);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.client-cell {
+  background: var(--color-bg);
+  min-height: 96px;
+  display: grid; place-items: center;
+  padding: var(--space-4);
+  transition: background var(--duration-base) var(--ease-out, ease-out);
+}
+.client-cell:hover { background: var(--color-surface); }
+
+.client-cell img {
+  max-width: 100%; max-height: 40px;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: .65;
+  transition: filter var(--duration-base) var(--ease-out, ease-out),
+              opacity var(--duration-base) var(--ease-out, ease-out);
+}
+.client-cell:hover img { filter: grayscale(0); opacity: 1; }
+
+/* Until a logo file exists the name stands in, so the grid is never
+   full of empty boxes while you collect the assets. */
+.client-cell__fallback { text-align: center; opacity: .5; line-height: 1.4; }
+
+/* ---- Work ------------------------------------------------------- */
+.work-list {
+  margin-top: var(--space-12);
+  border-top: 1px solid var(--color-line);
+}
+
+.work-row {
+  display: flex; align-items: center; gap: var(--space-6);
+  padding: var(--space-6) var(--space-2);
+  border-bottom: 1px solid var(--color-line);
+  color: var(--color-ink);
+  transition: padding-inline var(--duration-base) var(--ease-out, ease-out),
+              background var(--duration-base) var(--ease-out, ease-out);
+}
+.work-row:hover {
+  background: var(--color-surface);
+  padding-inline: var(--space-4) var(--space-2);
+}
+
+.work-row__logo { flex-shrink: 0; }
+.work-row__text { display: flex; flex-direction: column; gap: var(--space-2); flex: 1; min-width: 0; }
+.work-row__slogan { opacity: .7; }
+.work-row__tags { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-1); }
+.work-row__tag {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+}
+.work-row__go { flex-shrink: 0; color: var(--color-accent-text); opacity: 0; transition: opacity var(--duration-base); }
+.work-row:hover .work-row__go { opacity: 1; }
+
+/* ---- Background -------------------------------------------------
+   The period sits in its own column so the dates line up vertically
+   and the eye can scan the timeline without reading any of it. */
+.career { list-style: none; padding: 0; margin: var(--space-12) 0 0; }
+
+.career__row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: var(--space-8);
+  padding-block: var(--space-8);
+  border-top: 1px solid var(--color-line);
+}
+.career__period { padding-top: .35em; opacity: .7; }
+.career__body { display: flex; flex-direction: column; gap: var(--space-2); }
+.career__title { opacity: .7; }
+.career__line { margin-top: var(--space-2); max-width: 62ch; }
+
+@media (max-width: 720px) {
+  .career__row { grid-template-columns: 1fr; gap: var(--space-3); }
+}
+
+/* ---- Contact ----------------------------------------------------
+   A mailto link, not a form. Nobody fills in a form to say hello. */
+.say-hello {
+  display: inline-block;
+  margin-top: var(--space-6);
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-display);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: .06em;
+  text-underline-offset: .12em;
+  transition: color var(--duration-base) var(--ease-out, ease-out);
+}
+.say-hello:hover { color: var(--color-accent-text); }
+
+.contact-links {
+  list-style: none; padding: 0;
+  margin-top: var(--space-10);
+  display: flex; gap: var(--space-6); flex-wrap: wrap;
+}
+.contact-links a { color: var(--color-ink); opacity: .7; }
+.contact-links a:hover { opacity: 1; color: var(--color-accent-text); }

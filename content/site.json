@@ -1,0 +1,73 @@
+{
+  "intro": {
+    "eyebrow": "Mohab Hany · Senior Product Designer",
+    "headline": "Design, measured",
+    "lead": "Nine years designing products people actually use, across fintech, e-commerce, real estate and government. I own the whole arc: research, design, hand-off, and the number it moved after launch.",
+    "note": "Cairo, working across Egypt and the Gulf."
+  },
+
+  "clients": {
+    "label": "Worked with",
+    "note": "Employers and consulting clients. Every logo here is work I did, not a list of tools I have opened.",
+    "items": [
+      { "name": "b_labs (B.TECH Group)", "logo": "" },
+      { "name": "Nawy", "logo": "" },
+      { "name": "G2K Group (now ServiceNow)", "logo": "" },
+      { "name": "Dubai Police", "logo": "" },
+      { "name": "EFG Hermes", "logo": "" },
+      { "name": "Pleny", "logo": "" },
+      { "name": "Hissatech", "logo": "" },
+      { "name": "Diamond Professional Consultants", "logo": "" },
+      { "name": "Identity Channel", "logo": "" },
+      { "name": "Grand Egyptian Museum", "logo": "" },
+      { "name": "Tazkarti", "logo": "" },
+      { "name": "Al Ahly Club", "logo": "" }
+    ]
+  },
+
+  "career": {
+    "label": "Background",
+    "note": "Nine years, three design systems built from scratch, two of them still running.",
+    "roles": [
+      {
+        "company": "b_labs — B.TECH Group",
+        "title": "Senior Product Designer, Mylo",
+        "period": "Oct 2025 — Present",
+        "place": "Cairo",
+        "line": "Fintech. Customer onboarding end to end across mobile and tablet, an AI-driven routing flow deciding who completes digitally and who goes in-branch, and the internal risk and fraud tools behind it."
+      },
+      {
+        "company": "b_labs — B.TECH Group",
+        "title": "Senior Product Designer, Marketplace & Pricing",
+        "period": "Nov 2024 — Oct 2025",
+        "place": "Cairo",
+        "line": "Rebuilt the marketplace off legacy Magento with a unified catalog and independent seller pricing. Contributed to 2.5× GMV growth."
+      },
+      {
+        "company": "Nawy",
+        "title": "Senior Product Designer",
+        "period": "Oct 2022 — Oct 2024",
+        "place": "Cairo",
+        "line": "Largest proptech in Africa. Grew monthly actives from 50K to 500K, lifted conversion from 1% to 3.5%, and built the design system serving four products."
+      },
+      {
+        "company": "G2K Group — now ServiceNow",
+        "title": "UI/UX Designer → Senior UI/UX Specialist",
+        "period": "Apr 2017 — Oct 2022",
+        "place": "Cairo",
+        "line": "Six national-scale platforms for government and enterprise, including ticketing for the Grand Egyptian Museum and Tazkarti. Also wrote production front-end, which is why hand-off is not a guess."
+      }
+    ]
+  },
+
+  "contact": {
+    "label": "Contact",
+    "headline": "Say hello",
+    "email": "mohab_hany@outlook.com",
+    "links": [
+      { "label": "LinkedIn", "href": "https://www.linkedin.com/in/mohab-mohamed-6ba959a8/" },
+      { "label": "UX Five on YouTube", "href": "https://www.youtube.com/@UXFive" },
+      { "label": "Portfolio archive", "href": "https://mohabhany.myportfolio.com" }
+    ]
+  }
+}

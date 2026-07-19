@@ -9,3 +9,4 @@ next-env.d.ts
 # local media while building
 public/uploads/*
 !public/uploads/.gitkeep
+uploads-trash/

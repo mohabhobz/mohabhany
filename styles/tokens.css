@@ -92,6 +92,10 @@
 
 /* Explicit choice always wins over the system setting. */
 :root[data-theme="light"] {
+  --shadow-image:
+    0 1px 2px rgb(16 14 12 / .07),
+    0 14px 36px -10px rgb(16 14 12 / .16);
+
   color-scheme: light;
 
   --color-bg:          var(--hz-white-100);
@@ -134,6 +138,28 @@
   /* ---------- TYPE SCALE ----------------------------------- */
   --text-display: clamp(2.5rem, 6vw, 5.5rem);
   --text-h1:      clamp(2rem, 4.5vw, 3.75rem);
+  /* Section titles sit between h1 and h2 on purpose. A section is a
+     chapter divider; the headings inside it are points within that
+     chapter. When both used --text-h2 there was no hierarchy at all,
+     only two lines the same size. */
+  /* How far a section icon hangs outside the text column. Anything that
+     wants to sit on the outer structural edge uses this same number, so
+     there is one value to change, not several to keep in sync. */
+  --icon-outdent: calc(38px + var(--space-4));
+
+  /* Image shadow. Dark keeps it faint: a shadow on a near-black page is
+     mostly wasted, and too much of it turns into a grey halo. Light does
+     the real work, because an image on white has no edge of its own and
+     needs lifting off the page.
+
+     Two layers in both: a tight contact shadow that says the object is
+     touching the surface, and a wide soft one for the lift. One layer
+     alone reads as a sticker. */
+  --shadow-image:
+    0 1px 2px rgb(0 0 0 / .3),
+    0 12px 32px -12px rgb(0 0 0 / .55);
+
+  --text-section: clamp(1.875rem, 4vw, 3rem);
   --text-h2:      clamp(1.5rem, 3.2vw, 2.25rem);
   --text-h3:      clamp(1.25rem, 2.2vw, 1.5rem);
   --text-lead:    clamp(1.0625rem, 2vw, 1.3125rem);

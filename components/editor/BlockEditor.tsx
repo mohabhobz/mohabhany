@@ -69,15 +69,15 @@ export function BlockEditor({ block, onChange, onUpload }: {
       <>
         <F label="Image URL" value={block.src} onChange={(v) => set({ src: v })} />
         {up("image", (v) => set({ src: v }))}
-        <F label="Alt text — describe it for search and screen readers" value={block.alt} onChange={(v) => set({ alt: v })} />
-        <F label="Caption — explain why" value={block.caption} onChange={(v) => set({ caption: v })} />
+        <F label="Alt text, describe it for search and screen readers" value={block.alt} onChange={(v) => set({ alt: v })} />
+        <F label="Caption, explain why" value={block.caption} onChange={(v) => set({ caption: v })} />
         <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center", marginTop: "var(--space-2)" }}>
           <span className="t-label">Fit:</span>
           <Btn tone={(block.fit ?? "natural") === "natural" ? "accent" : undefined}
-               title="Show the whole image — nothing cropped"
+               title="Show the whole image, nothing cropped"
                onClick={() => set({ fit: "natural" })}>Whole image</Btn>
           <Btn tone={block.fit === "crop" ? "accent" : undefined}
-               title="Force a fixed ratio — crops to fill"
+               title="Force a fixed ratio, crops to fill"
                onClick={() => set({ fit: "crop" })}>Crop</Btn>
         </div>
 
@@ -95,7 +95,7 @@ export function BlockEditor({ block, onChange, onUpload }: {
                title="Bordered plate around the image"
                onClick={() => set({ framed: true })}>Framed</Btn>
           <Btn tone={(block.framed ?? true) === false ? "accent" : undefined}
-               title="No border — for mockups that already have their own edge"
+               title="No border, for mockups that already have their own edge"
                onClick={() => set({ framed: false })}>Bare</Btn>
         </div>
         {block.fit === "crop" && (
@@ -120,10 +120,10 @@ export function BlockEditor({ block, onChange, onUpload }: {
         <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center", marginTop: "var(--space-2)" }}>
           <span className="t-label">Frame:</span>
           <Btn tone={(block.fit ?? "natural") === "natural" ? "accent" : undefined}
-               title="Full height of the screenshot — nothing cropped"
+               title="Full height of the screenshot, nothing cropped"
                onClick={() => set({ fit: "natural" })}>Whole image</Btn>
           <Btn tone={block.fit === "crop" ? "accent" : undefined}
-               title="Force a fixed ratio — crops to fill"
+               title="Force a fixed ratio, crops to fill"
                onClick={() => set({ fit: "crop" })}>Crop</Btn>
         </div>
         {block.fit === "crop" && (
@@ -144,7 +144,7 @@ export function BlockEditor({ block, onChange, onUpload }: {
       const bad = !!block.src && !/^https:\/\//i.test(block.src);
       return (
         <>
-          <F label="Figma link or embed code — either works"
+          <F label="Figma link or embed code, either works"
              value={block.src}
              onChange={(v) => set({ src: figmaUrl(v) })} />
           {bad && (
@@ -160,10 +160,10 @@ export function BlockEditor({ block, onChange, onUpload }: {
     case "stat":      return <><F label="Value" value={block.value} onChange={(v) => set({ value: v })} /><F label="Label" value={block.label} onChange={(v) => set({ label: v })} /></>;
     case "button":    return <><F label="Label" value={block.label} onChange={(v) => set({ label: v })} /><F label="Link" value={block.href} onChange={(v) => set({ href: v })} /></>;
     case "decision":  return <>
-        <F label="Considered — title" value={block.considered.title} onChange={(v) => set({ considered: { ...block.considered, title: v } })} />
-        <F label="Considered — body" value={block.considered.body} onChange={(v) => set({ considered: { ...block.considered, body: v } })} />
-        <F label="Chosen — title" value={block.chosen.title} onChange={(v) => set({ chosen: { ...block.chosen, title: v } })} />
-        <F label="Chosen — body" value={block.chosen.body} onChange={(v) => set({ chosen: { ...block.chosen, body: v } })} />
+        <F label="Considered, title" value={block.considered.title} onChange={(v) => set({ considered: { ...block.considered, title: v } })} />
+        <F label="Considered, body" value={block.considered.body} onChange={(v) => set({ considered: { ...block.considered, body: v } })} />
+        <F label="Chosen, title" value={block.chosen.title} onChange={(v) => set({ chosen: { ...block.chosen, title: v } })} />
+        <F label="Chosen, body" value={block.chosen.body} onChange={(v) => set({ chosen: { ...block.chosen, body: v } })} />
         <F label="Trade-off" value={block.tradeoff} onChange={(v) => set({ tradeoff: v })} />
       </>;
     case "meta": return (
@@ -218,7 +218,7 @@ export function BlockEditor({ block, onChange, onUpload }: {
             </Btn>
           </div>
 
-          <F label="Caption — explain why" value={block.caption} onChange={(v) => set({ caption: v })} />
+          <F label="Caption, explain why" value={block.caption} onChange={(v) => set({ caption: v })} />
 
           <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center", marginTop: "var(--space-2)" }}>
             <span className="t-label">Frame:</span>

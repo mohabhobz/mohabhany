@@ -2,7 +2,286 @@
   "slug": "nawy-mobile-app",
   "projectSlug": "nawy",
   "title": "Mobile App",
-  "sections": [],
+  "sections": [
+    {
+      "id": "gyas636m",
+      "title": "Why an app",
+      "rows": [
+        {
+          "id": "zt9zehu9",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "n91ctqlh",
+                "kind": "heading",
+                "level": 2,
+                "text": "Ninety percent of the audience was already on a phone"
+              },
+              {
+                "id": "imn28qao",
+                "kind": "paragraph",
+                "text": "Nawy's traffic split was not close. Mobile was 90% of sessions. Desktop was 8%. Tablet was 2%. Every design decision in the company was being made on a desktop canvas for an audience that was almost entirely holding a phone."
+              },
+              {
+                "id": "58jdqwoo",
+                "kind": "paragraph",
+                "text": "The web experience worked on a phone, but \"works on a phone\" and \"built for a phone\" are different products. A browser tab is something you leave. An installed app is something you come back to."
+              },
+              {
+                "id": "93pbvsvj",
+                "kind": "table",
+                "head": [
+                  "value",
+                  "label"
+                ],
+                "rows": [
+                  [
+                    "90%",
+                    "Mobile sessions"
+                  ],
+                  [
+                    "8%",
+                    "Desktop"
+                  ],
+                  [
+                    "2%",
+                    "Tablet"
+                  ]
+                ]
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "mobile"
+    },
+    {
+      "id": "elz97oz6",
+      "title": "The real argument",
+      "rows": [
+        {
+          "id": "fm7okrgc",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "5himxur6",
+                "kind": "heading",
+                "level": 2,
+                "text": "The lead quality argument"
+              },
+              {
+                "id": "y5okes2w",
+                "kind": "paragraph",
+                "text": "The case for the app was never about traffic. It was about intent."
+              },
+              {
+                "id": "oxlmc8s9",
+                "kind": "pullquote",
+                "text": "Someone who downloads an app, searches inside it, and keeps going is not browsing. They are buying."
+              },
+              {
+                "id": "i6n9g4vr",
+                "kind": "paragraph",
+                "text": "A web visitor can arrive from a search result, scroll once, and leave — the cost of showing up is nearly zero, and so is the signal. Installing an app costs the user something: storage, a decision, a step. Every user who paid that cost and then went searching was telling the sales team something a web session never could. App conversions produced the highest-quality leads in the funnel."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "insight"
+    },
+    {
+      "id": "zsr679jb",
+      "title": "Scope",
+      "rows": [
+        {
+          "id": "zzqhnmy7",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "5fry8f42",
+                "kind": "heading",
+                "level": 2,
+                "text": "What version one had to be"
+              },
+              {
+                "id": "wvrqtjdj",
+                "kind": "paragraph",
+                "text": "A first release fails by trying to match the website. We scoped v1 to the shortest complete path a buyer actually walks — from \"I'm looking\" to \"I want to talk to someone about this unit\" — and shipped nothing that sat outside it."
+              },
+              {
+                "id": "wem9n470",
+                "kind": "list",
+                "items": [
+                  "Search entry point, the way in, not a feature buried in a tab",
+                  "Listing pages for both compounds and properties, explore and search",
+                  "Unit detail page, where the decision actually happens",
+                  "Compound detail page, the context around the unit",
+                  "Developers, browse by developer, and reach their compounds"
+                ]
+              },
+              {
+                "id": "ucnb46qs",
+                "kind": "paragraph",
+                "text": "Everything else waited. Not because it did not matter, but because a v1 that does five things properly beats a v1 that does fifteen things approximately."
+              },
+              {
+                "id": "1ey0ripx",
+                "kind": "image",
+                "src": "/uploads/1784443954174-Group-26086295.png",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "column"
+              },
+              {
+                "id": "jtyz4kf6",
+                "kind": "image",
+                "src": "/uploads/1784444219337-Group-26086298.png",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "column"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "structure"
+    },
+    {
+      "id": "c6ymm3r5",
+      "title": "The mobile-only decision",
+      "rows": [
+        {
+          "id": "9g8go4ln",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "62sv3fua",
+                "kind": "heading",
+                "level": 2,
+                "text": "The one thing the app had that the site did not"
+              },
+              {
+                "id": "u20b394i",
+                "kind": "paragraph",
+                "text": "Developers got their own entry point. On the website, a developer was metadata — a name attached to a compound. On mobile we made it a way in: browse developers, pick one, land in their compounds."
+              },
+              {
+                "id": "3hquz1ws",
+                "kind": "paragraph",
+                "text": "This came from how buyers actually talk. In an off-plan market, the developer's name is the credibility. People do not say \"I want a compound in New Cairo\" — they say \"I want something by SODIC.\" The website structure had no answer to that sentence. The app did."
+              },
+              {
+                "id": "8o2ljljt",
+                "kind": "image",
+                "src": "/uploads/1784444048214-Group-26086297fvc.png",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "column"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "decision"
+    },
+    {
+      "id": "artucaeo",
+      "title": "Mobile-first as a working rule",
+      "rows": [
+        {
+          "id": "t4x1pzds",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "mng7lif7",
+                "kind": "heading",
+                "level": 2,
+                "text": "Designing the small screen first, every time"
+              },
+              {
+                "id": "j6916zmy",
+                "kind": "paragraph",
+                "text": "Once the split was on the table, mobile-first stopped being a preference and became the order of work. I designed the phone screen first and expanded outward to the web, rather than designing wide and compressing."
+              },
+              {
+                "id": "md11vuhy",
+                "kind": "paragraph",
+                "text": "The difference is not layout, it is what survives. Designing down forces you to decide what is essential and then add; designing wide lets you defer that decision until the screen makes it for you — badly."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "design"
+    },
+    {
+      "id": "yjov8dsw",
+      "title": "How we worked",
+      "rows": [
+        {
+          "id": "x3mmnddd",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "6gk8buk3",
+                "kind": "heading",
+                "level": 2,
+                "text": "The team"
+              },
+              {
+                "id": "87v05f9w",
+                "kind": "paragraph",
+                "text": "The app was built by the same team behind the web product, plus one Flutter developer. Product went from one PM to two. I worked directly with the PM on scope and sequencing, and ran grooming with the developers so the build questions were answered in the design rather than in the ticket."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "users"
+    },
+    {
+      "id": "uha6gpj7",
+      "title": "Reflection",
+      "rows": [
+        {
+          "id": "y2jcb3ge",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "0uw5b1ap",
+                "kind": "paragraph",
+                "text": "Scoping to five things was right; sequencing them was not. We built the listing pages before the search entry point, and spent two weeks navigating a product with no front door."
+              },
+              {
+                "id": "to5ojflb",
+                "kind": "figma",
+                "src": "https://embed.figma.com/proto/TqL4B0kwZOSPLOGHW59ILB/Nawy?node-id=1-7514&p=f&viewport=2990%2C2824%2C0.22&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A7514&page-id=0%3A1&embed-host=share",
+                "caption": ""
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "layers"
+    }
+  ],
   "status": "draft",
-  "updatedAt": "2026-07-18T13:44:50.998Z"
+  "updatedAt": "2026-07-19T08:16:03.640Z"
 }

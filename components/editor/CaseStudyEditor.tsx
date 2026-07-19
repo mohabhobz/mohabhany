@@ -9,6 +9,7 @@ import { useAuth } from "@/lib/useAuth";
 import { SignIn } from "@/components/editor/SignIn";
 import { ProjectShell } from "@/components/editor/ProjectShell";
 import { ProjectCover } from "@/components/editor/ProjectCover";
+import { Wordmark } from "@/components/ui/Wordmark";
 import { SectionsEditor } from "@/components/editor/SectionsEditor";
 import { LightboxProvider } from "@/components/ui/Lightbox";
 import { Btn } from "@/components/editor/ui";
@@ -91,25 +92,29 @@ export function CaseStudyEditor({ initial, project, siblings = [] }: {
   return (
     <LightboxProvider>
       <div style={{
-        position: "sticky", top: 0, zIndex: 40, display: "flex", gap: "var(--space-3)",
-        alignItems: "center", justifyContent: "space-between", flexWrap: "wrap",
+        /* 1fr auto 1fr, not space-between: the middle column is centred on
+           the page rather than on whatever is left over, so it stays put
+           when the buttons on the right change. */
+        position: "sticky", top: 0, zIndex: 40,
+        display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "var(--space-3)",
+        alignItems: "center",
         padding: "var(--space-3) var(--gutter)",
         background: "color-mix(in srgb, var(--color-bg) 88%, transparent)",
-        backdropFilter: "blur(12px)", borderBottom: "1px solid var(--color-line)",
+        backdropFilter: "blur(12px)",
       }}>
-        <div style={{ display: "flex", alignItems: "baseline", gap: "var(--space-6)" }}>
-          <a href="/" style={{
-            fontWeight: "var(--weight-bold)", fontSize: 19,
-            letterSpacing: "var(--tracking-snug)", color: "var(--color-ink)",
-          }}>
-            Hobz<span className="dot">.</span>
-          </a>
-          <span className="t-label">
-            {USING_SUPABASE ? "supabase" : "local"} · {doc.status}
-            {saving !== "idle" && ` · ${saving === "saving" ? "saving…" : message}`}
-          </span>
+        <div style={{ display: "flex", alignItems: "baseline", justifySelf: "start" }}>
+          <Wordmark />
         </div>
-        <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center" }}>
+
+        <span className="t-label" style={{ justifySelf: "center", textAlign: "center" }}>
+          {USING_SUPABASE ? "supabase" : "local"} · {doc.status}
+          {saving !== "idle" && ` · ${saving === "saving" ? "saving…" : message}`}
+        </span>
+
+        <div style={{
+          display: "flex", gap: "var(--space-2)", alignItems: "center",
+          justifySelf: "end", flexWrap: "wrap",
+        }}>
           {canEdit ? (
             <>
               <Btn onClick={() => setEditing(!editing)}>{editing ? "Preview" : "Edit"}</Btn>
@@ -130,6 +135,8 @@ export function CaseStudyEditor({ initial, project, siblings = [] }: {
         onUpload={pickAndUpload}
       />
 
+      {/* The sheet that rides over the pinned cover. */}
+      <div className="glass-sheet">
       <article className="prose" style={{ paddingBlock: "var(--space-24)" }}>
         {/* project identity → composable project sections → tabs */}
         <ProjectShell
@@ -155,6 +162,7 @@ export function CaseStudyEditor({ initial, project, siblings = [] }: {
           onUpload={pickAndUpload}
         />
       </article>
+      </div>
     </LightboxProvider>
   );
 }

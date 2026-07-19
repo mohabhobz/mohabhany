@@ -1,0 +1,354 @@
+{
+  "slug": "nawy-sahel-map",
+  "projectSlug": "nawy",
+  "title": "Sahel Map",
+  "tension": "Write the tension in one line — what made this hard.",
+  "meta": [
+    {
+      "label": "Shipped",
+      "value": ""
+    },
+    {
+      "label": "Platform",
+      "value": ""
+    },
+    {
+      "label": "Team",
+      "value": ""
+    }
+  ],
+  "problem": {
+    "label": "The problem",
+    "body": "State the problem you found and framed."
+  },
+  "sections": [
+    {
+      "id": "6z4odil8",
+      "title": "Sahel Map",
+      "rows": [
+        {
+          "id": "xwo2ghi6",
+          "layout": "1",
+          "cells": [
+            []
+          ]
+        }
+      ],
+      "icon": "mobile"
+    },
+    {
+      "id": "j62ezozc",
+      "title": "The problem",
+      "rows": [
+        {
+          "id": "5d9ivlh1",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "hl8chs9l",
+                "kind": "heading",
+                "level": 2,
+                "text": "A coastline nobody had driven, full of buildings nobody had seen"
+              },
+              {
+                "id": "8gsjjceg",
+                "kind": "paragraph",
+                "text": "In February 2024 Egypt signed a $35 billion agreement to develop Ras El Hekma, 170 million square metres of the North Coast. The market moved within weeks. Developers launched off-plan compounds along the coast faster than buyers could evaluate them."
+              },
+              {
+                "id": "ymn1y5x1",
+                "kind": "paragraph",
+                "text": "That broke how the product worked. Discovery was built on lists and filters, which assume you can describe what you want in attributes: bedrooms, price, finishing. Someone buying a summer home on a 500km coastline they have never driven does not think in attributes. They think in places."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "problem"
+    },
+    {
+      "id": "dzn0veyw",
+      "title": "Research",
+      "rows": [
+        {
+          "id": "f5mumkus",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "rfmvs3s6",
+                "kind": "heading",
+                "level": 2,
+                "text": "Two threads"
+              },
+              {
+                "id": "dh5950t6",
+                "kind": "list",
+                "items": [
+                  "The sales team, who were on the phone with these buyers every day",
+                  "Five customer interviews, to hear the pain in the buyer's own words"
+                ]
+              },
+              {
+                "id": "b9ftumwf",
+                "kind": "paragraph",
+                "text": "I wanted to know what someone actually asks before committing millions to a unit by the sea that does not exist yet."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "research"
+    },
+    {
+      "id": "rz1s8vva",
+      "title": "What I found",
+      "rows": [
+        {
+          "id": "9so3xxvb",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "8awsvwiy",
+                "kind": "pullquote",
+                "text": "The barrier was not choice. It was trust."
+              },
+              {
+                "id": "a9d6x1x3",
+                "kind": "paragraph",
+                "text": "For an off-plan property there is nothing to inspect. No building, no finish, no view to stand in. So buyers fell back on the only credibility signals available to them."
+              },
+              {
+                "id": "brd75xx6",
+                "kind": "table",
+                "head": [
+                  "Signal",
+                  "Why it decided the purchase"
+                ],
+                "rows": [
+                  [
+                    "Who is the developer",
+                    "A known name moved the decision from months to minutes. Reputation was the guarantee the building could not provide."
+                  ],
+                  [
+                    "When is delivery",
+                    "The delivery date was the promise being bought. Vagueness killed the deal."
+                  ]
+                ]
+              },
+              {
+                "id": "m5ryxgor",
+                "kind": "paragraph",
+                "text": "And a third signal, spatial. Buyers could not evaluate a location in the abstract. They anchored it to somewhere they already knew: how far is this from the compound my friend bought in?"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "insight"
+    },
+    {
+      "id": "u8sewhua",
+      "title": "The map as the product",
+      "rows": [
+        {
+          "id": "7xb8no0f",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "95hdfbzh",
+                "kind": "heading",
+                "level": 2,
+                "text": "Not a view toggle"
+              },
+              {
+                "id": "mwp1yaiw",
+                "kind": "paragraph",
+                "text": "Compounds pinned on satellite imagery of the real coastline, clustered by density so the whole coast reads at a glance and resolves as you zoom. A live counter always tells you how much choice is in view."
+              },
+              {
+                "id": "p23riou5",
+                "kind": "paragraph",
+                "text": "Selecting a compound draws its actual boundary on the coast and opens a card with the developer's identity, both developer and resale starting prices, the payment plan, and available inventory. Calling or messaging sales never takes you off the map."
+              },
+              {
+                "id": "zke2zfd3",
+                "kind": "image",
+                "src": "/uploads/1784447596830-2345.png",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "column"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "map"
+    },
+    {
+      "id": "yft8jmor",
+      "title": "Masterplans on the coast",
+      "rows": [
+        {
+          "id": "7wjzs2zj",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "cp0y1oco",
+                "kind": "heading",
+                "level": 2,
+                "text": "When nothing is built, the masterplan is the product"
+              },
+              {
+                "id": "t38ob6oo",
+                "kind": "paragraph",
+                "text": "Instead of burying it in a PDF, each compound's masterplan is placed over its true position on the satellite map. You see the layout, the lagoons, the beach frontage, and exactly how the compound sits on the coast."
+              },
+              {
+                "id": "feookgwe",
+                "kind": "paragraph",
+                "text": "A guide mode goes further and marks unit types across the plan, so a buyer looking for a chalet can see where chalets actually are inside the compound rather than reading it off a legend."
+              },
+              {
+                "id": "wxk35kcy",
+                "kind": "image",
+                "src": "/uploads/1784447880104-Group-26086301.png",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "wide"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "layers"
+    },
+    {
+      "id": "ce4a0j7k",
+      "title": "Distance between compounds",
+      "rows": [
+        {
+          "id": "e3pwosx4",
+          "layout": "2-1",
+          "cells": [
+            [
+              {
+                "id": "qon42jab",
+                "kind": "heading",
+                "level": 2,
+                "text": "Turning \"how far is it\" into two taps"
+              },
+              {
+                "id": "zv2h8cxs",
+                "kind": "paragraph",
+                "text": "Buyers anchor to what they know, so I let them select any two compounds and get the real distance between them. A question that previously required a sales call now takes two taps."
+              },
+              {
+                "id": "8xw9sh5d",
+                "kind": "stat",
+                "value": "4 KM",
+                "label": "Hacienda Red to Bianchi Ilios"
+              }
+            ],
+            [
+              {
+                "id": "qrmha8xl",
+                "kind": "image",
+                "src": "/uploads/1784448031142-IMG_8032-1.png",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": true,
+                "size": "narrow"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "outcome"
+    },
+    {
+      "id": "l5hg70tm",
+      "title": "Outcome",
+      "rows": [
+        {
+          "id": "cgkwejan",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "bs0sazqz",
+                "kind": "pullquote",
+                "text": "The design was adopted, extended, and is still running two years later."
+              },
+              {
+                "id": "zpftlja6",
+                "kind": "list",
+                "items": [
+                  "Nawy extended the same map model from the North Coast to the whole of Egypt",
+                  "Still a primary entry point on the app home screen",
+                  "54+ compounds mapped with live inventory"
+                ]
+              },
+              {
+                "id": "e060sgja",
+                "kind": "paragraph",
+                "text": "Company context rather than my claim: Nawy closed 2024 above $1.4bn GMV and reached profitability, the same year the map shipped. I contributed to that year's product work. I am not attributing the company's growth to one feature."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "outcome"
+    },
+    {
+      "id": "dwrbturd",
+      "title": "Reflection",
+      "rows": [
+        {
+          "id": "we7fa0kj",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "nb8saj1f",
+                "kind": "paragraph",
+                "text": "Five interviews were enough to act on, not enough to be certain. With more time I would have tested the masterplan overlay before committing to the biggest technical lift in the project."
+              },
+              {
+                "id": "zbfpowv3",
+                "kind": "button",
+                "label": "Download The App",
+                "href": "https://apps.apple.com/eg/app/nawy-real-estate/id1571474485"
+              },
+              {
+                "id": "ntv3b5rg",
+                "kind": "divider"
+              },
+              {
+                "id": "tfat5wn8",
+                "kind": "quote",
+                "text": "Production screenshots, 2026. The map, the masterplan overlay, and the distance tool are my original designs, shipped 2024. Nawy has since refined the UI and added products that are not my work.",
+                "attribution": ""
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "reflection"
+    }
+  ],
+  "status": "draft",
+  "updatedAt": "2026-07-19T08:15:00.475Z"
+}

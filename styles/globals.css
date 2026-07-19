@@ -758,8 +758,8 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .client-grid {
   list-style: none; padding: 0; margin: var(--heading-gap) 0 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: var(--space-8) var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: var(--space-10) var(--space-4);
 }
 
 .client-cell {
@@ -778,7 +778,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
    Greyscale at rest is what stops eleven brand palettes from competing
    with the page. Colour arrives on hover, one at a time. */
 .client-cell img {
-  width: 56px; height: 56px;
+  width: 76px; height: 76px;
   object-fit: cover;
   border-radius: var(--radius-md);
   filter: grayscale(1);

@@ -816,45 +816,40 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .client-cell:hover .client-cell__name { opacity: 1; color: var(--color-ink); }
 
 /* ---- Work board -------------------------------------------------
-   Cards, not rows. A row list says "here is an index"; a board says
-   "here is the work". The cover carries the weight and the text sits
-   under it, so the grid reads as images first. */
+   Media tiles. Each takes its own shape, so the grid is uneven by design;
+   align-items: start stops a tall tile from stretching its neighbours. */
 .work-board {
   margin-top: var(--heading-gap);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: var(--space-8);
+  align-items: start;
+  gap: var(--space-6);
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-  padding: var(--space-5);
-  border: 1px solid var(--color-line);
+  display: block;
   border-radius: var(--radius-lg);
-  background: var(--color-surface);
-  color: var(--color-ink);
-  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  background: var(--color-bg);
   transition: border-color var(--duration-fast) var(--ease-out),
-              transform var(--duration-fast) var(--ease-out);
+              transform var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
 }
 .card:hover {
-  border-color: color-mix(in srgb, var(--color-ink) 32%, transparent);
-  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--color-ink) 30%, transparent);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-image);
 }
 
-/* A fixed ratio, so a card with a tall cover cannot make its whole row
-   tall. Every card in the grid is the same shape whatever it holds. */
 /* position: relative because next/image with `fill` measures against the
-   nearest positioned ancestor. */
+   nearest positioned ancestor. The ratio is set inline once the media
+   reports its dimensions; this is the value held until then. */
 .card__media {
   position: relative;
   display: block;
   aspect-ratio: 16 / 10;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  background: var(--color-bg);
+  background: var(--color-surface);
 }
 .card__media img,
 .card__media video {
@@ -867,18 +862,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   background: repeating-linear-gradient(135deg,
     var(--color-surface), var(--color-surface) 10px,
     var(--color-bg) 10px, var(--color-bg) 20px);
-}
-
-.card__body { display: flex; align-items: center; gap: var(--space-4); }
-.card__logo { width: 52px; height: 52px; flex-shrink: 0; }
-.card__text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.card__slogan { opacity: .65; }
-
-.card__tags { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: auto; }
-.card__tag {
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-pill);
-  padding: 5px 11px;
 }
 
 /* ---- Entries: Background and Consulting share one row --------

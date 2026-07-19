@@ -10,6 +10,10 @@
     "note": "Employers and consulting clients. Every mark here is work I did, not a list of tools I have opened.",
     "items": [
       {
+        "name": "Dubai Police",
+        "logo": "/logos/dubai-police.jpeg"
+      },
+      {
         "name": "b_labs",
         "logo": "/logos/b-labs.jpeg"
       },
@@ -22,20 +26,20 @@
         "logo": "/logos/nawy.jpeg"
       },
       {
-        "name": "G2K Group",
-        "logo": "/logos/g2k.jpeg"
-      },
-      {
-        "name": "Dubai Police",
-        "logo": "/logos/dubai-police.jpeg"
-      },
-      {
-        "name": "Pleny",
-        "logo": "/logos/pleny.jpeg"
+        "name": "EFG Hermes",
+        "logo": "/logos/efg-hermes.jpeg"
       },
       {
         "name": "Hissatech",
         "logo": "/logos/hissatech.jpeg"
+      },
+      {
+        "name": "G2K Group",
+        "logo": "/logos/g2k.jpeg"
+      },
+      {
+        "name": "Pleny",
+        "logo": "/logos/pleny.jpeg"
       },
       {
         "name": "Diamond Professional Consultants",
@@ -60,10 +64,6 @@
       {
         "name": "Identity Channel",
         "logo": "/logos/identity-channel.png"
-      },
-      {
-        "name": "EFG Hermes",
-        "logo": "/logos/efg-hermes.jpeg"
       }
     ],
     "title": "Teams across Egypt, the Gulf and beyond"

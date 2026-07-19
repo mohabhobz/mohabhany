@@ -761,7 +761,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 /* No cell borders, no outer frame. A grid of ruled boxes reads as a
    table of data; these are marks on a page. Space does the separating. */
 .client-grid {
-  list-style: none; padding: 0; margin: var(--space-10) 0 0;
+  list-style: none; padding: 0; margin: var(--heading-gap) 0 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: var(--space-8) var(--space-4);
@@ -814,7 +814,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 /* ---- Work ------------------------------------------------------- */
 .work-list {
-  margin-top: var(--space-12);
+  margin-top: var(--heading-gap);
   border-top: 1px solid var(--color-line);
 }
 
@@ -851,7 +851,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
    Greyscale until the row is hovered, matching the tiles above. Hovering
    anywhere on the row lights the mark, so the target is the whole entry
    and not a 64px square. */
-.entries { list-style: none; padding: 0; margin: var(--space-12) 0 0; }
+.entries { list-style: none; padding: 0; margin: var(--heading-gap) 0 0; }
 
 .entry {
   display: grid;

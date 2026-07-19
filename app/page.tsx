@@ -13,6 +13,10 @@ type Site = {
   intro: { eyebrow: string; headline: string; lead: string; note: string };
   clients: { label: string; title: string; note: string; items: { name: string; logo: string }[] };
   work: { label: string; title: string };
+  ai: {
+    label: string; title: string; note: string;
+    items: { name: string; href: string; logo: string; line: string }[];
+  };
   career: {
     label: string; title: string;
     roles: { company: string; title: string; period: string; place: string; line: string; logo?: string }[];
@@ -104,6 +108,42 @@ export default async function Home() {
             ))}
         </div>
 
+      </section>
+
+      {/* ---------------- AI ---------------- */}
+      <section id="ai" className="page section-block">
+        <Reveal>
+          <h2 className="t-label">{site.ai.label}</h2>
+          <p className="t-section-title section-title">{site.ai.title}</p>
+        </Reveal>
+        <Reveal delay={1}>
+          <p className="t-body ai-note">{site.ai.note}</p>
+        </Reveal>
+
+        <ul className="entries">
+          {site.ai.items.map((a, i) => (
+            <Reveal as="li" key={a.name} delay={(i % 3) as 0 | 1 | 2}>
+              <div className="entry">
+                <div className="entry__mark">
+                  {a.logo && <img src={a.logo} alt="" />}
+                </div>
+                <div className="entry__body">
+                  <p className="t-h3">
+                    {a.href ? (
+                      /* A live URL is the whole point of this section: the
+                         2026 screening question is whether the thing is
+                         traceable, not whether it is described well. */
+                      <a href={a.href} target="_blank" rel="noopener noreferrer" className="entry__link">
+                        {a.name} <span aria-hidden="true">↗</span>
+                      </a>
+                    ) : a.name}
+                  </p>
+                  <p className="t-body entry__line">{a.line}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </ul>
       </section>
 
       {/* ---------------- BACKGROUND ---------------- */}

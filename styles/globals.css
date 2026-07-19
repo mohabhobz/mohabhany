@@ -964,7 +964,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 /* Anchors must not land under the sticky bar. */
-#intro, #worked, #work, #background, #consulting, #contact { scroll-margin-top: var(--nav-h); }
+#intro, #worked, #work, #ai, #background, #consulting, #contact { scroll-margin-top: var(--nav-h); }
 
 @media (max-width: 720px) {
   .site-nav__list { gap: var(--space-4); }
@@ -1072,3 +1072,17 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .p-row__go { display: flex; gap: var(--space-4); }
 .p-row__go a { color: var(--color-ink); opacity: .6; }
 .p-row__go a:hover { opacity: 1; color: var(--color-accent-text); }
+
+/* ---- AI section --------------------------------------------------
+   The note carries the claim that matters — how the work is done — and
+   the entries below are the evidence for it. Sits above the list rather
+   than inside it, because it is true of all four. */
+.ai-note {
+  margin-top: var(--space-8);
+  max-width: 66ch;
+  opacity: .8;
+}
+
+.entry__link { color: var(--color-ink); }
+.entry__link:hover { color: var(--color-accent-text); }
+.entry__link span { font-size: .7em; opacity: .6; }

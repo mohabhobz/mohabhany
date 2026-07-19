@@ -68,6 +68,41 @@
     ],
     "title": "Teams across Egypt, the Gulf and beyond"
   },
+  "work": {
+    "label": "Work",
+    "title": "Selected projects"
+  },
+  "ai": {
+    "label": "AI",
+    "title": "Designing AI products, and building with AI",
+    "note": "Discovery at work is AI-native: I frame a problem against comparable systems in minutes, produce wireframes live in the same session with the PM, then run an agent that audits the designs against the requirement before hand-off. The things below are what came out of working that way.",
+    "items": [
+      {
+        "name": "Design-System Generator",
+        "href": "",
+        "logo": "",
+        "line": "Generates a complete design system from brand input: tokens, components, themes. A canvas turns a written business request into on-brand screens, and exports in one click to Figma and to code on GitHub. In use by my team at b_labs."
+      },
+      {
+        "name": "Agarly",
+        "href": "https://agaarly.com",
+        "logo": "",
+        "line": "A rental marketplace, designed and shipped solo using AI across the whole stack: front end, back end, database, hosting, admin panel, and a CRM with customer analytics. Live and running."
+      },
+      {
+        "name": "Iconoro",
+        "href": "",
+        "logo": "",
+        "line": "An AI-generated 3D illustration library. Ten thousand consistent, searchable illustrations per pack, held to one visual language across the set. Launching soon."
+      },
+      {
+        "name": "AIX, Dubai Police",
+        "href": "",
+        "logo": "/logos/dubai-police.jpeg",
+        "line": "Conversational AI as a government service: citizens ask about any service in natural language and are guided to completion. I improved the product and built its design system from scratch, to Dubai Government and WCAG standards."
+      }
+    ]
+  },
   "career": {
     "label": "Background",
     "roles": [
@@ -105,25 +140,6 @@
       }
     ],
     "title": "Nine years, three design systems built from scratch"
-  },
-  "contact": {
-    "label": "Contact",
-    "headline": "Say hello",
-    "email": "mohab_hany@outlook.com",
-    "links": [
-      {
-        "label": "LinkedIn",
-        "href": "https://www.linkedin.com/in/mohab-mohamed-6ba959a8/"
-      },
-      {
-        "label": "UX Five on YouTube",
-        "href": "https://www.youtube.com/@UXFive"
-      },
-      {
-        "label": "Portfolio archive",
-        "href": "https://mohabhany.myportfolio.com"
-      }
-    ]
   },
   "consulting": {
     "label": "Consulting & contract",
@@ -208,8 +224,23 @@
     ],
     "title": "Product work delivered alongside the full-time roles"
   },
-  "work": {
-    "label": "Work",
-    "title": "Selected projects"
+  "contact": {
+    "label": "Contact",
+    "headline": "Say hello",
+    "email": "mohab_hany@outlook.com",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/in/mohab-mohamed-6ba959a8/"
+      },
+      {
+        "label": "UX Five on YouTube",
+        "href": "https://www.youtube.com/@UXFive"
+      },
+      {
+        "label": "Portfolio archive",
+        "href": "https://mohabhany.myportfolio.com"
+      }
+    ]
   }
 }

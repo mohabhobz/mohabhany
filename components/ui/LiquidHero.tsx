@@ -28,10 +28,15 @@ precision highp float;
 out vec4 outColor;
 
 uniform vec2  uRes;
-uniform float uTime;
-uniform float uProgress;   // 0 at the start of the pour, 1 at the end
+uniform float uTime;      // seconds inside the current drop, loops
 uniform vec3  uInk;
 uniform vec3  uAccent;
+
+const float FALL   = 3.6;   // stream descending
+const float BLOOM  = 5.4;   // spreading after impact
+const float FADE   = 3.2;   // dissipating
+const float GAP    = 1.6;   // empty water before the next drop
+const float FLOOR  = 0.20;  // where it lands, in uv.y
 
 float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
 
@@ -44,64 +49,83 @@ float noise(vec2 p) {
 
 float fbm(vec2 p) {
   float v = 0.0, a = 0.5;
-  for (int i = 0; i < 4; i++) { v += a * noise(p); p = p * 2.02 + 17.3; a *= 0.5; }
+  for (int i = 0; i < 5; i++) { v += a * noise(p); p = p * 2.03 + 19.1; a *= 0.5; }
   return v;
 }
 
 void main() {
-  vec2 uv = gl_FragCoord.xy / uRes;          // y: 0 bottom, 1 top
   float ar = uRes.x / uRes.y;
+  vec2  uv = gl_FragCoord.xy / uRes;
+  vec2  p  = vec2((uv.x - 0.5) * ar, uv.y);
   float t  = uTime;
 
-  /* The descent. Fast at first and settling as it runs out of momentum,
-     which is what falling liquid does once it stops being a stream and
-     starts being a sheet. Stops at 0.28, so it covers roughly the top
-     two thirds and never reaches the floor. */
-  float e     = 1.0 - pow(1.0 - clamp(uProgress, 0.0, 1.0), 2.6);
-  float front = mix(1.06, 0.28, e);
+  /* ---- the head of the stream ------------------------------------
+     Accelerating, because it is falling. Reaches FLOOR at t = FALL. */
+  float fall = clamp(t / FALL, 0.0, 1.0);
+  float head = mix(1.05, FLOOR, fall * fall);
 
-  /* The edge. Two frequencies: a slow swell across the width, and finer
-     tongues that run ahead of the main front. Both drift with time so the
-     edge keeps moving after the front has settled. */
-  float swell  = (fbm(vec2(uv.x * ar * 1.6, t * 0.18)) - 0.5) * 0.10;
-  float tongue = pow(fbm(vec2(uv.x * ar * 5.0 + 3.1, t * 0.30)), 2.0) * 0.13;
-  float edgeY  = front + swell - tongue;
+  /* ---- the stream -------------------------------------------------
+     A thin filament, not a sheet. Three things make it read as ink:
+       1. the centre wanders with height, so it is never a straight line
+       2. thickness is modulated by noise along its length, which is what
+          breaks it into beads and detached droplets
+       3. it only exists between the head and the top of the frame */
+  float wander = (fbm(vec2(uv.y * 4.0 - t * 0.35, t * 0.25)) - 0.5) * 0.30;
+  float cx = wander;
 
-  /* Softness grows as it slows: a fast front is sharp, a settling one
-     spreads. */
-  float soft = mix(0.012, 0.055, e);
-  float body = smoothstep(edgeY - soft, edgeY + soft, uv.y);
+  float beads = fbm(vec2(uv.y * 16.0 - t * 2.2, t * 0.6));
+  float w = 0.014 + 0.030 * beads;          // varies along the length
+  w *= smoothstep(0.0, 0.18, 1.05 - uv.y);  // thins at the very top
 
-  /* Interior movement, so the filled area is not a flat colour. Warped
-     twice and drifting downward at roughly the speed of the pour. */
-  vec2  q = vec2(uv.x * ar, uv.y) * 2.2;
-  q += vec2(fbm(q + vec2(0.0, -t * 0.55)), fbm(q + vec2(4.7, 1.2)));
-  float f = fbm(q + vec2(0.0, -t * 0.35));
+  float dx = abs(p.x - cx);
+  float stream = exp(-(dx * dx) / (w * w)) * step(head, uv.y);
 
-  /* Density thins toward the top: the liquid has moved on from there and
-     is piling up at the front. */
-  float depth = mix(0.35, 1.0, smoothstep(1.05, edgeY, uv.y));
+  /* Trailing wisps peeling off the filament. */
+  float wisp = exp(-(dx * dx) / (w * w * 9.0))
+             * pow(fbm(vec2(p.x * 9.0, uv.y * 7.0 - t * 1.4)), 3.0) * 2.2
+             * step(head, uv.y);
 
-  /* The leading edge carries the accent. It is the only place in the
-     frame with any saturation, which is what makes the front read as the
-     event rather than the fill. */
-  float rim = smoothstep(0.16, 0.0, abs(uv.y - edgeY)) * body;
+  /* ---- the bloom --------------------------------------------------
+     Starts on impact. Radius grows as sqrt(time), which is how a dye
+     front actually advances when it is spreading rather than being
+     pushed. Density drops as it grows: the same ink, more water. */
+  float bt = clamp((t - FALL) / BLOOM, 0.0, 1.0);
+  float R  = 0.62 * sqrt(bt);
 
-  vec3 col = uInk * (0.55 + 0.65 * f) * depth;
-  col = mix(col, uAccent, rim * 0.55);
-  col += pow(smoothstep(0.62, 0.92, f), 5.0) * 0.06 * body;   // wet highlight
+  vec2 bp = p - vec2(cx, FLOOR);
+  bp.y *= 1.9;                                /* squashed: it hit a floor */
 
-  /* In, hold, out. The drain is longer than the arrival because liquid
-     leaves more slowly than it lands. */
-  float fadeIn  = smoothstep(0.00, 0.06, uProgress);
-  float fadeOut = 1.0 - smoothstep(0.66, 1.00, uProgress);
-  float alpha   = body * fadeIn * fadeOut * (0.30 + 0.55 * depth);
+  /* Domain warp, amplitude growing with the bloom. This is what turns a
+     circle into lobes and curls. Without it this is a spreading disc. */
+  vec2 wv = vec2(fbm(bp * 3.0 + vec2(0.0, -t * 0.25)),
+                 fbm(bp * 3.0 + vec2(5.7, 2.1) + t * 0.18));
+  bp += (wv - 0.5) * (0.34 + 0.55 * bt);
 
-  col += (hash(gl_FragCoord.xy) - 0.5) / 255.0;               // kill banding
+  float d = length(bp);
+  float bloom = smoothstep(R, R * 0.15, d) * bt * (1.0 - 0.45 * bt);
+
+  /* Curdled interior, so the cloud has structure instead of being a blob. */
+  bloom *= 0.45 + 0.85 * fbm(bp * 5.0 + vec2(0.0, -t * 0.2));
+
+  /* ---- combine and fade ------------------------------------------- */
+  float ink = stream + wisp * 0.7 + bloom;
+  ink = clamp(ink, 0.0, 1.6);
+
+  float fade = 1.0 - smoothstep(FALL + BLOOM, FALL + BLOOM + FADE, t);
+  ink *= fade;
+
+  /* Denser ink reads darker and more saturated, exactly like real dye. */
+  vec3 col = mix(uInk, uAccent, smoothstep(0.15, 0.95, ink) * 0.45);
+  col += pow(smoothstep(0.7, 1.3, ink), 3.0) * 0.10;
+
+  float alpha = clamp(ink, 0.0, 1.0) * 0.72;
+  alpha += (hash(gl_FragCoord.xy) - 0.5) / 255.0;
+
   outColor = vec4(col, alpha);
 }`;
 
-const DURATION = 7000;   // ms, arrival through to fully drained
+const LOOP = 3.6 + 5.4 + 3.2 + 1.6;   // FALL + BLOOM + FADE + GAP, seconds
+
 
 export function LiquidHero() {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -142,7 +166,6 @@ export function LiquidHero() {
     const U = {
       res: gl.getUniformLocation(prog, "uRes"),
       time: gl.getUniformLocation(prog, "uTime"),
-      prog: gl.getUniformLocation(prog, "uProgress"),
       ink: gl.getUniformLocation(prog, "uInk"),
       accent: gl.getUniformLocation(prog, "uAccent"),
     };
@@ -180,46 +203,44 @@ export function LiquidHero() {
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
 
-    let raf = 0, start = 0, running = false;
+    let raf = 0, start = 0, running = false, onScreen = false;
 
     const frame = (now: number) => {
-      const p = (now - start) / DURATION;
-      gl.uniform1f(U.time, (now - start) / 1000);
-      gl.uniform1f(U.prog, p);
+      /* One clock, wrapped. Every drop is the same animation with the same
+         noise, which would be a tell if the loop were short; at fourteen
+         seconds with a blank gap in the middle, the repeat is not
+         legible. */
+      if (!onScreen || document.hidden) { running = false; return; }
+      gl.uniform1f(U.time, ((now - start) / 1000) % LOOP);
       gl.clearColor(0, 0, 0, 0);
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
-
-      if (p >= 1) {
-        /* Done. Stop the loop and leave the canvas clear. The page costs
-           nothing from here on. */
-        running = false;
-        canvas.style.opacity = "0";
-        return;
-      }
       raf = requestAnimationFrame(frame);
     };
 
-    const pour = () => {
+    const run = () => {
       if (running) return;
       running = true;
       canvas.style.opacity = "1";
-      start = performance.now();
+      if (!start) start = performance.now();
       raf = requestAnimationFrame(frame);
     };
 
-    /* Pours when the hero is on screen, and again if you come back to the
-       top later. Once per visit, not on a timer. */
-    let armed = true;
+    /* Only while the hero is actually on screen. Scroll past it and the
+       loop stops; come back and it picks up where the clock is. */
     const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && armed) { armed = false; pour(); }
-      if (!e.isIntersecting) armed = true;
-    }, { threshold: 0.5 });
+      onScreen = e.isIntersecting;
+      if (onScreen) run();
+    }, { threshold: 0 });
     io.observe(canvas);
+
+    const onVis = () => { if (!document.hidden && onScreen) run(); };
+    document.addEventListener("visibilitychange", onVis);
 
     return () => {
       cancelAnimationFrame(raf);
       io.disconnect(); ro.disconnect(); themeObs.disconnect();
+      document.removeEventListener("visibilitychange", onVis);
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
   }, []);

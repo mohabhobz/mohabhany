@@ -111,5 +111,81 @@
         "href": "https://mohabhany.myportfolio.com"
       }
     ]
+  },
+  "consulting": {
+    "label": "Consulting & contract",
+    "note": "Product work delivered alongside the full-time roles.",
+    "items": [
+      {
+        "name": "Dubai Police",
+        "place": "UAE",
+        "period": "",
+        "logo": "/logos/dubai-police.jpeg",
+        "line": "AIX, the AI assistant on the Dubai Police website. Citizens ask about any government service in natural language and are guided to completion. Delivered the conversational experience end to end, plus a design system with full token architecture built to WCAG standards."
+      },
+      {
+        "name": "Pleny",
+        "place": "UAE",
+        "period": "2.5 years",
+        "logo": "/logos/pleny.jpeg",
+        "line": "Led UI/UX for a food-focused social platform. Shipped iOS and Android apps and the design system behind them."
+      },
+      {
+        "name": "EFG Hermes",
+        "place": "Egypt",
+        "period": "4 years",
+        "logo": "",
+        "line": "Internal enterprise platforms for finance and HR, including dashboards and operational systems."
+      },
+      {
+        "name": "Diamond Professional Consultants",
+        "place": "KSA",
+        "period": "2 years",
+        "logo": "/logos/diamond.jpeg",
+        "line": "Over twenty B2B analytics dashboards across web, mobile and Power BI for Saudi government and enterprise clients."
+      },
+      {
+        "name": "Hissatech",
+        "place": "KSA",
+        "period": "",
+        "logo": "/logos/hissatech.jpeg",
+        "line": "Product experience for a Sharia-compliant fractional real-estate investment platform: ROI calculator, listings, full RTL."
+      },
+      {
+        "name": "Identity Channel",
+        "place": "KSA",
+        "period": "",
+        "logo": "",
+        "line": "B2B distribution platform with store inventory tracking, restocking alerts and a field-agent mobile app."
+      },
+      {
+        "name": "RVE",
+        "place": "",
+        "period": "",
+        "logo": "/logos/rve.jpeg",
+        "line": "Fractional ownership platform."
+      },
+      {
+        "name": "Octopii",
+        "place": "",
+        "period": "",
+        "logo": "/logos/octopii.jpeg",
+        "line": "All-in-one business management SaaS."
+      },
+      {
+        "name": "MuslimDo",
+        "place": "Canada",
+        "period": "",
+        "logo": "/logos/muslimdo.jpeg",
+        "line": "Consumer product design."
+      },
+      {
+        "name": "Link State",
+        "place": "",
+        "period": "",
+        "logo": "",
+        "line": "Proptech platform."
+      }
+    ]
   }
 }

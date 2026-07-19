@@ -16,6 +16,10 @@ type Site = {
     label: string; note: string;
     roles: { company: string; title: string; period: string; place: string; line: string; logo?: string }[];
   };
+  consulting: {
+    label: string; note: string;
+    items: { name: string; place: string; period: string; logo: string; line: string }[];
+  };
   contact: { label: string; headline: string; email: string; links: { label: string; href: string }[] };
 };
 
@@ -142,6 +146,39 @@ export default async function Home() {
             </Reveal>
           ))}
         </ol>
+      </section>
+
+      {/* ---------------- CONSULTING ---------------- */}
+      <section id="consulting" className="page section-block">
+        <Reveal>
+          <h2 className="t-label">{site.consulting.label}</h2>
+          <p className="t-section-title" style={{ marginTop: "var(--space-4)", maxWidth: "24ch" }}>
+            {site.consulting.note}
+          </p>
+        </Reveal>
+
+        <ul className="consulting">
+          {site.consulting.items.map((c, i) => (
+            <Reveal as="li" key={c.name} delay={(i % 3) as 0 | 1 | 2}>
+              <div className="consulting__row">
+                <div className="consulting__body">
+                  <p className="t-h3">{c.name}</p>
+                  <p className="t-body consulting__line">{c.line}</p>
+                  <p className="t-label consulting__meta">
+                    {[c.place, c.period].filter(Boolean).join(" · ")}
+                  </p>
+                </div>
+
+                {/* Right-hand column holds the mark, or nothing at all. The
+                    column keeps its width either way so every row lines up
+                    while the missing logos are still being tracked down. */}
+                <div className="consulting__mark">
+                  {c.logo && <img src={c.logo} alt="" />}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </ul>
       </section>
 
       {/* ---------------- CONTACT ---------------- */}

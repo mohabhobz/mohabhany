@@ -910,23 +910,42 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   color: var(--color-accent-text);
 }
 
-/* The dot marks the section you are in without adding a second colour or
-   moving anything: it occupies its space whether or not it is visible. */
-.site-nav__link::after {
-  content: "";
-  position: absolute;
-  left: 50%; bottom: -6px;
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  background: currentColor;
-  transform: translateX(-50%) scale(0);
-  transition: transform var(--duration-base) var(--ease-out, ease-out);
-}
-.site-nav__link[data-active="true"]::after { transform: translateX(-50%) scale(1); }
-
 /* Anchors must not land under the sticky bar. */
 #intro, #worked, #work, #background, #contact { scroll-margin-top: 88px; }
 
 @media (max-width: 720px) {
   .site-nav__list { gap: var(--space-4); }
+}
+
+/* ---- Consulting & contract --------------------------------------
+   Same rhythm as Background, mirrored: text leads, the mark sits on the
+   trailing edge, and the dates land at the end of the entry rather than
+   in front of it. These engagements are described by what was built,
+   not by when. */
+.consulting { list-style: none; padding: 0; margin: var(--space-12) 0 0; }
+
+.consulting__row {
+  display: grid;
+  grid-template-columns: 1fr 56px;
+  gap: var(--space-8);
+  align-items: start;
+  padding-block: var(--space-8);
+  border-top: 1px solid var(--color-line);
+}
+
+.consulting__body { display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; }
+.consulting__line { max-width: 62ch; }
+.consulting__meta { opacity: .55; margin-top: var(--space-1); }
+.consulting__meta:empty { display: none; }
+
+.consulting__mark { display: flex; justify-content: flex-end; }
+.consulting__mark img {
+  width: 56px; height: 56px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+}
+
+@media (max-width: 720px) {
+  .consulting__row { grid-template-columns: 1fr; gap: var(--space-4); }
+  .consulting__mark { justify-content: flex-start; order: -1; }
 }

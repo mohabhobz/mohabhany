@@ -11,13 +11,14 @@ export const dynamic = "force-dynamic";
    touching JSX. Same principle as the case studies: content is data. */
 type Site = {
   intro: { eyebrow: string; headline: string; lead: string; note: string };
-  clients: { label: string; note: string; items: { name: string; logo: string }[] };
+  clients: { label: string; title: string; note: string; items: { name: string; logo: string }[] };
+  work: { label: string; title: string };
   career: {
-    label: string; note: string;
+    label: string; title: string;
     roles: { company: string; title: string; period: string; place: string; line: string; logo?: string }[];
   };
   consulting: {
-    label: string; note: string;
+    label: string; title: string;
     items: { name: string; place: string; period: string; logo: string; line: string }[];
   };
   contact: { label: string; headline: string; email: string; links: { label: string; href: string }[] };
@@ -61,6 +62,7 @@ export default async function Home() {
       <section id="worked" className="page section-block">
         <Reveal>
           <h2 className="t-label">{site.clients.label}</h2>
+          <p className="t-section-title section-title">{site.clients.title}</p>
         </Reveal>
         <Reveal delay={1}>
           <ul className="client-grid">
@@ -82,10 +84,8 @@ export default async function Home() {
       {/* ---------------- WORK ---------------- */}
       <section id="work" className="page section-block">
         <Reveal>
-          <h2 className="t-label">Work</h2>
-          <p className="t-section-title" style={{ marginTop: "var(--space-4)" }}>
-            Selected projects
-          </p>
+          <h2 className="t-label">{site.work.label}</h2>
+          <p className="t-section-title section-title">{site.work.title}</p>
         </Reveal>
 
         <div className="work-list">
@@ -124,9 +124,7 @@ export default async function Home() {
       <section id="background" className="page section-block">
         <Reveal>
           <h2 className="t-label">{site.career.label}</h2>
-          <p className="t-section-title" style={{ marginTop: "var(--space-4)", maxWidth: "24ch" }}>
-            {site.career.note}
-          </p>
+          <p className="t-section-title section-title">{site.career.title}</p>
         </Reveal>
 
         <ol className="entries">
@@ -152,9 +150,7 @@ export default async function Home() {
       <section id="consulting" className="page section-block">
         <Reveal>
           <h2 className="t-label">{site.consulting.label}</h2>
-          <p className="t-section-title" style={{ marginTop: "var(--space-4)", maxWidth: "24ch" }}>
-            {site.consulting.note}
-          </p>
+          <p className="t-section-title section-title">{site.consulting.title}</p>
         </Reveal>
 
         <ul className="entries">

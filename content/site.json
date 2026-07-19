@@ -52,12 +52,20 @@
       {
         "name": "MuslimDo",
         "logo": "/logos/muslimdo.jpeg"
+      },
+      {
+        "name": "Telemedia",
+        "logo": "/logos/telemedia.png"
+      },
+      {
+        "name": "Identity Channel",
+        "logo": "/logos/identity-channel.png"
       }
-    ]
+    ],
+    "title": "Teams across Egypt, the Gulf and beyond"
   },
   "career": {
     "label": "Background",
-    "note": "Nine years, three design systems built from scratch, two of them still running.",
     "roles": [
       {
         "company": "b_labs — B.TECH Group",
@@ -91,7 +99,8 @@
         "line": "Six national-scale platforms for government and enterprise, including ticketing for the Grand Egyptian Museum and Tazkarti. Also wrote production front-end, which is why hand-off is not a guess.",
         "logo": "/logos/g2k.jpeg"
       }
-    ]
+    ],
+    "title": "Nine years, three design systems built from scratch"
   },
   "contact": {
     "label": "Contact",
@@ -114,7 +123,6 @@
   },
   "consulting": {
     "label": "Consulting & contract",
-    "note": "Product work delivered alongside the full-time roles.",
     "items": [
       {
         "name": "Dubai Police",
@@ -129,6 +137,13 @@
         "period": "2.5 years",
         "logo": "/logos/pleny.jpeg",
         "line": "Led UI/UX for a food-focused social platform. Shipped iOS and Android apps and the design system behind them."
+      },
+      {
+        "name": "Telemedia",
+        "place": "",
+        "period": "",
+        "logo": "/logos/telemedia.png",
+        "line": "A communications app: mentor discovery and profiles, wallet and top-up with Apple Pay and card, one-to-one messaging, voice and video calling, and a notifications centre. Designed in Arabic, right to left throughout."
       },
       {
         "name": "EFG Hermes",
@@ -155,7 +170,7 @@
         "name": "Identity Channel",
         "place": "KSA",
         "period": "",
-        "logo": "",
+        "logo": "/logos/identity-channel.png",
         "line": "B2B distribution platform with store inventory tracking, restocking alerts and a field-agent mobile app."
       },
       {
@@ -186,6 +201,11 @@
         "logo": "",
         "line": "Proptech platform."
       }
-    ]
+    ],
+    "title": "Product work delivered alongside the full-time roles"
+  },
+  "work": {
+    "label": "Work",
+    "title": "Selected projects"
   }
 }

@@ -744,6 +744,14 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 .section-intro { padding-top: var(--space-16); }
+
+/* Every section opens the same way: a mono label, then the title on one
+   measure. Setting it here rather than inline means the four sections
+   cannot drift apart the next time one of them is edited. */
+.section-title {
+  margin-top: var(--space-4);
+  max-width: 22ch;
+}
 .section-contact { padding-bottom: var(--space-32); }
 
 /* ---- Worked with -----------------------------------------------

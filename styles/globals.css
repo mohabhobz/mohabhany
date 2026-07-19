@@ -1020,6 +1020,18 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   pointer-events: none;
   opacity: 0;
   transition: opacity var(--duration-slow) var(--ease-out);
+
+  /* The canvas has to end somewhere, and the ink was being sliced off at
+     that line. The mask dissolves the last sixth of it instead, so the
+     canvas ends without a horizontal cut across the ink.
+
+     84% is not arbitrary: the bloom lands at uv.y 0.26, which is 74% down
+     the canvas. The fade has to start below the thing it is hiding the
+     edge of, or it erases the event instead of the boundary. */
+  -webkit-mask-image: linear-gradient(to bottom,
+    #000 84%, rgba(0,0,0,.7) 93%, transparent 100%);
+  mask-image: linear-gradient(to bottom,
+    #000 84%, rgba(0,0,0,.7) 93%, transparent 100%);
 }
 
 .section-intro > *:not(.liquid) { position: relative; }

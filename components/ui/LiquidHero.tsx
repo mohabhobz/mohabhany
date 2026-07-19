@@ -36,7 +36,7 @@ const float FALL   = 3.6;   // stream descending
 const float BLOOM  = 5.4;   // spreading after impact
 const float FADE   = 3.2;   // dissipating
 const float GAP    = 1.6;   // empty water before the next drop
-const float FLOOR  = 0.20;  // where it lands, in uv.y
+const float FLOOR  = 0.26;  // where it lands, in uv.y — clear of the mask
 
 float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
 
@@ -114,9 +114,10 @@ void main() {
   float fade = 1.0 - smoothstep(FALL + BLOOM, FALL + BLOOM + FADE, t);
   ink *= fade;
 
-  /* Denser ink reads darker and more saturated, exactly like real dye. */
-  vec3 col = mix(uInk, uAccent, smoothstep(0.15, 0.95, ink) * 0.45);
-  col += pow(smoothstep(0.7, 1.3, ink), 3.0) * 0.10;
+  /* Thin ink is pale, thick ink is deep. That direction is the whole
+     reason dye in water looks like dye: concentration reads as depth of
+     colour, not as brightness. */
+  vec3 col = mix(uInk, uAccent, smoothstep(0.10, 1.05, ink));
 
   float alpha = clamp(ink, 0.0, 1.0) * 0.72;
   alpha += (hash(gl_FragCoord.xy) - 0.5) / 255.0;
@@ -182,8 +183,8 @@ export function LiquidHero() {
       return c && c.length >= 3 ? [+c[0] / 255, +c[1] / 255, +c[2] / 255] : [1, 1, 1];
     };
     const pushColours = () => {
-      gl.uniform3fv(U.ink, rgb("--color-surface-2"));
-      gl.uniform3fv(U.accent, rgb("--color-accent"));
+      gl.uniform3fv(U.ink, rgb("--liquid-ink"));
+      gl.uniform3fv(U.accent, rgb("--liquid-deep"));
     };
     pushColours();
     const themeObs = new MutationObserver(pushColours);

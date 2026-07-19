@@ -3,6 +3,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { listProjects, listStudies } from "@/lib/storage";
 import { Reveal } from "@/components/ui/Reveal";
+import { SiteNav } from "@/components/ui/SiteNav";
 
 export const dynamic = "force-dynamic";
 
@@ -13,7 +14,7 @@ type Site = {
   clients: { label: string; note: string; items: { name: string; logo: string }[] };
   career: {
     label: string; note: string;
-    roles: { company: string; title: string; period: string; place: string; line: string }[];
+    roles: { company: string; title: string; period: string; place: string; line: string; logo?: string }[];
   };
   contact: { label: string; headline: string; email: string; links: { label: string; href: string }[] };
 };
@@ -29,9 +30,11 @@ export default async function Home() {
   ]);
 
   return (
+    <>
+    <SiteNav />
     <main>
       {/* ---------------- INTRO ---------------- */}
-      <section className="page section-intro">
+      <section id="intro" className="page section-intro">
         <Reveal>
           <p className="t-label">{site.intro.eyebrow}</p>
         </Reveal>
@@ -51,17 +54,16 @@ export default async function Home() {
       </section>
 
       {/* ---------------- WORKED WITH ---------------- */}
-      <section className="page section-block">
+      <section id="worked" className="page section-block">
         <Reveal>
           <h2 className="t-label">{site.clients.label}</h2>
         </Reveal>
         <Reveal delay={1}>
           <ul className="client-grid">
             {site.clients.items.map((c) => (
-              <li key={c.name} className="client-cell" title={c.name}>
-                {c.logo
-                  ? <img src={c.logo} alt={c.name} />
-                  : <span className="t-label client-cell__fallback">{c.name}</span>}
+              <li key={c.name} className="client-cell">
+                {c.logo && <img src={c.logo} alt="" />}
+                <span className="t-label client-cell__name">{c.name}</span>
               </li>
             ))}
           </ul>
@@ -74,7 +76,7 @@ export default async function Home() {
       </section>
 
       {/* ---------------- WORK ---------------- */}
-      <section className="page section-block">
+      <section id="work" className="page section-block">
         <Reveal>
           <h2 className="t-label">Work</h2>
           <p className="t-section-title" style={{ marginTop: "var(--space-4)" }}>
@@ -115,7 +117,7 @@ export default async function Home() {
       </section>
 
       {/* ---------------- BACKGROUND ---------------- */}
-      <section className="page section-block">
+      <section id="background" className="page section-block">
         <Reveal>
           <h2 className="t-label">{site.career.label}</h2>
           <p className="t-section-title" style={{ marginTop: "var(--space-4)", maxWidth: "24ch" }}>
@@ -129,7 +131,10 @@ export default async function Home() {
               <div className="career__row">
                 <span className="t-label career__period">{r.period}</span>
                 <div className="career__body">
-                  <p className="t-h3">{r.company}</p>
+                  <p className="career__company">
+                    {r.logo && <img className="career__logo" src={r.logo} alt="" />}
+                    <span className="t-h3">{r.company}</span>
+                  </p>
                   <p className="t-small career__title">{r.title} · {r.place}</p>
                   <p className="t-body career__line">{r.line}</p>
                 </div>
@@ -140,7 +145,7 @@ export default async function Home() {
       </section>
 
       {/* ---------------- CONTACT ---------------- */}
-      <section className="page section-block section-contact">
+      <section id="contact" className="page section-block section-contact">
         <Reveal>
           <h2 className="t-label">{site.contact.label}</h2>
         </Reveal>
@@ -166,5 +171,6 @@ export default async function Home() {
         </Reveal>
       </section>
     </main>
+    </>
   );
 }

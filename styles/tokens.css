@@ -145,6 +145,11 @@
   /* How far a section icon hangs outside the text column. Anything that
      wants to sit on the outer structural edge uses this same number, so
      there is one value to change, not several to keep in sync. */
+  /* Height of the sticky site header. Sections subtract it so a
+     full-height section is a full screen of visible page, not a screen
+     plus a hidden strip behind the bar. */
+  --nav-h: 76px;
+
   --icon-outdent: calc(38px + var(--space-4));
 
   /* Image shadow. Dark keeps it faint: a shadow on a near-black page is

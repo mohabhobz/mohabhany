@@ -723,8 +723,27 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
    and is not decoration.
    ============================================================ */
 
-.section-intro { padding-block: clamp(var(--space-24), 18vh, var(--space-32)) var(--space-24); }
-.section-block { padding-block: var(--space-24); }
+/* Every section is at least a screen tall and centres what it holds.
+
+   A short section stretched to a full screen reads as a deliberate stop;
+   the same section sized to its content reads as a gap someone forgot to
+   fill. Sections that already exceed a screen (Work, Background) simply
+   grow: justify-content only has an effect when there is spare room, so
+   one rule covers both cases without a second class.
+
+   svh, not vh: on mobile, vh is measured against the viewport with the
+   URL bar hidden, so a 100vh section is taller than the screen you are
+   actually looking at and every section starts slightly clipped. */
+.section-intro,
+.section-block {
+  min-height: calc(100svh - var(--nav-h));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: var(--space-24);
+}
+
+.section-intro { padding-top: var(--space-16); }
 .section-contact { padding-bottom: var(--space-32); }
 
 /* ---- Worked with -----------------------------------------------
@@ -919,7 +938,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 /* Anchors must not land under the sticky bar. */
-#intro, #worked, #work, #background, #contact { scroll-margin-top: 88px; }
+#intro, #worked, #work, #background, #consulting, #contact { scroll-margin-top: var(--nav-h); }
 
 @media (max-width: 720px) {
   .site-nav__list { gap: var(--space-4); }
@@ -959,7 +978,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 /* Anchors must not land under the sticky bar. */
-#intro, #worked, #work, #background, #contact { scroll-margin-top: 88px; }
+
 
 @media (max-width: 720px) {
   .site-nav__list { gap: var(--space-4); }

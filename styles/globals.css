@@ -925,6 +925,46 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .site-nav__list { gap: var(--space-4); }
 }
 
+/* ---- Site nav ---------------------------------------------------
+   Sticky, translucent, no rule underneath. See components/ui/SiteNav.tsx
+   for how the active link is tracked. */
+.site-nav {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-6); flex-wrap: wrap;
+  padding: var(--space-4) var(--gutter);
+  background: color-mix(in srgb, var(--color-bg) 82%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.site-nav__list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; gap: var(--space-6); flex-wrap: wrap;
+}
+
+.site-nav__link {
+  color: var(--color-ink);
+  opacity: .45;
+  position: relative;
+  padding-block: 2px;
+  transition: opacity var(--duration-base) var(--ease-out, ease-out),
+              color var(--duration-base) var(--ease-out, ease-out);
+}
+.site-nav__link:hover { opacity: .8; }
+
+.site-nav__link[data-active="true"] {
+  opacity: 1;
+  color: var(--color-accent-text);
+}
+
+/* Anchors must not land under the sticky bar. */
+#intro, #worked, #work, #background, #contact { scroll-margin-top: 88px; }
+
+@media (max-width: 720px) {
+  .site-nav__list { gap: var(--space-4); }
+}
+
 /* ---- Consulting & contract --------------------------------------
    Same rhythm as Background, mirrored: text leads, the mark sits on the
    trailing edge, and the dates land at the end of the entry rather than

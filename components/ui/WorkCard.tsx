@@ -1,24 +1,30 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRef } from "react";
 import type { Project, CaseStudy } from "@/lib/types";
 
 /**
  * A project as a card on the board.
  *
- * The cover is the same asset the project page opens with, so the card is
- * a preview of the thing rather than a separate piece of art to maintain.
+ * Uses `project.card`, which is its own asset — not the project cover. See
+ * the note on the field in lib/types.ts for why they are separate.
  *
- * Video covers do not autoplay. Fourteen cards each decoding video on load
+ * Images go through next/image, so what the browser downloads is sized to
+ * the tile it lands in and served as AVIF or WebP. The full-resolution file
+ * stays untouched on disk for the project page, which asks for it directly.
+ * The board never pays for a 4K screenshot to draw a 340px card.
+ *
+ * Video cards do not autoplay. A dozen tiles each decoding video on load
  * would cost more than the rest of the page combined, and a wall of
  * competing motion is not a board, it is a distraction. They play on
- * hover, one at a time, which is also the only moment anyone is looking.
+ * hover, one at a time, which is the only moment anyone is looking.
  */
 export function WorkCard({ project, studies }: { project: Project; studies: CaseStudy[] }) {
   const vid = useRef<HTMLVideoElement>(null);
   const href = studies[0] ? `/case-study/${studies[0].slug}` : "/work";
-  const cover = project.cover;
+  const card = project.card;
 
   return (
     <Link
@@ -28,15 +34,24 @@ export function WorkCard({ project, studies }: { project: Project; studies: Case
       onMouseLeave={() => { const v = vid.current; if (v) { v.pause(); v.currentTime = 0; } }}
     >
       <span className="card__media">
-        {cover?.kind === "video" ? (
+        {card?.kind === "video" ? (
           <video
             ref={vid}
-            src={cover.src}
-            poster={cover.poster || undefined}
-            muted loop playsInline preload="metadata"
+            src={card.src}
+            poster={card.poster || undefined}
+            muted loop playsInline preload="none"
           />
-        ) : cover?.src ? (
-          <img src={cover.src} alt="" loading="lazy" />
+        ) : card?.src ? (
+          <Image
+            src={card.src}
+            alt=""
+            fill
+            /* One card is at most half the viewport on a laptop and the full
+               width on a phone. Without this the browser assumes 100vw and
+               downloads a file three times bigger than the tile. */
+            sizes="(max-width: 700px) 100vw, (max-width: 1200px) 50vw, 380px"
+            style={{ objectFit: "cover" }}
+          />
         ) : (
           <span className="card__media--empty" />
         )}

@@ -85,6 +85,21 @@ export function ProjectCover({ project, editing, onChange, onUpload }: {
             onChange({ ...project, cover: { kind: "video", src, poster: cover?.poster, fit } }))}>
             ↑ Cover video
           </Btn>
+
+          {/* The board tile is its own asset, not a crop of the cover. */}
+          <span className="t-label" style={{ marginLeft: "var(--space-2)" }}>Board card:</span>
+          <Btn onClick={() => onUpload((src) =>
+            onChange({ ...project, card: { kind: "image", src } }))}>
+            ↑ Card image
+          </Btn>
+          <Btn onClick={() => onUpload((src) =>
+            onChange({ ...project, card: { kind: "video", src, poster: project.card?.poster } }))}>
+            ↑ Card video
+          </Btn>
+          {project.card && (
+            <DeleteBtn label="Remove card"
+              onConfirm={() => onChange({ ...project, card: undefined })} />
+          )}
           {cover?.kind === "video" && (
             <Btn onClick={() => onUpload((poster) =>
               onChange({ ...project, cover: { ...cover, poster } }))}>

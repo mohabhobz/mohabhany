@@ -66,6 +66,21 @@ export type Project = {
   slug: string;
   name: string;
   logo?: string;
+  /** How the project appears on the board on the landing page.
+
+      Deliberately separate from `cover`. The cover is the full-bleed
+      opening of the project page and is sized for that: a wide video or a
+      large screenshot. A card is a small tile in a grid, seen at a fraction
+      of the size, and often wants a different crop or a different image
+      entirely. Reusing one asset for both means one of the two is always
+      wrong, and it means the landing page pays to download something built
+      for a page nobody has opened yet. */
+  card?: {
+    kind: "image" | "video";
+    src: string;
+    poster?: string;
+  };
+
   /** Full-bleed cover at the very top of the page — image or video. */
   cover?: {
     kind: "image" | "video";

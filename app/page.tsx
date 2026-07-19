@@ -4,7 +4,6 @@ import path from "node:path";
 import { listProjects, listStudies } from "@/lib/storage";
 import { Reveal } from "@/components/ui/Reveal";
 import { SiteNav } from "@/components/ui/SiteNav";
-import { LiquidHero } from "@/components/ui/LiquidHero";
 
 export const dynamic = "force-dynamic";
 
@@ -41,7 +40,6 @@ export default async function Home() {
     <main>
       {/* ---------------- INTRO ---------------- */}
       <section id="intro" className="page section-intro">
-        <LiquidHero />
         <Reveal>
           <p className="t-label">{site.intro.eyebrow}</p>
         </Reveal>

@@ -92,10 +92,6 @@
 
 /* Explicit choice always wins over the system setting. */
 :root[data-theme="light"] {
-  /* On white, pale ink disappears. Same hue, carried darker. */
-  --liquid-ink:  #7A93AC;
-  --liquid-deep: #4E6B86;
-
   --shadow-image:
     0 1px 2px rgb(16 14 12 / .07),
     0 14px 36px -10px rgb(16 14 12 / .16);
@@ -153,13 +149,6 @@
      full-height section is a full screen of visible page, not a screen
      plus a hidden strip behind the bar. */
   --nav-h: 76px;
-
-  /* The hero ink. Its own pair rather than reusing surface/accent: it is
-     pigment suspended in water, not a UI surface, and it should not shift
-     if either of those is retuned. Pale blue-grey, denser where the ink
-     gathers. */
-  --liquid-ink:  #B7C7D6;
-  --liquid-deep: #8098AF;
 
   --icon-outdent: calc(38px + var(--space-4));
 

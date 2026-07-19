@@ -64,20 +64,20 @@ export default async function Home() {
           <h2 className="t-label">{site.clients.label}</h2>
           <p className="t-section-title section-title">{site.clients.title}</p>
         </Reveal>
-        <Reveal delay={1}>
-          <ul className="client-grid">
-            {site.clients.items.map((c) => (
-              <li key={c.name} className="client-cell">
-                {c.logo && <img src={c.logo} alt="" />}
-                <span className="t-label client-cell__name">{c.name}</span>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
+        <ul className="client-grid">
+          {/* Staggered per tile, but the step resets every five. Fourteen
+              logos at a full 0.07s each would take a second to finish and
+              the last row would still be arriving after you had scrolled
+              past it. */}
+          {site.clients.items.map((c, i) => (
+            <Reveal as="li" key={c.name} delay={(i % 5) as 0 | 1 | 2 | 3 | 4} className="client-cell">
+              {c.logo && <img src={c.logo} alt="" />}
+              <span className="t-label client-cell__name">{c.name}</span>
+            </Reveal>
+          ))}
+        </ul>
         <Reveal delay={2}>
-          <p className="t-small" style={{ marginTop: "var(--space-6)", maxWidth: "52ch", opacity: .7 }}>
-            {site.clients.note}
-          </p>
+          <p className="t-small client-note">{site.clients.note}</p>
         </Reveal>
       </section>
 

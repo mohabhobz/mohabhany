@@ -60,6 +60,10 @@
       {
         "name": "Identity Channel",
         "logo": "/logos/identity-channel.png"
+      },
+      {
+        "name": "EFG Hermes",
+        "logo": "/logos/efg-hermes.jpeg"
       }
     ],
     "title": "Teams across Egypt, the Gulf and beyond"
@@ -149,7 +153,7 @@
         "name": "EFG Hermes",
         "place": "Egypt",
         "period": "4 years",
-        "logo": "",
+        "logo": "/logos/efg-hermes.jpeg",
         "line": "Internal enterprise platforms for finance and HR, including dashboards and operational systems."
       },
       {

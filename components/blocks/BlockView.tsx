@@ -1,26 +1,58 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Block } from "@/lib/types";
 import { useLightbox } from "@/components/ui/Lightbox";
 
 /* Design-system frame. Every visual block goes through this.
    natural = show the whole image; crop = force the chosen ratio. */
+/**
+ * A cropped frame is a WINDOW, not a crop.
+ *
+ * The image sits at full width and its own natural height, and the frame
+ * scrolls. A tall page screenshot therefore stays readable in place: you
+ * can run down the whole page without opening the lightbox, and the layout
+ * still holds the ratio you chose.
+ *
+ * object-fit: cover would have thrown the rest of the image away. Keeping
+ * it and letting the frame scroll costs nothing and loses nothing.
+ *
+ * `focus` sets where the window starts. Top is the default because a page
+ * screenshot that opens halfway down has hidden the header, which is the
+ * part that says what screen this is.
+ */
 function Frame({ ratio, fit, framed = true, focus, children }: {
   ratio?: string; fit?: "natural" | "crop"; framed?: boolean;
   focus?: "top" | "center" | "bottom";
   children: React.ReactNode;
 }) {
   const natural = (fit ?? "natural") === "natural";
+  const box = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = box.current;
+    if (natural || !el) return;
+    /* After the image reports its height, put the window where it was asked
+       to start. Runs on load rather than on mount: at mount the image has no
+       height yet and every position resolves to zero. */
+    const place = () => {
+      const over = el.scrollHeight - el.clientHeight;
+      if (over <= 0) return;
+      el.scrollTop = focus === "bottom" ? over : focus === "center" ? over / 2 : 0;
+    };
+    place();
+    const img = el.querySelector("img");
+    img?.addEventListener("load", place);
+    return () => img?.removeEventListener("load", place);
+  }, [natural, focus]);
+
   const cls = [
     "frame",
-    natural ? "frame--natural" : `ratio-${ratio ?? "wide"}`,
+    natural ? "frame--natural" : `ratio-${ratio ?? "wide"} frame--scroll`,
     framed ? "" : "frame--bare",
-    /* Only meaningful under a crop. Nothing is discarded in natural mode,
-       so there is nothing to choose. */
-    natural ? "" : `focus-${focus ?? "top"}`,
   ].filter(Boolean).join(" ");
-  return <div className={cls}>{children}</div>;
+
+  return <div ref={box} className={cls}>{children}</div>;
 }
 function Empty({ label }: { label: string }) {
   return <div className="frame--empty" style={{ position: "absolute", inset: 0 }}>{label}</div>;

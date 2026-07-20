@@ -179,16 +179,25 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 .frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* Which part of a cropped image survives.
+/* A cropped frame is a scrollable window onto the whole image. See the
+   Frame component for why. The image keeps its natural proportions and
+   overflows downward; the frame holds the ratio and scrolls.
 
-   The browser default is centre, which is the wrong default for the thing
-   this site is mostly full of. Crop a tall page screenshot from the centre
-   and you lose the header, which is the part that says what screen this
-   is. Top is the default here for that reason; the other two are there for
-   the cases where the point of the image is lower down. */
-.focus-top    img, .focus-top    video { object-position: top; }
-.focus-center img, .focus-center video { object-position: center; }
-.focus-bottom img, .focus-bottom video { object-position: bottom; }
+   overscroll-behavior: contain stops the page from taking over the moment
+   you reach the end of the image, which is what makes this usable inside a
+   long article rather than infuriating. */
+.frame--scroll {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.frame--scroll img {
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  object-fit: cover;      /* only bites when the image is shorter than the frame */
+  object-position: top;
+}
 
 /* NATURAL — the frame takes the image's own shape. Nothing is cropped.
    This is the default, because a screenshot with its header sliced off

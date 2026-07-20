@@ -21,8 +21,13 @@ export type Block =
       framed = the bordered plate; off for mockups that carry their own edge.
       size   = how much of the column (or beyond it) the image takes. */
   | { id: string; kind: "image";     src: string; alt: string; caption: string; ratio: Ratio;
-      fit?: "natural" | "crop"; framed?: boolean; size?: "narrow" | "column" | "wide" }
-  | { id: string; kind: "gallery";   items: { src: string; alt: string }[]; caption: string; ratio: Ratio; fit?: "natural" | "crop" }
+      fit?: "natural" | "crop"; framed?: boolean; size?: "narrow" | "column" | "wide";
+      /** Which part of the image survives a crop. Only applies when fit is "crop".
+          Defaults to "top": a page screenshot cropped from the centre loses its
+          header, which is the part that identifies the screen. */
+      focus?: "top" | "center" | "bottom" }
+  | { id: string; kind: "gallery";   items: { src: string; alt: string }[]; caption: string; ratio: Ratio;
+      fit?: "natural" | "crop"; focus?: "top" | "center" | "bottom" }
   | { id: string; kind: "beforeAfter"; before: string; after: string; caption: string; ratio?: Ratio; fit?: "natural" | "crop" }
   | { id: string; kind: "video";     src: string; poster: string; caption: string }
   | { id: string; kind: "pdf";       src: string; label: string }

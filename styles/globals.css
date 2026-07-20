@@ -179,6 +179,17 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 .frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+/* Which part of a cropped image survives.
+
+   The browser default is centre, which is the wrong default for the thing
+   this site is mostly full of. Crop a tall page screenshot from the centre
+   and you lose the header, which is the part that says what screen this
+   is. Top is the default here for that reason; the other two are there for
+   the cases where the point of the image is lower down. */
+.focus-top    img, .focus-top    video { object-position: top; }
+.focus-center img, .focus-center video { object-position: center; }
+.focus-bottom img, .focus-bottom video { object-position: bottom; }
+
 /* NATURAL — the frame takes the image's own shape. Nothing is cropped.
    This is the default, because a screenshot with its header sliced off
    is worse than a screenshot that isn't the same height as its neighbour. */

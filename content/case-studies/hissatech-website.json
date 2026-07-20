@@ -16,17 +16,17 @@
                 "id": "kgrpwflp",
                 "kind": "heading",
                 "level": 2,
-                "text": "You are asking someone to buy something they cannot stand in"
+                "text": "The site has to earn a download before the product can earn a customer"
               },
               {
                 "id": "y0j1h0ks",
                 "kind": "paragraph",
-                "text": "Real estate in Saudi Arabia is understood physically. You see the building, you hold the deed, you know the street. Fractional ownership breaks all three: you buy 1% of a property you will never visit, through an app, and what you own is a certificate rather than a door."
+                "text": "Real estate in Saudi Arabia is understood physically. You see the building, you hold the deed, you know the street. Fractional ownership breaks all three: you buy 1% of a property you will never visit, and what you own is a certificate rather than a door."
               },
               {
                 "id": "4irxutvp",
                 "kind": "paragraph",
-                "text": "Everything else about the product was secondary to that. The listings, the returns, the payment flow: none of it matters if the person does not first believe that what they are buying is real."
+                "text": "That is the site's whole problem. Someone arriving here has not committed anything yet, and the thing being asked of them is not small: install a financial app and put money into an instrument they have never heard of. Every section had to close part of that gap, or it did not belong on the page."
               }
             ]
           ]
@@ -36,7 +36,7 @@
     },
     {
       "id": "j08iqbm8",
-      "title": "The constraints",
+      "title": "What was there before",
       "rows": [
         {
           "id": "u0zsnzam",
@@ -47,21 +47,75 @@
                 "id": "vn9lm9ym",
                 "kind": "heading",
                 "level": 2,
-                "text": "Three constraints, and none of them optional"
-              },
-              {
-                "id": "nb98oxdk",
-                "kind": "list",
-                "items": [
-                  "Sharia compliance. The investment structure had to be reviewed and approved by a scholar, and that approval had to be visible in the product, not filed away.",
-                  "Regulatory. Hissatech operates inside the Saudi Real Estate General Authority (REGA) regulatory sandbox, which governs what can be claimed and how.",
-                  "Arabic and RTL. Not a translation layer. The product is Arabic first, and the layout, numerals, and reading order follow from that."
-                ]
+                "text": "The old site asserted trust. It did not show it."
               },
               {
                 "id": "v087r8e5",
                 "kind": "paragraph",
-                "text": "Most product constraints are trade-offs you can argue about. These three were fixed before design started, and the work was to make them read as reassurance rather than as fine print."
+                "text": "The previous site listed opportunities and stated that the company was licensed. There was no calculator, no explanation of how a share is created, no Sharia ruling, no partners, no founders. Sixteen FAQ entries sat on the landing page in place of an argument."
+              },
+              {
+                "id": "r0wjhf0a",
+                "kind": "table",
+                "head": [
+                  "",
+                  "Before",
+                  "After"
+                ],
+                "rows": [
+                  [
+                    "Return calculator",
+                    "None",
+                    "On the landing page"
+                  ],
+                  [
+                    "How a share is created",
+                    "Not explained",
+                    "A page of its own"
+                  ],
+                  [
+                    "Sharia ruling",
+                    "Not shown",
+                    "Named scholar, certificate linked"
+                  ],
+                  [
+                    "Partners",
+                    "None",
+                    "Five, named"
+                  ],
+                  [
+                    "Founders",
+                    "None",
+                    "Four, with photographs"
+                  ],
+                  [
+                    "FAQ on landing",
+                    "16 entries",
+                    "4, with a link"
+                  ]
+                ]
+              },
+              {
+                "id": "3rabzu4p",
+                "kind": "image",
+                "src": "/uploads/1784568808228-Landing.png",
+                "alt": "",
+                "caption": "click to see full page",
+                "ratio": "wide",
+                "fit": "crop",
+                "framed": true,
+                "size": "column"
+              },
+              {
+                "id": "fbfug9dm",
+                "kind": "image",
+                "src": "/uploads/1784568855035-Hisatech-Landing-page-ARfull-page.jpg",
+                "alt": "",
+                "caption": "click to see full page",
+                "ratio": "wide",
+                "fit": "crop",
+                "framed": true,
+                "size": "column"
               }
             ]
           ]
@@ -143,8 +197,133 @@
         }
       ],
       "icon": "layers"
+    },
+    {
+      "id": "hjttf2a9",
+      "title": "The calculator",
+      "rows": [
+        {
+          "id": "05bwzz0b",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "icukcvfw",
+                "kind": "heading",
+                "level": 2,
+                "text": "Answering the question before it is asked"
+              },
+              {
+                "id": "wt14k8p1",
+                "kind": "paragraph",
+                "text": "Every prospective investor arrives with the same question: what do I actually get back. The honest answer lives inside the app, behind a download. The calculator brings it forward onto the landing page, before anyone has committed to anything. You enter what you want to invest, and you see the monthly income and the expected profit if the property is sold in three to five years."
+              },
+              {
+                "id": "4p8sif5z",
+                "kind": "paragraph",
+                "text": "It carries its own disclaimer, in plain language: the figures are estimates, they depend on the property and the rental market, and real results will differ. A calculator that overpromises does more damage than no calculator at all, especially inside a regulatory sandbox."
+              },
+              {
+                "id": "gt13kc28",
+                "kind": "image",
+                "src": "/uploads/1784471481577-Group-13.png",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "column"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "price"
+    },
+    {
+      "id": "6bvk8olv",
+      "title": "Trust as a design material",
+      "rows": [
+        {
+          "id": "hru8qjdp",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "6j7byrb0",
+                "kind": "heading",
+                "level": 2,
+                "text": "The credibility has to be on the page"
+              },
+              {
+                "id": "gp7stt7v",
+                "kind": "paragraph",
+                "text": "For a product this unfamiliar, the trust signals are not decoration around the product. They are part of it, and each one is specific rather than generic:"
+              },
+              {
+                "id": "i32h5lhk",
+                "kind": "list",
+                "items": [
+                  "The Sharia ruling is named. Reviewed and approved by Sheikh Prof. Yousef bin Abdullah Al Shubaily, with the certificate itself one tap away.",
+                  "The regulator is named. REGA sandbox, stated on the home page and explained in full on the about page.",
+                  "The partners are named. Mada, Nafath, the Real Estate Authority, Arab National Bank, Lean.",
+                  "The founders are named, with photographs and real biographies."
+                ]
+              },
+              {
+                "id": "fswbt2p7",
+                "kind": "paragraph",
+                "text": "A badge that says \"secure\" persuades nobody. A scholar's name, a regulator's programme, and a bank you already use are checkable, and checkable is the only kind of trust that survives a serious investor."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "insight"
+    },
+    {
+      "id": "gnfnn76o",
+      "title": "Arabic first",
+      "rows": [
+        {
+          "id": "njd2b8vt",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "j6waew90",
+                "kind": "heading",
+                "level": 2,
+                "text": "Built right to left, not flipped"
+              },
+              {
+                "id": "leme7beq",
+                "kind": "paragraph",
+                "text": "The product is Arabic first and reads right to left throughout: layout, navigation, forms, numerals, and the direction of every progress sequence. The English version is the mirror, not the original."
+              },
+              {
+                "id": "5mozrgma",
+                "kind": "paragraph",
+                "text": " The copy is Saudi, not Modern Standard Arabic translated from English. Lines like \"تقدر تشوف العوائد قبل ما تختار\" are how the audience actually speaks, and in a market where most fintech copy reads as translated, that is a trust signal of its own."
+              },
+              {
+                "id": "noiqa6ly",
+                "kind": "image",
+                "src": "/uploads/1784471889006-Group-15.png",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "column"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "design"
     }
   ],
-  "status": "draft",
-  "updatedAt": "2026-07-19T14:20:14.424Z"
+  "status": "published",
+  "updatedAt": "2026-07-20T17:36:04.816Z"
 }

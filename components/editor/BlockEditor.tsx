@@ -81,6 +81,19 @@ export function BlockEditor({ block, onChange, onUpload }: {
                onClick={() => set({ fit: "crop" })}>Crop</Btn>
         </div>
 
+        {/* Only under a crop. Nothing is discarded otherwise, so there is
+            nothing to choose and the control would be noise. */}
+        {block.fit === "crop" && (
+          <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center", marginTop: "var(--space-2)" }}>
+            <span className="t-label">Keep:</span>
+            {([["top", "Top"], ["center", "Middle"], ["bottom", "Bottom"]] as const).map(([v, label]) => (
+              <Btn key={v} tone={(block.focus ?? "top") === v ? "accent" : undefined}
+                   title={`Crop away everything except the ${label.toLowerCase()} of the image`}
+                   onClick={() => set({ focus: v })}>{label}</Btn>
+            ))}
+          </div>
+        )}
+
         <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center", marginTop: "var(--space-2)" }}>
           <span className="t-label">Size:</span>
           {([["narrow", "Narrow"], ["column", "Column"], ["wide", "Full width"]] as const).map(([v, label]) => (

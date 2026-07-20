@@ -6,8 +6,9 @@ import { useLightbox } from "@/components/ui/Lightbox";
 
 /* Design-system frame. Every visual block goes through this.
    natural = show the whole image; crop = force the chosen ratio. */
-function Frame({ ratio, fit, framed = true, children }: {
+function Frame({ ratio, fit, framed = true, focus, children }: {
   ratio?: string; fit?: "natural" | "crop"; framed?: boolean;
+  focus?: "top" | "center" | "bottom";
   children: React.ReactNode;
 }) {
   const natural = (fit ?? "natural") === "natural";
@@ -15,6 +16,9 @@ function Frame({ ratio, fit, framed = true, children }: {
     "frame",
     natural ? "frame--natural" : `ratio-${ratio ?? "wide"}`,
     framed ? "" : "frame--bare",
+    /* Only meaningful under a crop. Nothing is discarded in natural mode,
+       so there is nothing to choose. */
+    natural ? "" : `focus-${focus ?? "top"}`,
   ].filter(Boolean).join(" ");
   return <div className={cls}>{children}</div>;
 }
@@ -130,7 +134,7 @@ export function BlockView({ block }: { block: Block }) {
     case "image":
       return (
         <figure className={`figure img-${block.size ?? "column"}`}>
-          <Frame ratio={block.ratio} fit={block.fit} framed={block.framed ?? true}>
+          <Frame ratio={block.ratio} fit={block.fit} framed={block.framed ?? true} focus={block.focus}>
             {block.src
               ? <img src={block.src} alt={block.alt} className="zoomable"
                      onClick={() => open({ src: block.src, alt: block.alt })} />

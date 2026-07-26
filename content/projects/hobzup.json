@@ -1,0 +1,15 @@
+{
+  "slug": "hobzup",
+  "name": "HOBZ UP",
+  "logo": "/uploads/1784798424186-Logo.webp",
+  "description": "Personal work, no client and no brief. Framed honestly as practice, which is\nthe strength here, not something to hide. Screens go in after the copy is\nfixed in Figma. No prices or metrics are claimed. No em dashes.\n\n",
+  "slogan": "A self-directed design exercise",
+  "period": "",
+  "role": "End-to-end designer\n",
+  "cover": {
+    "kind": "image",
+    "src": "/uploads/1784803479977-MacBook-Air--2022-5.webp",
+    "fit": "fit"
+  },
+  "order": 3
+}

@@ -98,7 +98,7 @@ export function ProjectsAdmin({
               >
                 <span className="p-row__grip t-label" aria-hidden="true">⠿</span>
 
-                <span className="logo-plate p-row__logo">
+                <span className={`logo-plate p-row__logo${p.logoFill ? " logo-plate--fill" : ""}`}>
                   {p.logo ? <img src={p.logo} alt="" /> : <span className="t-label">{p.name.slice(0, 2)}</span>}
                 </span>
 

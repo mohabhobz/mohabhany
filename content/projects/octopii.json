@@ -1,0 +1,15 @@
+{
+  "slug": "octopii",
+  "name": "Octopii",
+  "logo": "/uploads/1784804003664-Octopii-Logo.webp",
+  "description": "Real freelance client, no NDA, full visuals fine. Screens go in after the\ncopy is cleaned in Figma (the design has a few em dashes and a duplicated\n\"Beauty Salon\" to fix first). No em dashes in this document.\n\n",
+  "period": "Oct 2022 – Oct 2024",
+  "role": "Senior Product Designer",
+  "cover": {
+    "kind": "image",
+    "src": "/uploads/1784885654612-cover.webp",
+    "fit": "fit"
+  },
+  "order": 5,
+  "slogan": "A no-code app builder for service businesses\n\n\n"
+}

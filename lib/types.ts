@@ -31,7 +31,7 @@ export type Block =
   | { id: string; kind: "beforeAfter"; before: string; after: string; caption: string; ratio?: Ratio; fit?: "natural" | "crop" }
   | { id: string; kind: "video";     src: string; poster: string; caption: string }
   | { id: string; kind: "pdf";       src: string; label: string }
-  | { id: string; kind: "figma";     src: string; caption: string }
+  | { id: string; kind: "figma";     src: string; caption: string; ratio?: string; scaling?: string }
   | { id: string; kind: "stat";      value: string; label: string }
   | { id: string; kind: "decision";  considered: { title: string; body: string };
                                      chosen:     { title: string; body: string }; tradeoff: string }
@@ -71,6 +71,10 @@ export type Project = {
   slug: string;
   name: string;
   logo?: string;
+  /** When true the logo bleeds to the plate edges (no white plate, no
+      padding). For logos that already carry their own background, like a
+      full-colour app icon, where the plate would add an unwanted border. */
+  logoFill?: boolean;
   /** How the project appears on the board on the landing page.
 
       Deliberately separate from `cover`. The cover is the full-bleed
@@ -158,7 +162,7 @@ export function newBlock(kind: BlockKind): Block {
     case "beforeAfter": return { id, kind, before: "", after: "", caption: "Drag to compare.", ratio: "wide", fit: "natural" };
     case "video":     return { id, kind, src: "", poster: "", caption: "" };
     case "pdf":       return { id, kind, src: "", label: "Download the PDF" };
-    case "figma":     return { id, kind, src: "", caption: "Prototype is view-only." };
+    case "figma":     return { id, kind, src: "", caption: "Prototype is view-only.", ratio: "16 / 10", scaling: "contain" };
     case "stat":      return { id, kind, value: "58% → 13%", label: "what changed, in one line" };
     case "decision":  return { id, kind,
                         considered: { title: "Option A", body: "What you considered." },

@@ -1,0 +1,203 @@
+{
+  "slug": "octopii-website",
+  "projectSlug": "octopii",
+  "title": "Website",
+  "sections": [
+    {
+      "id": "fbtc9n0s",
+      "title": "The problem",
+      "rows": [
+        {
+          "id": "ilpe34l7",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "sv7dtabr",
+                "kind": "heading",
+                "level": 2,
+                "text": "A real app, without a developer"
+              },
+              {
+                "id": "55938fjh",
+                "kind": "paragraph",
+                "text": "A clinic, a barber, a coach, or a driving school all want the same thing: their own app and a way to run it. Almost none of them can hire a developer or learn to build one. Octopii set out to close that gap with a single platform that fits many kinds of business, so someone with no technical background can have a finished, branded app of their own."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "problem"
+    },
+    {
+      "id": "r4wjr9dd",
+      "title": "The solution",
+      "rows": [
+        {
+          "id": "xuk6arod",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "n9k2fax3",
+                "kind": "heading",
+                "level": 2,
+                "text": "Four steps, then it is yours"
+              },
+              {
+                "id": "2pk34s3d",
+                "kind": "paragraph",
+                "text": "The whole thing is built to feel like filling in a short form, not commissioning software:"
+              },
+              {
+                "id": "xchpb3fv",
+                "kind": "list",
+                "items": [
+                  "Enter your details",
+                  "Verify with a one-time code",
+                  "Choose your icon, colours, and app name",
+                  "Name your business and pick your sector"
+                ]
+              },
+              {
+                "id": "t51zgb80",
+                "kind": "paragraph",
+                "text": "Pay, and the platform instantly hands over two things: a link to the admin dashboard, and the app's APK file. From idea to a working app in one sitting."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "insight"
+    },
+    {
+      "id": "flh5yrkf",
+      "title": "Design as reassurance",
+      "rows": [
+        {
+          "id": "h4hn324n",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "mtvmhx6t",
+                "kind": "heading",
+                "level": 2,
+                "text": "Show them it is real, as they build"
+              },
+              {
+                "id": "2y4ucigc",
+                "kind": "paragraph",
+                "text": "The people using this are nervous about technology, so the flow had to remove doubt at every step. A live phone preview sits beside each screen and updates as they choose: pick a colour and a name, and the app on the right rebrands to match in real time. By the time they reach payment they have already watched their own app take shape, so paying feels like claiming something that exists, not gambling on something that might."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "eye"
+    },
+    {
+      "id": "kxrbi123",
+      "title": "The build flow",
+      "rows": [
+        {
+          "id": "h12zgqdq",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "47r8ryba",
+                "kind": "heading",
+                "level": 2,
+                "text": "The onboarding, Play prototype "
+              },
+              {
+                "id": "tk4yx7kk",
+                "kind": "figma",
+                "src": "https://embed.figma.com/proto/JCF4aRePDkJFcC00gbACDP/Octopii?node-id=5387-10160&viewport=2057%2C230%2C0.17&starting-point-node-id=5387%3A10160&page-id=3683%3A9204&embed-host=share&footer=false",
+                "caption": "Prototype is view-only.",
+                "ratio": "16 / 10",
+                "scaling": "scale-down-width"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "structure"
+    },
+    {
+      "id": "dmaz3ir5",
+      "title": "Two owners, one product ",
+      "rows": [
+        {
+          "id": "4pfco9l7",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "wcn5e5v6",
+                "kind": "heading",
+                "level": 2,
+                "text": "An admin inside an admin"
+              },
+              {
+                "id": "kiy09nc8",
+                "kind": "paragraph",
+                "text": "The hardest part was not the four steps. It was that Octopii serves two levels of control at once, and both had to be designed:"
+              },
+              {
+                "id": "e2mnkbyh",
+                "kind": "list",
+                "items": [
+                  "The business owner runs their own app from a client admin: adding the services they offer, their prices, and their names.",
+                  "Octopii runs the whole platform from a company admin, managing every client's product above them."
+                ]
+              },
+              {
+                "id": "8vkeab2o",
+                "kind": "paragraph",
+                "text": "Designing one system that keeps those two roles clear, without either one seeing controls that are not theirs, is the real product behind the friendly four-step face."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "layers"
+    },
+    {
+      "id": "q9r3dr4c",
+      "title": "The surfaces",
+      "rows": [
+        {
+          "id": "2ooko96g",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "qj38vl42",
+                "kind": "heading",
+                "level": 2,
+                "text": "What I designed"
+              },
+              {
+                "id": "k2c19omh",
+                "kind": "paragraph",
+                "text": "Across the project I designed the full surface: the marketing website that explains the promise, the app-builder flow that delivers it, the app that gets handed to the business, and both admin panels behind it. One product, four faces, held to a single visual language."
+              },
+              {
+                "id": "64cxwksz",
+                "kind": "figma",
+                "src": "https://embed.figma.com/proto/JCF4aRePDkJFcC00gbACDP/Octopii?node-id=3683-9205&t=QoUJSYIhZvwheY5H-0&starting-point-node-id=3683%3A9205&page-id=3683%3A9204&embed-host=share&footer=false",
+                "caption": "Prototype is view-only.",
+                "ratio": "16 / 10",
+                "scaling": "scale-down-width"
+              }
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "status": "published",
+  "updatedAt": "2026-07-24T12:30:58.094Z"
+}

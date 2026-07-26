@@ -2,7 +2,7 @@
   "intro": {
     "eyebrow": "Mohab Hany · Senior Product Designer",
     "headline": "Design, measured",
-    "lead": "Nine years designing products people actually use, across fintech, e-commerce, real estate and government. I own the whole arc: research, design, hand-off, and the number it moved after launch.",
+    "lead": "Nine years designing products people actually use, across fintech, e-commerce, real estate and government. I own the whole arc, AI-native now: research, design, hand-off, and the number it moved after launch.",
     "note": "Working across Egypt and the Gulf."
   },
   "clients": {
@@ -11,59 +11,59 @@
     "items": [
       {
         "name": "Dubai Police",
-        "logo": "/logos/dubai-police.jpeg"
+        "logo": "/logos/dubai-police.webp"
       },
       {
         "name": "b_labs",
-        "logo": "/logos/b-labs.jpeg"
+        "logo": "/logos/b-labs.webp"
       },
       {
         "name": "Mylo",
-        "logo": "/logos/mylo.jpeg"
+        "logo": "/logos/mylo.webp"
       },
       {
         "name": "Nawy",
-        "logo": "/logos/nawy.jpeg"
+        "logo": "/logos/nawy.webp"
       },
       {
         "name": "EFG Hermes",
-        "logo": "/logos/efg-hermes.jpeg"
+        "logo": "/logos/efg-hermes.webp"
       },
       {
         "name": "Hissatech",
-        "logo": "/logos/hissatech.jpeg"
+        "logo": "/logos/hissatech.webp"
       },
       {
         "name": "G2K Group",
-        "logo": "/logos/g2k.jpeg"
+        "logo": "/logos/g2k.webp"
       },
       {
         "name": "Pleny",
-        "logo": "/logos/pleny.jpeg"
+        "logo": "/logos/pleny.webp"
       },
       {
         "name": "Diamond Professional Consultants",
-        "logo": "/logos/diamond.jpeg"
+        "logo": "/logos/diamond.webp"
       },
       {
         "name": "Octopii",
-        "logo": "/logos/octopii.jpeg"
+        "logo": "/logos/octopii.webp"
       },
       {
         "name": "RVE",
-        "logo": "/logos/rve.jpeg"
+        "logo": "/logos/rve.webp"
       },
       {
         "name": "MuslimDo",
-        "logo": "/logos/muslimdo.jpeg"
+        "logo": "/logos/muslimdo.webp"
       },
       {
         "name": "Telemedia",
-        "logo": "/logos/telemedia.png"
+        "logo": "/logos/telemedia.webp"
       },
       {
         "name": "Identity Channel",
-        "logo": "/logos/identity-channel.png"
+        "logo": "/logos/identity-channel.webp"
       }
     ],
     "title": "Teams across Egypt, the Gulf and beyond"
@@ -78,27 +78,33 @@
     "note": "Discovery at work is AI-native: I frame a problem against comparable systems in minutes, produce wireframes live in the same session with the PM, then run an agent that audits the designs against the requirement before hand-off. The things below are what came out of working that way.",
     "items": [
       {
+        "name": "This site",
+        "href": "",
+        "logo": "hobz",
+        "line": "Designed and built solo with AI, from the design system to the code: content model, editor, image pipeline, and deploy. You are looking at it."
+      },
+      {
         "name": "Design-System Generator",
         "href": "",
-        "logo": "",
+        "logo": "dsg",
         "line": "Generates a complete design system from brand input: tokens, components, themes. A canvas turns a written business request into on-brand screens, and exports in one click to Figma and to code on GitHub. In use by my team at b_labs."
       },
       {
         "name": "Agarly",
         "href": "https://agaarly.com",
-        "logo": "",
+        "logo": "/logos/agarly.webp",
         "line": "A rental marketplace, designed and shipped solo using AI across the whole stack: front end, back end, database, hosting, admin panel, and a CRM with customer analytics. Live and running."
       },
       {
         "name": "Iconoro",
         "href": "",
-        "logo": "",
+        "logo": "/logos/iconoro.webp",
         "line": "An AI-generated 3D illustration library. Ten thousand consistent, searchable illustrations per pack, held to one visual language across the set. Launching soon."
       },
       {
         "name": "AIX, Dubai Police",
         "href": "",
-        "logo": "/logos/dubai-police.jpeg",
+        "logo": "/logos/dubai-police.webp",
         "line": "Conversational AI as a government service: citizens ask about any service in natural language and are guided to completion. I improved the product and built its design system from scratch, to Dubai Government and WCAG standards."
       }
     ]
@@ -112,7 +118,7 @@
         "period": "Oct 2025 — Present",
         "place": "Cairo",
         "line": "Fintech. Customer onboarding end to end across mobile and tablet, an AI-driven routing flow deciding who completes digitally and who goes in-branch, and the internal risk and fraud tools behind it.",
-        "logo": "/logos/mylo.jpeg"
+        "logo": "/logos/mylo.webp"
       },
       {
         "company": "b_labs — B.TECH Group",
@@ -120,15 +126,15 @@
         "period": "Nov 2024 — Oct 2025",
         "place": "Cairo",
         "line": "Rebuilt the marketplace off legacy Magento with a unified catalog and independent seller pricing. Contributed to 2.5× GMV growth.",
-        "logo": "/logos/b-labs.jpeg"
+        "logo": "/logos/b-labs.webp"
       },
       {
         "company": "Nawy",
         "title": "Senior Product Designer",
         "period": "Oct 2022 — Oct 2024",
         "place": "Cairo",
-        "line": "Largest proptech in Africa. Grew monthly actives from 50K to 500K, lifted conversion from 1% to 3.5%, and built the design system serving four products.",
-        "logo": "/logos/nawy.jpeg"
+        "line": "Largest proptech in Africa. Grew monthly actives from 50K to 750K, lifted conversion from 1% to 3.5%, and built the design system serving four products.",
+        "logo": "/logos/nawy.webp"
       },
       {
         "company": "G2K Group — now ServiceNow",
@@ -136,82 +142,82 @@
         "period": "Apr 2017 — Oct 2022",
         "place": "Cairo",
         "line": "Six national-scale platforms for government and enterprise, including ticketing for the Grand Egyptian Museum and Tazkarti. Also wrote production front-end, which is why hand-off is not a guess.",
-        "logo": "/logos/g2k.jpeg"
+        "logo": "/logos/g2k.webp"
       }
     ],
-    "title": "Nine years, three design systems built from scratch"
+    "title": "Nine years shipping to millions of users"
   },
   "consulting": {
-    "label": "Consulting & contract",
+    "label": "Freelance & contract",
     "items": [
       {
         "name": "Dubai Police",
         "place": "UAE",
         "period": "",
-        "logo": "/logos/dubai-police.jpeg",
+        "logo": "/logos/dubai-police.webp",
         "line": "AIX, the AI assistant on the Dubai Police website. Citizens ask about any government service in natural language and are guided to completion. Delivered the conversational experience end to end, plus a design system with full token architecture built to WCAG standards."
       },
       {
         "name": "Hissatech",
         "place": "KSA",
         "period": "",
-        "logo": "/logos/hissatech.jpeg",
+        "logo": "/logos/hissatech.webp",
         "line": "Product experience for a Sharia-compliant fractional real-estate investment platform: ROI calculator, listings, full RTL."
       },
       {
         "name": "EFG Hermes",
         "place": "Egypt",
         "period": "",
-        "logo": "/logos/efg-hermes.jpeg",
+        "logo": "/logos/efg-hermes.webp",
         "line": "Internal enterprise platforms for finance and HR, including dashboards and operational systems."
       },
       {
         "name": "Pleny",
         "place": "UAE",
         "period": "",
-        "logo": "/logos/pleny.jpeg",
+        "logo": "/logos/pleny.webp",
         "line": "Led UI/UX for a food-focused social platform. Shipped iOS and Android apps and the design system behind them."
       },
       {
         "name": "Identity Channel",
         "place": "KSA",
         "period": "",
-        "logo": "/logos/identity-channel.png",
+        "logo": "/logos/identity-channel.webp",
         "line": "B2B distribution platform with store inventory tracking, restocking alerts and a field-agent mobile app."
       },
       {
         "name": "Octopii",
         "place": "",
         "period": "",
-        "logo": "/logos/octopii.jpeg",
+        "logo": "/logos/octopii.webp",
         "line": "All-in-one business management SaaS."
       },
       {
         "name": "Diamond Professional Consultants",
         "place": "KSA",
         "period": "",
-        "logo": "/logos/diamond.jpeg",
+        "logo": "/logos/diamond.webp",
         "line": "Over twenty B2B analytics dashboards across web, mobile and Power BI for Saudi government and enterprise clients."
       },
       {
         "name": "RVE",
         "place": "",
         "period": "",
-        "logo": "/logos/rve.jpeg",
+        "logo": "/logos/rve.webp",
         "line": "Fractional ownership platform."
       },
       {
         "name": "MuslimDo",
         "place": "Canada",
         "period": "",
-        "logo": "/logos/muslimdo.jpeg",
+        "logo": "/logos/muslimdo.webp",
         "line": "Consumer product design."
       },
       {
         "name": "Telemedia",
         "place": "",
         "period": "",
-        "logo": "/logos/telemedia.png",
+        "logo": "/logos/telemedia.webp",
         "line": "A communications app: mentor discovery and profiles, wallet and top-up with Apple Pay and card, one-to-one messaging, voice and video calling, and a notifications centre. Designed in Arabic, right to left throughout."
       },
       {
@@ -222,7 +228,9 @@
         "line": "Proptech platform."
       }
     ],
-    "title": "Product work delivered alongside the full-time roles"
+    "title": "Designer, end to end",
+    "meta": "2017 – Present · Cairo · Dubai · Riyadh",
+    "note": "Selected client work: custom websites, mobile apps, and design systems for teams across fintech, proptech, government, and consumer products."
   },
   "contact": {
     "label": "Contact",
@@ -231,15 +239,21 @@
     "links": [
       {
         "label": "LinkedIn",
-        "href": "https://www.linkedin.com/in/mohab-mohamed-6ba959a8/"
+        "href": "https://www.linkedin.com/in/mohabhany/",
+        "icon": "linkedin",
+        "brand": "#0A66C2"
       },
       {
-        "label": "UX Five on YouTube",
-        "href": "https://www.youtube.com/@UXFive"
+        "label": "YouTube",
+        "href": "https://www.youtube.com/@UXFive",
+        "icon": "youtube",
+        "brand": "#FF0000"
       },
       {
-        "label": "Portfolio archive",
-        "href": "https://mohabhany.myportfolio.com"
+        "label": "Behance",
+        "href": "https://www.behance.net/mohab_hany",
+        "icon": "behance",
+        "brand": "#1769FF"
       }
     ]
   }

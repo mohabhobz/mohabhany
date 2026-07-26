@@ -6,7 +6,14 @@ out
 *.tsbuildinfo
 next-env.d.ts
 
-# local media while building
-public/uploads/*
-!public/uploads/.gitkeep
+# Media ships WITH the code.
+# It used to be ignored, which was right while the folder held 161MB of
+# unoptimised screenshots. Compressed it is ~23MB, small enough to live in
+# the repo, and that removes the whole class of problem where the site
+# builds fine and every image 404s in production.
+
+# Source artwork, not site assets. These are the full-resolution originals
+# the files in public/ were made from. The site never reads them and 19MB
+# of them has no business in a deploy.
+Company Logos/
 uploads-trash/

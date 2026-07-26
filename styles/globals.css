@@ -9,6 +9,9 @@
 * { margin: 0; padding: 0; }
 
 html {
+  /* The browser owns the duration here and there is no way to set it. A JS
+     scroll was tried so the timing could be chosen, and every version of it
+     was worse than this. Left alone. */
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
@@ -22,7 +25,21 @@ body {
   font-weight: var(--weight-regular);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  /* clip, NOT hidden. This one keyword is why backdrop-filter never worked
+     on either sticky bar.
+
+     overflow-x: hidden makes body a SCROLL CONTAINER, even though nothing
+     ever scrolls sideways in it. A scroll container is a new backdrop root,
+     so a sticky bar inside it can only sample what body itself painted, and
+     the blur silently does nothing. No opacity value fixes that, which is
+     why tuning the bar from 88% to 58% changed how solid it looked and
+     never made it blur.
+
+     overflow-x: clip does the same job, stops the same horizontal overflow,
+     and does NOT create a scroll container. Sticky keeps working, and the
+     backdrop root goes back to the viewport where it belongs. */
+  overflow-x: hidden;   /* fallback for engines without clip */
+  overflow-x: clip;
   text-rendering: optimizeLegibility;
 }
 
@@ -144,9 +161,10 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   text-transform: uppercase;
   color: var(--color-dim);
 }
-.t-arabic { font-family: var(--font-arabic); }
 
-/* The signature: an orange full stop. Used once per heading, max. */
+/* The signature: a full stop at the end of a heading. It used to be orange.
+   Now it is ink, so it reads as punctuation rather than decoration.
+   Still once per heading, max. */
 .dot { color: var(--color-accent); }
 
 /* ============================================================
@@ -338,7 +356,16 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   flex-shrink: 0;
 }
 .logo-plate img { width: 100%; height: 100%; object-fit: contain; }
-.logo-plate .t-label { color: #9AA096; font-size: 9px; }
+
+/* Logo carries its own background, so drop the plate: no white, no border,
+   no padding, and cover instead of contain so it reaches every edge. */
+.logo-plate--fill {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+.logo-plate--fill img { object-fit: cover; }
+.logo-plate .t-label { color: #9E9E9E; font-size: 9px; }
 
 /* Image grids */
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
@@ -350,11 +377,21 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 /* ============================================================
    MOTION
 
-   Two speeds, one easing, and no exceptions:
+   One floor, one easing, and no exceptions:
 
-     RESPONDING to input (hover, focus, press)  --duration-fast
-     ARRIVING on its own (reveals, covers)      --duration-slow
+     NOTHING moves for less than 0.6s   --duration-fast / -base / -reveal
+     ARRIVING on its own is longer      --duration-slow (0.8s)
      --ease-out everywhere
+
+   This replaced a two-speed scale where responding to input was 0.2s on the
+   argument that feedback must feel instant. Overridden deliberately: motion
+   here is meant to be seen, and at 0.2s an interaction was over before the
+   eye reached it. The names are unchanged so selectors still read in the
+   language of their intent.
+
+   Staggers are delays, not durations, and are exempt: --reveal-stagger and
+   the card's 120ms are the gaps BETWEEN things moving, not how long any one
+   thing takes.
 
    Scroll reveals are not here. They live in components/ui/Reveal.tsx,
    which is the only reveal in the project; a class-based copy used to sit
@@ -451,10 +488,12 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   content: "";
   position: absolute;
   left: 0;
-  top: 0.85em;                 /* sits on the first line's optical centre */
-  width: var(--space-4);
-  height: 1px;
-  background: var(--color-line-strong);
+  top: 0.62em;                 /* optical centre of the first line */
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--color-line-strong);
+  background: transparent;     /* hollow: only the ring shows */
 }
 .t-list li:last-child { margin-bottom: 0; }
 .t-list li strong { color: var(--color-ink); font-weight: var(--weight-medium); }
@@ -509,8 +548,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   position: fixed; inset: 0; z-index: 100;
   background: color-mix(in srgb, var(--color-bg) 94%, transparent);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  animation: lb-in .2s var(--ease-out);
+  animation: lb-in var(--duration-base) var(--ease-out);
 }
 
 .lb__scroll {
@@ -568,7 +606,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   border-radius: var(--radius-pill);
   background: color-mix(in srgb, var(--color-bg) 80%, transparent);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   z-index: 2;
   pointer-events: none;
 }
@@ -740,7 +777,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-weight: var(--weight-bold);
   font-size: 19px;
   letter-spacing: var(--tracking-snug);
-  color: var(--color-ink);
+  color: var(--color-mark);
 
   /* Timed against the reference at 300ms. Easing is the site's own
      ease-out, not the reference's ease-in: this is the only place a
@@ -748,7 +785,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
      that is mine. The reference runs ~110ms between letters, which over a
      ten-letter name takes well past a second to finish; 55ms keeps the
      unfurl legible without making the header wait on it. */
-  --wm-dur: 300ms;
+  --wm-dur: 600ms;
   --wm-step: 55ms;
   --wm-ease: var(--ease-out);
 }
@@ -839,6 +876,113 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .section-contact { padding-bottom: var(--space-32); }
 
+/* ---- Footer ------------------------------------------------------
+   One centred line, dim, and no rule above it. It is a full stop, not a
+   section: no links, no repeated navigation, nothing to do. Whoever
+   reaches it has already been given the email twice.
+
+   The rule was removed on purpose. Every other section on this page is
+   separated by space alone, so a single hairline here read as a border
+   the design does not otherwise use. Centring does the same job: it
+   breaks the left edge everything else is aligned to, which is enough
+   to say the page has ended. */
+.site-footer {
+  padding-block: var(--space-8) var(--space-12);
+  color: var(--color-muted);
+}
+
+/* Small, quiet, and back on the left edge with everything else. The year
+   sits in its own paragraph rather than on a third line, so the gap between
+   the credits and the date is real spacing and not a stray <br />. */
+.site-footer__credit {
+  margin: 0;
+  font-size: var(--text-small, 0.875rem);
+  line-height: 1.6;
+}
+/* One line now, so the rule that spaced two paragraphs is gone. The middot
+   separates the credit from the year: a comma would read as one sentence and
+   a line break is what we just removed. */
+
+/* Underlined, because in a block of grey text an underline is the only thing
+   that reads as clickable without colour, and this page has no colour to
+   spend. Offset so the line clears the descenders. */
+.site-footer__credit a {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.site-footer__credit a:hover { color: var(--color-accent-text); }
+
+/* ---- Contact: words and a face --------------------------------
+   Two columns on desktop, one on mobile. The portrait column is a
+   fixed max rather than a fraction: a face does not need to grow
+   with the viewport, and letting it do so made it compete with the
+   invitation next to it, which is the thing meant to be clicked. */
+.contact-grid {
+  margin-top: var(--heading-gap);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.contact-portrait {
+  margin: 0;
+  /* The cap lives HERE, on the figure, not only on the grid column.
+     next/image is told in `sizes` that this box is 380px and it picks the
+     file to match; if anything ever lets the figure grow past that (the grid
+     not applying, a future layout change), the browser is left stretching a
+     small file over a large box, which is exactly the pixelation this had.
+     Belt and braces: the promise in `sizes` and the CSS that keeps it are
+     now in the same rule. */
+  width: 100%;
+  max-width: 380px;
+  border-radius: var(--radius-lg, 12px);
+  overflow: hidden;
+  /* Monochrome at rest, itself on hover. Same rule as the client logos, and
+     the same reason: on a page with no colour in it, colour is an event.
+     At rest the portrait is one more black and white element; the cyan edge
+     light only arrives when someone stops on it. */
+  filter: grayscale(1);
+  transition: filter var(--duration-slow) var(--ease-out);
+}
+.contact-portrait:hover,
+.contact-portrait:focus-within { filter: grayscale(0); }
+
+.contact-portrait__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-portrait { transition: none; }
+}
+
+/* The slide is decoration; the menu still has to work without it. */
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__nav { transition: none; }
+}
+
+/* No hover on a touch screen, so the grey would be permanent. Anything that
+   cannot be undone by the visitor should not be the resting state. */
+@media (hover: none) {
+  .contact-portrait { filter: none; }
+}
+
+@media (max-width: 900px) {
+  /* Stacked, and the face is capped so it does not become a poster on a
+     phone. Left aligned with the text above it rather than centred, so the
+     section keeps one edge. */
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+    align-items: start;
+  }
+  .contact-portrait { max-width: 260px; }
+}
+
 /* ---- Worked with -----------------------------------------------
    Uniform cells so no logo dominates by being wider. Greyscale at
    rest and colour on hover keeps twelve brands from turning the
@@ -906,36 +1050,55 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .client-cell:hover .client-cell__name { opacity: 1; color: var(--color-ink); }
 
 /* ---- Work board -------------------------------------------------
-   Media tiles. Each takes its own shape, so the grid is uneven by design;
-   align-items: start stops a tall tile from stretching its neighbours. */
+   A near-solid block of work. Tiles wrap to a new row when the row is full,
+   separated by a hairline gap so they read as distinct pieces rather than
+   one fused image, without the space opening up into a loose grid.
+
+   4px is deliberately below the spacing scale. The page background shows
+   through it as a thin dark rule, which is the whole effect: enough to part
+   the tiles, not enough to float them. A --space step here would read as a
+   gallery with air around each card, which is the opposite of the intent.
+
+   Every tile carries the SAME ratio, still a requirement: a short tile would
+   leave a hole under it and break the block. Covers are composed to 16/10
+   and cropped from the centre. */
 .work-board {
   margin-top: var(--heading-gap);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  /* start, not stretch. Every column is 1fr so every tile is the same width,
+     and the aspect-ratio on .card turns that one width into one height. With
+     stretch, a grid item is instead sized to the tallest track and the
+     aspect-ratio is overridden, which is exactly the "heights don't match"
+     risk. Letting each card size itself from its ratio makes identical
+     heights a fact of the geometry, not a hope. */
   align-items: start;
-  gap: var(--space-6);
+  gap: 4px;
 }
 
-/* No border, no radius, no frame. The card IS the image: a rule around it
-   turns the work into a thumbnail of itself. The lift on hover is the only
-   affordance left, and it is enough. */
+/* No border, no radius, no frame. The card IS the image.
+
+   The old hover lifted the whole tile and cast a shadow. With gaps that
+   read as a card picking itself up; with none, the tile slides over its
+   neighbour and the shadow lands on the artwork next to it. So the motion
+   moved inside: the frame holds still and the image scales within it. */
 .card {
   display: block;
-  transition: transform var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out);
-}
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-image);
+  overflow: hidden;
+  position: relative;
+  /* The ratio lives on the CARD, not the media. The card is the grid item,
+     so this is what the equal 1fr width is measured against, and every card
+     ends up exactly width x 10/16 tall. The media just fills it. */
+  aspect-ratio: 16 / 10;
 }
 
-/* position: relative because next/image with `fill` measures against the
-   nearest positioned ancestor. The ratio is set inline once the media
-   reports its dimensions; this is the value held until then. */
+/* Fills the card exactly. position: absolute (a positioned ancestor for
+   next/image `fill`) with inset: 0 pins it to all four edges, so its height
+   is the card's height rather than something it computes on its own. */
 .card__media {
-  position: relative;
+  position: absolute;
+  inset: 0;
   display: block;
-  aspect-ratio: 16 / 10;
   background: var(--color-surface);
 }
 .card__media img,
@@ -943,6 +1106,14 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+.card:hover .card__media img,
+.card:hover .card__media video { transform: scale(1.04); }
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover .card__media img,
+  .card:hover .card__media video { transform: none; }
 }
 .card__media--empty {
   display: block; width: 100%; height: 100%;
@@ -966,9 +1137,28 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   grid-template-columns: 64px 1fr;
   gap: var(--space-6);
   align-items: start;
-  padding-block: var(--space-8);
-  border-top: 1px solid var(--color-line);
+  /* No rule between rows. Space separates them, which is what separates
+     everything else on this page: the full-width hairline that used to sit
+     here was the one place a line did the job, and it read as a table of
+     data rather than a list of work.
+
+     The space has to be bigger BETWEEN rows than inside one or they run
+     together, so 40px outside against the 24px column gap within. */
+  padding-block: var(--space-10);
 }
+
+/* Drawn marks, sized to the same box as a client logo so the rows stay
+   aligned whether an entry has a file or a drawing. */
+.drawn-mark {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+.drawn-mark svg { width: 68%; height: 68%; }
 
 .entry__mark { width: 64px; }
 .entry__mark img {
@@ -1014,24 +1204,41 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 .contact-links {
   list-style: none; padding: 0;
-  margin-top: var(--space-10);
-  display: flex; gap: var(--space-6); flex-wrap: wrap;
+  /* Negative inline start: the 44px tap target has padding around the 22px
+     mark, so without this the first icon sits visibly indented from the
+     left edge every other line on the page is aligned to. */
+  margin: var(--space-10) 0 0 -11px;
+  display: flex; gap: var(--space-2); flex-wrap: wrap;
 }
-.contact-links a { color: var(--color-ink); opacity: .7; }
-.contact-links a:hover { opacity: 1; color: var(--color-accent-text); }
+
+/* Brand marks, monochrome until touched.
+
+   Same rule as the client logos and for the same reason: on a page with no
+   colour in it, colour is an event. Three logos in full brand blue and red
+   sitting under the invitation would be the loudest thing on the page, and
+   the loudest thing on this page should be "Say hello".
+
+   --brand comes from the data, so adding a fourth network is a line of JSON
+   and not a line of CSS. */
+.social {
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;      /* a real touch target around a 22px mark */
+  color: var(--color-muted);
+  transition: color var(--duration-base) var(--ease-out);
+}
+.social svg { width: 22px; height: 22px; display: block; }
+.social:hover,
+.social:focus-visible { color: var(--brand, var(--color-ink)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .social { transition: none; }
+}
 
 /* ---- Site nav ---------------------------------------------------
    Sticky, translucent, no rule underneath. See components/ui/SiteNav.tsx
    for how the active link is tracked. */
-.site-nav {
-  position: sticky; top: 0; z-index: 40;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: var(--space-6); flex-wrap: wrap;
-  padding: var(--space-4) var(--gutter);
-  background: color-mix(in srgb, var(--color-bg) 82%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
+
 
 .site-nav__list {
   list-style: none; padding: 0; margin: 0;
@@ -1056,63 +1263,220 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 /* Anchors must not land under the sticky bar. */
 #intro, #worked, #work, #ai, #background, #consulting, #contact { scroll-margin-top: var(--nav-h); }
 
-@media (max-width: 720px) {
-  .site-nav__list { gap: var(--space-4); }
-}
+/* ---- Mobile menu toggle -----------------------------------------
+   The button is hidden above the breakpoint: on desktop the links sit in the
+   bar and there is nothing to toggle. Two bars that become an X, one control,
+   state driven by aria-expanded so the icon can never disagree with the menu.
 
-/* ---- Site nav ---------------------------------------------------
-   Sticky, translucent, no rule underneath. See components/ui/SiteNav.tsx
-   for how the active link is tracked. */
-.site-nav {
-  position: sticky; top: 0; z-index: 40;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: var(--space-6); flex-wrap: wrap;
-  padding: var(--space-4) var(--gutter);
-  background: color-mix(in srgb, var(--color-bg) 82%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-.site-nav__list {
-  list-style: none; padding: 0; margin: 0;
-  display: flex; gap: var(--space-6); flex-wrap: wrap;
-}
-
-.site-nav__link {
-  color: var(--color-ink);
-  opacity: .45;
+   28px tall so the whole thing meets the 44px touch target once padding is
+   counted, with the bars centred inside it. */
+.site-nav__toggle {
+  display: none;
   position: relative;
-  padding-block: 2px;
-  transition: opacity var(--duration-fast) var(--ease-out),
-              color var(--duration-fast) var(--ease-out);
+  width: 28px; height: 28px;
+  flex-shrink: 0;
 }
-.site-nav__link:hover { opacity: .8; }
-
-.site-nav__link[data-active="true"] {
-  opacity: 1;
-  color: var(--color-accent-text);
+.site-nav__toggle-bar {
+  position: absolute;
+  left: 4px; right: 4px;
+  height: 2px;
+  background: var(--color-ink);
+  border-radius: 2px;
+  transition: transform var(--duration-base) var(--ease-out),
+              opacity   var(--duration-base) var(--ease-out);
+}
+.site-nav__toggle-bar:nth-child(1) { top: 10px; }
+.site-nav__toggle-bar:nth-child(2) { top: 16px; }
+/* Open: the two bars cross into an X. Each rotates around the mid-point and
+   meets at the centre. */
+.site-nav__toggle[aria-expanded="true"] .site-nav__toggle-bar:nth-child(1) {
+  top: 13px; transform: rotate(45deg);
+}
+.site-nav__toggle[aria-expanded="true"] .site-nav__toggle-bar:nth-child(2) {
+  top: 13px; transform: rotate(-45deg);
 }
 
-/* Anchors must not land under the sticky bar. */
-
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__toggle-bar { transition: none; }
+}
 
 @media (max-width: 720px) {
-  .site-nav__list { gap: var(--space-4); }
-}
+  .site-nav { gap: var(--space-2); padding-block: var(--space-3); }
+  .site-nav__toggle { display: block; }
 
+  /* The links become a full-screen panel, revealed only when the header is
+     data-open. Collapsed it is removed from layout and from the tab order, so
+     a closed menu cannot be reached by accident. */
+  .site-nav__nav {
+    /* Full screen and OPAQUE: a translucent panel let the page read straight
+       through the menu, so headings sat behind the links.
+
+       The z-indexes here are all RELATIVE TO THE HEADER, not to the page.
+       .site-nav is z-40 and therefore its own stacking context, so a large
+       number on this panel does not put it under the header, it puts it over
+       the header's own children. That is exactly what happened: the panel
+       covered the wordmark and the close button and the header vanished.
+       The panel sits at 0 and the two controls are lifted above it below. */
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: var(--color-bg);
+    padding: calc(var(--nav-h) + var(--space-6)) var(--gutter) var(--space-8);
+    overflow-y: auto;
+
+    /* Slides down to open and back up to close.
+
+       display:none used to do the hiding, and display cannot be animated, so
+       the panel appeared and vanished on a hard cut. It is always in the
+       layout now and lives above the viewport until it is wanted.
+
+       visibility, not opacity, for the hidden state: it removes the links
+       from hit-testing AND from the tab order, so a closed menu cannot be
+       reached with a keyboard. It transitions, so it waits for the slide to
+       finish before taking the panel out of reach on the way back up. */
+    transform: translateY(-100%);
+    visibility: hidden;
+    transition:
+      transform  var(--duration-base) var(--ease-out),
+      visibility var(--duration-base) var(--ease-out);
+  }
+  .site-nav[data-open="true"] .site-nav__nav {
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  /* THE reason the panel did not cover the page.
+     .site-nav carries backdrop-filter, and backdrop-filter (like filter and
+     transform) makes the element a containing block for fixed-position
+     DESCENDANTS. So `position: fixed; inset: 0` on the panel resolved against
+     the header's own box, not the viewport: the menu was laid out inside a
+     76px strip, which clipped the first link in half and put the rest outside
+     the box entirely. No z-index could have fixed that; the panel was never
+     full screen to begin with.
+
+     Dropping the blur while the menu is open restores the viewport as the
+     containing block, and costs nothing: there is an opaque panel behind the
+     header at that moment, so there is nothing left to blur. */
+  .site-nav[data-open="true"] {
+    backdrop-filter: none;
+    background: transparent;
+  }
+
+  /* Above the panel, inside the header's stacking context. Without this the
+     open menu paints over the only control that closes it. */
+  .site-nav .wordmark,
+  .site-nav__toggle { position: relative; z-index: 1; }
+
+  .site-nav__list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .site-nav__list li { width: 100%; }
+  /* No rules between the links. The list is short and already spaced; lines
+     turned it into a table of contents and fought the type.
+
+     Full opacity, unlike the desktop bar. In the bar the links are secondary
+     to the page behind them and .45 reads as "available"; on a screen that
+     holds nothing else, the same value reads as broken. */
+  .site-nav__link {
+    display: block;
+    padding-block: var(--space-4);
+    opacity: 1;
+    color: var(--color-ink);
+    font-size: var(--text-body);
+  }
+  .site-nav__link[data-active="true"] { color: var(--color-accent-text); }
+}
 
 
 /* ---- Public case study bar --------------------------------------
    The wordmark and nothing else. Every control that was here belongs to
    the studio; a visitor has nothing to save or publish. */
-.public-bar {
+/* ---- Landing nav ------------------------------------------------
+   Glass, and it works here because nothing above it in the tree filters
+   or transforms. See .public-bar for the case where it could not. */
+/* No -webkit- prefix here, or anywhere else in this file.
+   Tailwind v4 compiles this through Lightning CSS, which adds vendor
+   prefixes itself from the build targets. Writing one by hand does not add
+   support, it adds a SECOND declaration of the same property, and Chrome
+   treats -webkit-backdrop-filter as an alias of the standard one. The pair
+   is what DevTools was striking through with a warning: two declarations of
+   one property, the hand-written alias landing last and cancelling the
+   compiler's own output. Let the build own prefixes. */
+.site-nav {
   position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-6); flex-wrap: wrap;
+  padding: var(--space-4) var(--gutter);
+  background: color-mix(in srgb, var(--color-bg) 58%, transparent);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 0;
+}
+
+/* ---- Case study bar ---------------------------------------------
+   No bar at all: the wordmark floats over the cover, which now starts at
+   the very top of the page.
+
+   This began as a blurred glass bar and the blur never appeared, which was
+   not a tuning problem. .cover--sticky.is-scrolled applies `filter` and
+   `transform` to the cover, and either one makes the element a stacking
+   context and a new backdrop root. backdrop-filter can only sample within
+   its own backdrop root, so the bar was asking to blur something the
+   browser had already put out of its reach. No opacity value could have
+   fixed that; the effect was structurally impossible while the cover
+   filters itself.
+
+   Floating the mark sidesteps it completely, and is better anyway: the
+   cover gets the full height of the viewport instead of losing a strip to
+   chrome that only ever held one word.
+
+   Fixed, not sticky, because sticky reserves layout space and the point is
+   for the cover to start at y=0. pointer-events on the wrapper so the strip
+   of dead space beside the mark does not swallow clicks meant for the cover
+   below it. */
+.public-bar {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 40;
   display: flex; align-items: center;
   padding: var(--space-4) var(--gutter);
-  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: none;
+  border: 0;
+  pointer-events: none;
 }
+.public-bar > * { pointer-events: auto; }
+
+/* The mark over the cover.
+   Default is the theme's own ink, which is what a video cover gets: it
+   changes with light and dark like everything else and is left alone.
+
+   A STILL cover is measured once by lib/useCoverInk.ts, which writes
+   data-cover on <html>. On a white still the mark goes dark, on a black one
+   it goes light, and it returns to the theme's ink the moment the reader
+   scrolls past the cover.
+
+   --color-bg for the light case rather than a literal black: in dark theme
+   that is the near-black the site already uses, and in light theme it is
+   white. The cover is what changed, not the theme, so both stay correct.
+
+   No shadow. Two stacked shadows were tried and smudged; one soft shadow
+   still read as dirt around the glyphs. Flipping the ink is the honest fix,
+   and it only has to happen on the stills where it is cheap. */
+.public-bar .wordmark {
+  transition: color var(--duration-base) var(--ease-out);
+}
+/* On a light still the mark goes dark. --color-bg rather than a literal
+   black: in dark theme that is the near-black the site already uses, in
+   light theme it is white, and the cover is what changed, not the theme. */
+/* FIXED primitives, not theme tokens. A purple cover is purple in light mode
+   and in dark mode, so the mark on it must be decided by the cover, not by the
+   visitor's theme. Using --color-bg / --color-mark here was the bug: in light
+   theme both resolve to values that vanished on their own cover (dark ink on a
+   dark cover). Ink-dark and the capped off-white are the same in both themes. */
+:root[data-cover="light"] .public-bar .wordmark { color: var(--hz-ink-dark); }
+:root[data-cover="dark"]  .public-bar .wordmark { color: var(--hz-white-400); }
 
 /* ---- Studio ------------------------------------------------------
    Local only, so it can look like a tool rather than part of the site. */
@@ -1123,7 +1487,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   padding: var(--space-4) var(--gutter);
   background: color-mix(in srgb, var(--color-bg) 92%, transparent);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-line);
 }
 .studio-bar > .t-label { justify-self: center; opacity: .5; }
@@ -1137,7 +1500,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .p-list { list-style: none; padding: 0; margin: var(--space-12) 0 0; }
 
 .p-row {
-  display: flex; align-items: center; gap: var(--space-5);
+  display: flex; align-items: center; gap: var(--space-6);
   padding: var(--space-4) var(--space-3);
   border-top: 1px solid var(--color-line);
   cursor: grab;
@@ -1176,3 +1539,173 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .entry__link { color: var(--color-ink); }
 .entry__link:hover { color: var(--color-accent-text); }
 .entry__link span { font-size: .7em; opacity: .6; }
+
+/* ---- Loading screen ---------------------------------------------
+   Sits over the page rather than replacing it, so the content below is
+   real, server-rendered, and readable by anything that ignores CSS.
+   See components/ui/Loading.tsx for why. */
+.loading {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  background: var(--color-bg);
+  transition: opacity var(--duration-slow) var(--ease-out),
+              visibility var(--duration-slow) var(--ease-out);
+}
+
+/* visibility, not display. A display change cannot be transitioned, so the
+   overlay would vanish on a hard cut; visibility can, and it also removes the
+   layer from hit-testing once gone so it never eats a click. */
+.loading[data-done="true"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loading__word {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-mono);
+  /* One line, always. The sentence is built from the project name, so its
+     length is not ours to control: "Loading Rasid Case Study" is 27 monospace
+     characters, about 300px at body size, which does not fit a 320px phone
+     once the gutters are counted. Rather than let it wrap (the typed layer is
+     absolutely positioned over a hidden sizer, and two layers wrapping
+     independently is what put the caret on a line of its own), the type
+     shrinks to fit. min() leaves desktop untouched and only starts scaling
+     below roughly 435px, where the alternative was a broken second line. */
+  font-size: min(var(--text-body), 3.9vw);
+  letter-spacing: var(--tracking-label);
+  color: var(--color-ink);
+  max-width: calc(100vw - var(--gutter) * 2);
+  white-space: nowrap;
+}
+
+/* Reserves the final width, invisibly. See Loading.tsx. */
+.loading__sizer { visibility: hidden; white-space: nowrap; }
+
+.loading__typed {
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  display: inline-flex;
+  align-items: center;
+  /* nowrap, matching the sizer above it. Both layers must break identically
+     or the caret drifts away from the text it belongs to. */
+  white-space: nowrap;
+}
+
+.loading__caret {
+  display: inline-block;
+  width: 1px;
+  height: 1em;
+  margin-inline-start: 2px;
+  background: var(--color-ink);
+  animation: caret 1s steps(1) infinite;
+}
+
+@keyframes caret { 50% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .loading__caret { animation: none; }
+  .loading { transition-duration: var(--duration-fast); }
+}
+
+/* ---- Work card hover --------------------------------------------
+   Darkens the tile and names the project. */
+.card__veil {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-6);
+  /* A gradient, not a flat wash. A flat scrim dims the whole image evenly
+     and the artwork goes muddy; weighting it towards the bottom keeps the
+     top of the screenshot readable while still giving the text something
+     solid to sit on. */
+  background: linear-gradient(
+    to top,
+    rgb(8 8 8 / .82) 0%,
+    rgb(8 8 8 / .62) 38%,
+    rgb(8 8 8 / .28) 68%,
+    rgb(8 8 8 / 0) 100%
+  );
+  opacity: 0;
+  transition: opacity var(--duration-reveal) var(--ease-out);
+}
+
+/* The lines rise as the veil arrives.
+   Transformed, not animated with keyframes, so the motion reverses cleanly
+   when the pointer leaves partway through instead of snapping back.
+
+   The kind lags the name. Simultaneous movement reads as one block sliding;
+   a small offset reads as two lines arriving, which is what they are. */
+.card__name,
+.card__kind {
+  transform: translateY(12px);
+  /* Same duration as the veil behind it. They must match exactly: when the
+     text ran longer than the scrim, the card read as two separate reactions
+     rather than one. */
+  transition:
+    transform var(--duration-reveal) var(--ease-out),
+    opacity   var(--duration-reveal) var(--ease-out);
+  opacity: 0;
+}
+/* 90ms, up from 60. The stagger has to stay legible against the duration it
+   sits inside: at 200ms a 60ms gap was a third of the animation and clearly
+   two arrivals, at 600ms the same gap is a tenth and the lines read as
+   simultaneous again. */
+.card__kind { transition-delay: 120ms; }
+
+.card:hover .card__name,
+.card:hover .card__kind,
+.card:focus-visible .card__name,
+.card:focus-visible .card__kind {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Fixed light values, not theme tokens: this text sits on a darkened
+   screenshot in both themes, so it must not follow the page. */
+.card__name {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.1;
+  color: #FFFFFF;
+}
+.card__kind { color: rgb(255 255 255 / .72); }
+
+/* Keyboard reaches it too. A hover-only affordance is invisible to anyone
+   tabbing through the board. */
+.card:hover .card__veil,
+.card:focus-visible .card__veil { opacity: 1; }
+
+/* Touch has no hover, so the veil would never appear and the board would be
+   a wall of unlabelled images. Show it always there instead, already
+   arrived: there is no pointer entering, so there is nothing to animate
+   from, and leaving the lines offset would just render them 12px low. */
+@media (hover: none) {
+  .card__veil { opacity: 1; }
+  .card__name,
+  .card__kind { transform: none; opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The rise is removed, not merely un-transitioned. A transform with no
+     transition still jumps 12px in one frame, which is exactly the motion
+     this setting asks us not to make. The text simply appears. */
+  .card__veil,
+  .card__name,
+  .card__kind { transition: none; transform: none; }
+}
+
+/* ---- Freelance / consulting intro mark --------------------------
+   A circular badge holding the Hobz mark, echoing a role entry's mark
+   column at a larger size. The SVG already carries its own dark tile, so
+   the circle just clips it. */

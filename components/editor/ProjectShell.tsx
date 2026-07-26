@@ -79,7 +79,7 @@ export function ProjectShell({
             so no dead space opens up next to the logo. The long description
             then runs the full width of the container underneath. */}
         <div style={{ display: "flex", gap: "var(--space-6)", alignItems: "center", flexWrap: "wrap" }}>
-          <div className="logo-plate">
+          <div className={p.logoFill ? "logo-plate logo-plate--fill" : "logo-plate"}>
             {p.logo ? <img src={p.logo} alt={p.name} /> : <span className="t-label">LOGO</span>}
           </div>
 
@@ -107,33 +107,50 @@ export function ProjectShell({
           </p>
         )}
 
-        <div style={{
-          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-          gap: "var(--space-6)",
-          marginTop: "var(--space-12)", paddingTop: "var(--space-6)",
-          borderTop: "1px solid var(--color-line)",
-        }}>
-          <div>
-            <div className="t-label">Role</div>
-            <div style={{ marginTop: 6 }}>
-              {editing
-                ? <Editable value={p.role ?? ""} onChange={(v) => persistProject({ ...p, role: v })} placeholder="Your role" />
-                : p.role}
-            </div>
+        {/* Role and Period. In the studio both always show so they can be
+            filled. On the public page a field with no value is dropped
+            entirely, label and all: a lone "Period" heading over nothing
+            reads as a bug, not a blank. If both are empty the whole strip,
+            border included, disappears rather than leaving an empty rule. */}
+        {(editing || p.role || p.period) && (
+          <div style={{
+            display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+            gap: "var(--space-6)",
+            marginTop: "var(--space-12)", paddingTop: "var(--space-6)",
+            borderTop: "1px solid var(--color-line)",
+          }}>
+            {(editing || p.role) && (
+              <div>
+                <div className="t-label">Role</div>
+                <div style={{ marginTop: 6 }}>
+                  {editing
+                    ? <Editable value={p.role ?? ""} onChange={(v) => persistProject({ ...p, role: v })} placeholder="Your role" />
+                    : p.role}
+                </div>
+              </div>
+            )}
+            {(editing || p.period) && (
+              <div>
+                <div className="t-label">Period</div>
+                <div style={{ marginTop: 6 }}>
+                  {editing
+                    ? <Editable value={p.period ?? ""} onChange={(v) => persistProject({ ...p, period: v })} placeholder="Oct 2022 – Oct 2024" />
+                    : p.period}
+                </div>
+              </div>
+            )}
           </div>
-          <div>
-            <div className="t-label">Period</div>
-            <div style={{ marginTop: 6 }}>
-              {editing
-                ? <Editable value={p.period ?? ""} onChange={(v) => persistProject({ ...p, period: v })} placeholder="Oct 2022 – Oct 2024" />
-                : p.period}
-            </div>
-          </div>
-        </div>
+        )}
 
         {editing && (
           <Toolbar>
             <Btn onClick={pickLogo} tone="accent">↑ Upload logo</Btn>
+            {p.logo && (
+              <Btn onClick={() => persistProject({ ...p, logoFill: !p.logoFill })}
+                   tone={p.logoFill ? "accent" : undefined}>
+                {p.logoFill ? "Filling plate" : "Fill plate"}
+              </Btn>
+            )}
             {p.logo && <DeleteBtn label="Remove logo" onConfirm={() => persistProject({ ...p, logo: "" })} />}
           </Toolbar>
         )}

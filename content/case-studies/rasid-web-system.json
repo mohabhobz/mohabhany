@@ -1,0 +1,289 @@
+{
+  "slug": "rasid-web-system",
+  "projectSlug": "rasid",
+  "title": "Web-system",
+  "sections": [
+    {
+      "id": "px8dge5v",
+      "title": "The exercise",
+      "rows": [
+        {
+          "id": "3e2q930o",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "ic6qno1z",
+                "kind": "heading",
+                "level": 2,
+                "text": "A product, start to finish"
+              },
+              {
+                "id": "gvsebg71",
+                "kind": "paragraph",
+                "text": "I set myself a challenge: design a complete fintech experience, from the login flow to a full money dashboard, with no brief and no client."
+              },
+              {
+                "id": "u49byju6",
+                "kind": "paragraph",
+                "text": "The goal was not a single pretty screen. It was to build a real product as a system, in both light and dark, over a couple of focused days, and to see if I could keep it consistent all the way through. The idea behind it was simple: every riyal, in view."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "flag"
+    },
+    {
+      "id": "6cf2hem5",
+      "title": "The direction",
+      "rows": [
+        {
+          "id": "fd9wdjix",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "1bqkmkcb",
+                "kind": "heading",
+                "level": 2,
+                "text": "Calm, with one green"
+              },
+              {
+                "id": "77ps27r7",
+                "kind": "paragraph",
+                "text": "Money apps carry a lot of anxiety, so I designed against it. Near neutral surfaces, generous space, and clear hierarchy keep the screen calm, and a single emerald green carries action and positive movement and nothing else."
+              },
+              {
+                "id": "iuoe1sld",
+                "kind": "paragraph",
+                "text": "Because only one thing is green, the eye lands exactly where it should: the balance, a positive change, the next step. The restraint is what lets the data read before any decoration does."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "compass"
+    },
+    {
+      "id": "8sh9ju45",
+      "title": "The build",
+      "rows": [
+        {
+          "id": "a87bc8um",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "wbstrktk",
+                "kind": "heading",
+                "level": 2,
+                "text": "A system, not a screen"
+              },
+              {
+                "id": "8zwt8vx4",
+                "kind": "paragraph",
+                "text": "I designed the whole journey a real product needs, not just a hero dashboard:"
+              },
+              {
+                "id": "gjbu4vxq",
+                "kind": "list",
+                "items": [
+                  "A phone number and OTP access flow, with countdown and resend",
+                  "A modular dashboard: balance, investment trend, outflow breakdown, upcoming bills, and biggest expense",
+                  "An investments page with a performance graph, allocation, and a holdings table",
+                  "A transactions page with filters and a categorized list",
+                  "Full light and dark, across web, tablet, and mobile",
+                  "A token and component library so every screen and both themes stay consistent"
+                ]
+              },
+              {
+                "id": "0w8zbksl",
+                "kind": "paragraph",
+                "text": "Designing the parts nobody notices, the tokens, the states, the second theme, is where an exercise stops being a mockup and starts being a product."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "structure"
+    },
+    {
+      "id": "0fbrkrvt",
+      "title": "The Design",
+      "rows": [
+        {
+          "id": "llpjr5au",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "hwobhbip",
+                "kind": "image",
+                "src": "/uploads/1784913824895-Dragonfly-Blue.webp",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "crop",
+                "framed": false,
+                "size": "column"
+              },
+              {
+                "id": "113c5gv7",
+                "kind": "image",
+                "src": "/uploads/1784904562563-Mobile-Design-Light-and-Dark.webp",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "column"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "mobile"
+    },
+    {
+      "id": "mzcnlh7c",
+      "title": "The design system",
+      "rows": [
+        {
+          "id": "bk4uomt4",
+          "layout": "1-1",
+          "cells": [
+            [
+              {
+                "id": "zeyxra7i",
+                "kind": "heading",
+                "level": 2,
+                "text": "Tokens, not guesswork"
+              },
+              {
+                "id": "bltwrdth",
+                "kind": "paragraph",
+                "text": "Every value in Rasid is a token, so light and dark are the same components rather than two separate designs, and a new screen inherits the system instead of reinventing it."
+              },
+              {
+                "id": "mlcgvmqc",
+                "kind": "list",
+                "items": [
+                  "Type: Inter, on a modular scale that holds up in English and Arabic",
+                  "Colour: one emerald green (",
+                  "#00C980) with a full green scale and neutrals, defined for light and dark",
+                  "Tokens and local variables: colour, spacing, and radius, so theming is a switch, not a redraw",
+                  "Components: buttons, inputs, tabs, charts, and cards, all built in auto layout"
+                ]
+              }
+            ],
+            [
+              {
+                "id": "rf409cxi",
+                "kind": "image",
+                "src": "/uploads/1784913934202-Design-System2.webp",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": true,
+                "size": "column"
+              }
+            ]
+          ]
+        },
+        {
+          "id": "kbknlmal",
+          "layout": "2-1",
+          "cells": [
+            [],
+            []
+          ]
+        }
+      ],
+      "icon": "layers"
+    },
+    {
+      "id": "qxn4imrd",
+      "title": "What I practiced",
+      "rows": [
+        {
+          "id": "v37ga6ms",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "hfk83jx6",
+                "kind": "heading",
+                "level": 2,
+                "text": "What I took from it"
+              },
+              {
+                "id": "ft0k2hou",
+                "kind": "list",
+                "items": [
+                  "System before screens. Building tokens and local variables first meant light and dark, and every new screen, came almost for free. The setup cost paid for itself by the second theme.",
+                  "Holding one accent colour. Keeping green for action and positive change only, across a whole product, was harder and more useful than adding more colour would have been.",
+                  "Designing data, not decorating it. A donut for the outflow split, an area chart for the balance trend, both kept to the green scale and neutrals, so the numbers read at a glance instead of fighting for attention.",
+                  "Scoping honestly. I built the core flows and marked the rest, spending, notifications, profile, and the detail screens, as next, instead of half designing everything at once."
+                ]
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "insight"
+    },
+    {
+      "id": "c6x9s1pu",
+      "title": "Prototype",
+      "rows": [
+        {
+          "id": "3aur14hb",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "nuv58s80",
+                "kind": "figma",
+                "src": "https://embed.figma.com/proto/CrimcxoIpFMOY0uXAFX6kI/Rasid?node-id=4011-4848&viewport=625%2C206%2C0.09&starting-point-node-id=4011%3A4848&page-id=4005%3A5952&embed-host=share&footer=false",
+                "caption": "Prototype is view-only.",
+                "ratio": "16 / 9",
+                "scaling": "scale-down-width"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "eye"
+    },
+    {
+      "id": "jnal6hxk",
+      "title": "Take it with you",
+      "rows": [
+        {
+          "id": "g7mjpgbq",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "4r14arc6",
+                "kind": "image",
+                "src": "/uploads/1784904947954-Rasid-PDF.webp",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "column"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "link"
+    }
+  ],
+  "status": "published",
+  "updatedAt": "2026-07-24T20:23:24.649Z"
+}

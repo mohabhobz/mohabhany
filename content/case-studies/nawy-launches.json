@@ -30,7 +30,7 @@
               {
                 "id": "bnw0t4zx",
                 "kind": "image",
-                "src": "/uploads/1784396541239-Screenshot-2026-07-18-at-5.38.15-PM.png",
+                "src": "/uploads/1784396541239-Screenshot-2026-07-18-at-5.38.15-PM.webp",
                 "alt": "",
                 "caption": "",
                 "ratio": "wide",
@@ -151,8 +151,8 @@
               {
                 "id": "452kw1hc",
                 "kind": "beforeAfter",
-                "before": "/uploads/1784396792783-Area-Search-Properties.png",
-                "after": "/uploads/1784396939946-Area-Search-Compound.png",
+                "before": "/uploads/1784396792783-Area-Search-Properties.webp",
+                "after": "/uploads/1784396939946-Area-Search-Compound.webp",
                 "caption": "Drag to compare."
               }
             ]
@@ -209,7 +209,7 @@
               {
                 "id": "bfei9j9w",
                 "kind": "image",
-                "src": "/uploads/1784397421044-Filters.png",
+                "src": "/uploads/1784397421044-Filters.webp",
                 "alt": "",
                 "caption": "",
                 "ratio": "wide",
@@ -234,7 +234,7 @@
       "rows": [
         {
           "id": "lt31twey",
-          "layout": "1",
+          "layout": "2-1",
           "cells": [
             [
               {
@@ -264,6 +264,19 @@
                 "id": "b4v396w2",
                 "kind": "paragraph",
                 "text": "Tapping the card now goes straight into the payment plan, so people explore affordability instead of bouncing on a big number. It widened reach to affordability-driven buyers, who were then qualified in the CRM, so volume didn't come at the cost of lead quality."
+              }
+            ],
+            [
+              {
+                "id": "84lwtsuq",
+                "kind": "image",
+                "src": "/uploads/1784575868896-iPhone-16-Pro-mockup-natural-titanium.webp",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "column"
               }
             ]
           ]
@@ -359,7 +372,7 @@
               {
                 "id": "qpogk75a",
                 "kind": "image",
-                "src": "/uploads/1784397545321-3b0e09c3-17e5-47ab-b4f6-53955b81a59a_rw_.png",
+                "src": "/uploads/1784397545321-3b0e09c3-17e5-47ab-b4f6-53955b81a59a_rw_.webp",
                 "alt": "",
                 "caption": "",
                 "ratio": "wide",
@@ -375,5 +388,5 @@
     }
   ],
   "status": "published",
-  "updatedAt": "2026-07-19T11:48:57.702Z"
+  "updatedAt": "2026-07-20T20:18:55.796Z"
 }

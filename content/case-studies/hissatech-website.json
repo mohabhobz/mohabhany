@@ -98,9 +98,9 @@
               {
                 "id": "3rabzu4p",
                 "kind": "image",
-                "src": "/uploads/1784568808228-Landing.png",
+                "src": "/uploads/1784568808228-Landing.webp",
                 "alt": "",
-                "caption": "click to see full page",
+                "caption": "Scroll or click to view the page ",
                 "ratio": "wide",
                 "fit": "crop",
                 "framed": true,
@@ -111,7 +111,7 @@
                 "kind": "image",
                 "src": "/uploads/1784568855035-Hisatech-Landing-page-ARfull-page.jpg",
                 "alt": "",
-                "caption": "click to see full page",
+                "caption": "Scroll or click to view the page ",
                 "ratio": "wide",
                 "fit": "crop",
                 "framed": true,
@@ -177,8 +177,8 @@
               {
                 "id": "fx90tyml",
                 "kind": "beforeAfter",
-                "before": "/uploads/1784470684570-Screenshot-2026-07-19-at-5.17.45-PM.png",
-                "after": "/uploads/1784470688740-Screenshot-2026-07-19-at-5.17.33-PM.png",
+                "before": "/uploads/1784470684570-Screenshot-2026-07-19-at-5.17.45-PM.webp",
+                "after": "/uploads/1784470688740-Screenshot-2026-07-19-at-5.17.33-PM.webp",
                 "caption": "Drag to compare.",
                 "ratio": "wide",
                 "fit": "natural"
@@ -188,9 +188,9 @@
               {
                 "id": "bej1m84z",
                 "kind": "image",
-                "src": "/uploads/1784470797295-screencapture-hissatech-sa-en-tokenizati.png",
+                "src": "/uploads/1784470797295-screencapture-hissatech-sa-en-tokenizati.webp",
                 "alt": "",
-                "caption": "Explain why this matters — not what it is.",
+                "caption": "",
                 "ratio": "wide",
                 "fit": "natural",
                 "framed": true,
@@ -220,7 +220,7 @@
               {
                 "id": "wt14k8p1",
                 "kind": "paragraph",
-                "text": "Every prospective investor arrives with the same question: what do I actually get back. The honest answer lives inside the app, behind a download. The calculator brings it forward onto the landing page, before anyone has committed to anything. You enter what you want to invest, and you see the monthly income and the expected profit if the property is sold in three to five years."
+                "text": "Every prospective investor arrives with the same question: what do I actually get back. The honest answer lives inside the app, behind a download. The calculator brings it forward onto the landing page, before anyone has committed to anything."
               },
               {
                 "id": "4p8sif5z",
@@ -228,15 +228,12 @@
                 "text": "It carries its own disclaimer, in plain language: the figures are estimates, they depend on the property and the rental market, and real results will differ. A calculator that overpromises does more damage than no calculator at all, especially inside a regulatory sandbox."
               },
               {
-                "id": "gt13kc28",
-                "kind": "image",
-                "src": "/uploads/1784471481577-Group-13.png",
-                "alt": "",
-                "caption": "",
-                "ratio": "wide",
-                "fit": "natural",
-                "framed": false,
-                "size": "column"
+                "id": "j8unmtrx",
+                "kind": "figma",
+                "src": "https://embed.figma.com/proto/JjqwJWXsqnck4jh7csDr68/Hissatech-Website?node-id=7603-8256&p=f&viewport=201%2C-6813%2C0.55&page-id=6900%3A6055&starting-point-node-id=7603%3A8256&embed-host=share&footer=false",
+                "caption": "Prototype is view-only.",
+                "ratio": "1512 / 836",
+                "scaling": "scale-down-width"
               }
             ]
           ]
@@ -268,8 +265,8 @@
                 "id": "i32h5lhk",
                 "kind": "list",
                 "items": [
-                  "The Sharia ruling is named. Reviewed and approved by Sheikh Prof. Yousef bin Abdullah Al Shubaily, with the certificate itself one tap away.",
-                  "The regulator is named. REGA sandbox, stated on the home page and explained in full on the about page.",
+                  "The Sharia ruling is named. Reviewed and approved by Sheikh Prof. Dr. Yousef bin Abdullah Al-Shubaily, with the certificate one tap away.",
+                  "The regulator is named. The REGA sandbox, stated on the home page and explained in full on the about page.",
                   "The partners are named. Mada, Nafath, the Real Estate Authority, Arab National Bank, Lean.",
                   "The founders are named, with photographs and real biographies."
                 ]
@@ -306,14 +303,9 @@
                 "text": "The product is Arabic first and reads right to left throughout: layout, navigation, forms, numerals, and the direction of every progress sequence. The English version is the mirror, not the original."
               },
               {
-                "id": "5mozrgma",
-                "kind": "paragraph",
-                "text": " The copy is Saudi, not Modern Standard Arabic translated from English. Lines like \"تقدر تشوف العوائد قبل ما تختار\" are how the audience actually speaks, and in a market where most fintech copy reads as translated, that is a trust signal of its own."
-              },
-              {
                 "id": "noiqa6ly",
                 "kind": "image",
-                "src": "/uploads/1784471889006-Group-15.png",
+                "src": "/uploads/1784471889006-Group-15.webp",
                 "alt": "",
                 "caption": "",
                 "ratio": "wide",
@@ -326,8 +318,54 @@
         }
       ],
       "icon": "design"
+    },
+    {
+      "id": "45wl5lzv",
+      "title": "Reflection",
+      "rows": [
+        {
+          "id": "tfsw4s6a",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "7dfg7ofm",
+                "kind": "paragraph",
+                "text": "The calculator was the most useful thing on the page and the last thing we built. It should have been the first, because it is the only element that answers the question everyone actually arrives with."
+              },
+              {
+                "id": "h6r538ca",
+                "kind": "figma",
+                "src": "https://embed.figma.com/proto/JjqwJWXsqnck4jh7csDr68/Hissatech-Website?node-id=6659-3023&viewport=2239%2C1578%2C0.15&starting-point-node-id=6659%3A2270&page-id=6659%3A1626&embed-host=share&footer=false",
+                "caption": "Prototype is view-only.",
+                "ratio": "1512 / 796",
+                "scaling": "scale-down-width"
+              },
+              {
+                "id": "r0kkcux2",
+                "kind": "button",
+                "label": "See it live",
+                "href": "https://hissatech.sa/en"
+              },
+              {
+                "id": "4cap2kz0",
+                "kind": "video",
+                "src": "/uploads/1784569903122-Hissatech-landingpage-video.mp4",
+                "poster": "/uploads/1784569928066-Hisatech-Landing-page-AR.jpg",
+                "caption": ""
+              },
+              {
+                "id": "vn5jj1cz",
+                "kind": "pullquote",
+                "text": "Screenshots of the previous site are from the Internet Archive, November 2025. The live site is the design as delivered."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "layers"
     }
   ],
   "status": "published",
-  "updatedAt": "2026-07-20T17:40:38.360Z"
+  "updatedAt": "2026-07-26T09:45:41.570Z"
 }

@@ -3,7 +3,19 @@ import type { Metadata } from "next";
 import { CaseStudyView } from "@/components/CaseStudyView";
 import { getProject, getStudy, listStudies } from "@/lib/storage";
 
-export const dynamic = "force-dynamic";
+/* Prerendered, one file per published study. generateStaticParams below
+   lists them at build time, so a case study arrives from the CDN as HTML
+   instead of being rendered per visit. */
+export const dynamic = "force-static";
+
+/* Every published study, baked at build. Drafts are absent from this list
+   and 404 at runtime, so an unpublished URL stays unguessable. */
+export async function generateStaticParams() {
+  const all = await listStudies();
+  return all
+    .filter((s) => s.status === "published")
+    .map((s) => ({ slug: s.slug }));
+}
 
 async function load(slug: string) {
   const doc = await getStudy(slug);

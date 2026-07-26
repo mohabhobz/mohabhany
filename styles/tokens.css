@@ -11,34 +11,38 @@
 /* ---------- 1. PRIMITIVES ----------------------------------
    The raw palette. Do NOT reference these in components. */
 :root {
-  /* warm near-blacks */
-  --hz-black-900: #0B0D0B;
-  --hz-black-800: #111311;
-  --hz-black-700: #15170F;
-  --hz-black-600: #23271F;
-  --hz-black-500: #2F342B;
+  /* Neutral near-blacks. These were green-leaning (#0B0D0B and up: the green
+     channel sat above red and blue in every step) and labelled "warm", which
+     was wrong twice over, since warm means red or yellow. The site has no
+     colour in it, so the ramp has none either. Lightness is unchanged from the
+     values it replaced, except 900, which is now true black. */
+  --hz-black-900: #000000;
+  --hz-black-800: #121212;
+  --hz-black-700: #161616;
+  --hz-black-600: #262626;
+  --hz-black-500: #323232;
 
-  /* warm off-whites */
+  /* Neutral off-whites. Same lightness as the cream values they replace. */
   --hz-white-100: #FFFFFF;
-  --hz-white-200: #FAF9F5;
-  --hz-white-300: #F2F1EA;
-  --hz-white-400: #E3E2DA;
-  --hz-white-500: #CFCEC4;
+  --hz-test-bg:   #EEEEEE;  /* TEST light bg, revert to hz-white-100 if it does not work */
+  --hz-white-200: #F9F9F9;
+  --hz-white-300: #F1F1F1;
+  --hz-white-400: #E2E2E2;
+  --hz-white-500: #CECECE;
 
-  /* greys */
-  --hz-grey-400: #8A9084;  /* on dark  */
-  --hz-grey-500: #6C726A;  /* on dark  */
-  --hz-grey-600: #5A5F55;  /* on light */
-  --hz-grey-700: #74796F;  /* on light */
+  /* Neutral greys. */
+  --hz-grey-400: #8E8E8E;  /* on dark  */
+  --hz-grey-500: #707070;  /* on dark  */
+  --hz-grey-600: #5D5D5D;  /* on light */
+  --hz-grey-700: #777777;  /* on light */
 
   /* ink */
-  --hz-ink-light: #F4F5F2;
-  --hz-ink-dark:  #14160F;
+  --hz-ink-light: #F5F5F5;
+  --hz-ink-dark:  #151515;
 
-  /* the orange — two values, because contrast differs by theme */
-  --hz-orange-500: #FF5C1A;  /* fills, graphics, on dark   */
-  --hz-orange-700: #C2410C;  /* accessible text on light   */
-  --hz-orange-ink: #1A0D05;
+  /* No hue in the shell. The accent is ink at full strength, and every
+     "accented" state is carried by contrast and weight instead of colour.
+     The only saturated things on this site are the screenshots. */
 }
 
 /* ---------- 2. SEMANTIC — DARK (brand default) ------------- */
@@ -55,9 +59,17 @@
   --color-muted: var(--hz-grey-400);
   --color-dim:   var(--hz-grey-500);
 
-  --color-accent:      var(--hz-orange-500);
-  --color-accent-text: var(--hz-orange-500);  /* readable on dark */
-  --color-accent-ink:  var(--hz-orange-ink);
+  --color-accent:      var(--hz-ink-light);
+  --color-accent-text: var(--hz-ink-light);
+  --color-accent-ink:  var(--hz-black-900);
+
+  /* The wordmark, capped.
+     It is the one element allowed to sit on artwork we do not control, and
+     at ink (#F5F5F5) it was close enough to white to punch a hole in a dark
+     cover. Two steps down the warm scale takes 17.8:1 contrast to 15.0:1,
+     which no reader will ever notice, and lets four letters sit ON the image
+     rather than in front of it. It never goes lighter than this. */
+  --color-mark: var(--hz-white-400);
 
   /* Client logos are drawn for light backgrounds. This plate stays white in
      BOTH themes on purpose — the one token that must not follow the theme. */
@@ -74,7 +86,7 @@
     /* Page is pure white; surfaces step *down* into the warm off-whites so
        cards still read as raised. Flipping only the page would make every
        card vanish into it. */
-    --color-bg:          var(--hz-white-100);
+    --color-bg:          var(--hz-test-bg);
     --color-surface:     var(--hz-white-200);
     --color-surface-2:   var(--hz-white-300);
     --color-line:        var(--hz-white-400);
@@ -84,9 +96,13 @@
     --color-muted: var(--hz-grey-600);
     --color-dim:   var(--hz-grey-700);
 
-    --color-accent:      var(--hz-orange-500);
-    --color-accent-text: var(--hz-orange-700);  /* darker: passes AA on light */
+    --color-accent:      var(--hz-ink-dark);
+    --color-accent-text: var(--hz-ink-dark);
     --color-accent-ink:  var(--hz-white-100);
+
+    /* On a light page the mark is dark, and a dark mark has no reason to be
+       softened: nothing here is competing with it. Ink is correct. */
+    --color-mark: var(--color-ink);
   }
 }
 
@@ -98,7 +114,7 @@
 
   color-scheme: light;
 
-  --color-bg:          var(--hz-white-100);
+  --color-bg:          var(--hz-test-bg);
   --color-surface:     var(--hz-white-200);
   --color-surface-2:   var(--hz-white-300);
   --color-line:        var(--hz-white-400);
@@ -108,9 +124,11 @@
   --color-muted: var(--hz-grey-600);
   --color-dim:   var(--hz-grey-700);
 
-  --color-accent:      var(--hz-orange-500);
-  --color-accent-text: var(--hz-orange-700);
+  --color-accent:      var(--hz-ink-dark);
+  --color-accent-text: var(--hz-ink-dark);
   --color-accent-ink:  var(--hz-white-100);
+
+  --color-mark: var(--color-ink);
 }
 
 /* ---------- 3. EVERYTHING ELSE (theme-independent) --------- */
@@ -126,6 +144,7 @@
   --color-accent:      var(--color-accent);
   --color-accent-text: var(--color-accent-text);
   --color-accent-ink:  var(--color-accent-ink);
+  --color-mark:        var(--color-mark);
 }
 
 @theme {
@@ -133,10 +152,13 @@
      Three families. No fourth family. Ever. */
   --font-display: var(--font-space-grotesk), system-ui, sans-serif;
   --font-mono:    var(--font-space-mono), ui-monospace, monospace;
-  --font-arabic:  var(--font-plex-arabic), system-ui, sans-serif;
 
   /* ---------- TYPE SCALE ----------------------------------- */
-  --text-display: clamp(2.5rem, 6vw, 5.5rem);
+  /* The hero, and it has to stay clearly ahead of the section titles. When
+     those went up to 64px this sat at 88, a gap of a quarter that read as
+     "slightly bigger" rather than as a different order of thing. At 112 the
+     first screen is a statement and everything after it is a chapter. */
+  --text-display: clamp(3rem, 7.5vw, 7rem);
   --text-h1:      clamp(2rem, 4.5vw, 3.75rem);
   /* Section titles sit between h1 and h2 on purpose. A section is a
      chapter divider; the headings inside it are points within that
@@ -164,9 +186,14 @@
     0 1px 2px rgb(0 0 0 / .3),
     0 12px 32px -12px rgb(0 0 0 / .55);
 
-  --text-section: clamp(1.875rem, 4vw, 3rem);
-  --text-h2:      clamp(1.5rem, 3.2vw, 2.25rem);
-  --text-h3:      clamp(1.25rem, 2.2vw, 1.5rem);
+  /* Raised one step across the board. The section titles were topping out
+     at 48px against a 88px display headline, so the page opened loud and
+     then flattened: every section after the intro read at roughly the same
+     weight as its own body copy. Bigger titles restore the drop from
+     display, to section, to body that the layout was already spaced for. */
+  --text-section: clamp(2.25rem, 5vw, 4rem);
+  --text-h2:      clamp(1.75rem, 3.8vw, 2.75rem);
+  --text-h3:      clamp(1.375rem, 2.4vw, 1.75rem);
   --text-lead:    clamp(1.0625rem, 2vw, 1.3125rem);
   --text-body:    1.0625rem;
   --text-small:   0.875rem;
@@ -214,8 +241,19 @@
   --radius-lg: 16px; --radius-pill: 999px;
 
   /* ---------- MOTION --------------------------------------- */
-  --duration-fast: 0.2s;
-  --duration-base: 0.4s;
+  /* 0.6s is the floor for every animation on this site, by decision.
+
+     The scale used to run 0.2 / 0.4 / 0.8 on the rule that a response to the
+     pointer must feel instant. That rule is now overridden deliberately:
+     motion here is meant to be SEEN, and at 0.2s an interaction was over
+     before the eye arrived at it. fast and base therefore both sit at the
+     floor and are kept as separate names only so existing selectors keep
+     reading in the language of their intent. */
+  --duration-fast: 0.6s;
+  --duration-base: 0.6s;
+  /* The work card's veil. No longer an exception, since the whole scale
+     moved to meet it, but kept as a name because the intent is specific. */
+  --duration-reveal: 0.6s;
   --duration-slow: 0.8s;
   --ease-out:    cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);

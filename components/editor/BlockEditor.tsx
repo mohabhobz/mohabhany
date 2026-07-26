@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import type { Block } from "@/lib/types";
 import { Btn, Field } from "@/components/editor/ui";
 
@@ -8,6 +9,26 @@ import { Btn, Field } from "@/components/editor/ui";
  * into a src makes the browser treat it as a relative path — which is how you
  * end up staring at your own 404. Pull the URL out of whatever arrives.
  */
+/**
+ * Figma writes the player's current content scale into the share link, e.g.
+ * `scaling=min-zoom&content-scaling=fixed`. So the choice does not have to be
+ * made twice: whatever was set in Figma before copying becomes the block's
+ * starting value, and the picker only exists to change it afterwards.
+ *
+ * Returns undefined when the link carries no choice, which leaves the caller
+ * on its own default.
+ */
+function figmaScaling(input: string): string | undefined {
+  const m = input.match(/src=["']([^"']+)["']/i);
+  try {
+    const q = new URL((m ? m[1] : input).trim()).searchParams;
+    if (q.get("content-scaling") === "responsive") return "responsive";
+    return q.get("scaling") || undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 function figmaUrl(input: string): string {
   const v = input.trim();
   if (!v) return "";
@@ -24,10 +45,139 @@ function figmaUrl(input: string): string {
       u.hostname = "embed.figma.com";
     }
     if (!u.searchParams.has("embed-host")) u.searchParams.set("embed-host", "share");
+    /* Two documented parameters do most of the work here.
+
+       footer=false removes Figma's own bar along the bottom (file name, "Edited
+       4 months ago"). That bar is a fixed height Figma controls, so while it is
+       there no ratio we set can be correct: the box is always the frame plus an
+       unknown strip. Removing it makes the embed exactly the prototype, which
+       is what the ratio then describes.
+
+       scaling=contain fits the whole frame inside the box instead of scaling
+       down from an assumed viewport, so the frame fills the ratio we chose.
+       https://developers.figma.com/docs/embeds/embed-figma-prototype/ */
+    if (!u.searchParams.has("footer")) u.searchParams.set("footer", "false");
+    /* Scaling is deliberately NOT set here. It is a block field applied at
+       render time, and a value baked into the stored URL would win over the
+       picker and make it look broken. */
+    u.searchParams.delete("scaling");
+    u.searchParams.delete("content-scaling");
     return u.toString();
   } catch {
     return url;
   }
+}
+
+/**
+ * Shape of the prototype box.
+ *
+ * There is no way to read this automatically. The embed is served from
+ * embed.figma.com, a different origin, so the browser blocks us from measuring
+ * anything inside the iframe, and Figma does not post its dimensions out. The
+ * frame's shape has to be stated rather than detected.
+ *
+ * Presets cover the frames Figma itself ships. Custom takes the width and
+ * height straight off the frame in Figma, which is exact and takes about five
+ * seconds to read from the right-hand panel.
+ */
+const RATIOS: [string, string][] = [
+  ["Desktop", "16 / 9"],
+  ["Laptop",  "16 / 10"],
+  ["Tablet",  "4 / 3"],
+  ["Mobile",  "9 / 16"],
+];
+
+function RatioPicker({ value, onChange }: {
+  value: string; onChange: (v: string) => void;
+}) {
+  const preset = RATIOS.find(([, r]) => r === value);
+  const [w, h] = value.split("/").map((n) => n.trim());
+
+  /* Matches Field in components/editor/ui.tsx. There is no shared input class
+     to reach for, and inventing one here would style nothing silently. */
+  const box: CSSProperties = {
+    width: 96, padding: "8px 10px", background: "var(--color-bg)",
+    border: "1px solid var(--color-line)", borderRadius: "var(--radius-sm)",
+    color: "var(--color-ink)", font: "inherit", fontSize: 14,
+    fontFamily: "var(--font-mono)",
+  };
+
+  return (
+    <div style={{ marginBottom: "var(--space-4)" }}>
+      <div className="t-label" style={{ marginBottom: "var(--space-2)" }}>
+        Shape of the frame in Figma
+      </div>
+      <div style={{ display: "flex", gap: "var(--space-2)", flexWrap: "wrap", marginBottom: "var(--space-3)" }}>
+        {RATIOS.map(([label, r]) => (
+          <Btn key={r} onClick={() => onChange(r)} tone={value === r ? "accent" : undefined}>
+            {label}
+          </Btn>
+        ))}
+        <Btn onClick={() => onChange("1440 / 900")} tone={preset ? undefined : "accent"}>
+          Custom
+        </Btn>
+      </div>
+      {!preset && (
+        <div style={{ display: "flex", gap: "var(--space-3)", alignItems: "center" }}>
+          <input type="number" value={w} placeholder="W" style={box}
+            onChange={(e) => onChange(`${e.target.value || 1} / ${h || 1}`)} />
+          <span className="t-label" style={{ opacity: .6 }}>×</span>
+          <input type="number" value={h} placeholder="H" style={box}
+            onChange={(e) => onChange(`${w || 1} / ${e.target.value || 1}`)} />
+          <span className="t-label" style={{ opacity: .6 }}>
+            the frame&rsquo;s size in Figma
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Content scale, using Figma's own four labels.
+ *
+ * These match the menu in Figma's prototype player exactly, so what is chosen
+ * here is what was seen there. Behind them are two different URL parameters:
+ * Responsive is `content-scaling`, the other three are `scaling`. Keeping that
+ * split inside protoSrc is why this list can stay in Figma's language instead
+ * of the API's.
+ *
+ * Three of the four mappings are stated in the docs. "Fill screen" is not: the
+ * docs never publish the tooltip-to-value mapping, and `fit-width` is the only
+ * value that scales a frame UP to fill the box, which is what Fill screen does.
+ * It is an inference, so check it on the page before trusting it.
+ * https://developers.figma.com/docs/embeds/embed-figma-prototype/
+ */
+const SCALING: [string, string, string][] = [
+  ["Fit width and height", "contain",     "the whole frame inside the box"],
+  ["Fill screen",          "fit-width",   "spans the full width, scaling up if it has to"],
+  ["Responsive",           "responsive",  "the frame reflows to the box, if it was built to"],
+  ["Actual size (100%)",   "min-zoom",    "real pixel size, no scaling at all"],
+];
+
+function ScalingPicker({ value, onChange }: {
+  value: string; onChange: (v: string) => void;
+}) {
+  const current = SCALING.find(([, v]) => v === value);
+  return (
+    <div style={{ marginBottom: "var(--space-4)" }}>
+      <div className="t-label" style={{ marginBottom: "var(--space-2)" }}>
+        Content scale
+      </div>
+      <div style={{ display: "flex", gap: "var(--space-2)", flexWrap: "wrap" }}>
+        {SCALING.map(([label, v, note]) => (
+          <Btn key={v} onClick={() => onChange(v)} tone={value === v ? "accent" : undefined} title={note}>
+            {label}
+          </Btn>
+        ))}
+      </div>
+      {current && (
+        <p className="t-label" style={{ opacity: .6, marginTop: "var(--space-2)" }}>
+          {current[2]}
+        </p>
+      )}
+    </div>
+  );
 }
 
 export function BlockEditor({ block, onChange, onUpload }: {
@@ -158,12 +308,24 @@ export function BlockEditor({ block, onChange, onUpload }: {
         <>
           <F label="Figma link or embed code, either works"
              value={block.src}
-             onChange={(v) => set({ src: figmaUrl(v) })} />
+             onChange={(v) => set({
+               src: figmaUrl(v),
+               /* Keep whatever is already chosen if the link is silent. */
+               scaling: figmaScaling(v) ?? block.scaling ?? "contain",
+             })} />
           {bad && (
             <p className="t-label" style={{ color: "#E5484D", marginBottom: "var(--space-3)" }}>
               That is not a full URL — it must start with https://
             </p>
           )}
+          <RatioPicker
+            value={block.ratio || "16 / 10"}
+            onChange={(v) => set({ ratio: v })}
+          />
+          <ScalingPicker
+            value={block.scaling || "contain"}
+            onChange={(v) => set({ scaling: v })}
+          />
           <F label="Caption" value={block.caption} onChange={(v) => set({ caption: v })} />
         </>
       );

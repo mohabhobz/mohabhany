@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import type { Project } from "@/lib/types";
 import { Btn, DeleteBtn } from "@/components/editor/ui";
+import { useSiteReady } from "@/components/ui/Loading";
+import { useCoverInk } from "@/lib/useCoverInk";
 
 export function ProjectCover({ project, editing, onChange, onUpload }: {
   project: Project;
@@ -14,7 +16,7 @@ export function ProjectCover({ project, editing, onChange, onUpload }: {
   const hasCover = !!cover?.src;
   const fit = cover?.fit ?? "fit";
   const videoRef = useRef<HTMLVideoElement>(null);
-
+  const imgRef = useRef<HTMLImageElement>(null);
   /**
    * React's `muted` prop is unreliable — it renders as an attribute, and
    * browsers read the DOM *property*. A cover video must never make noise,
@@ -31,6 +33,30 @@ export function ProjectCover({ project, editing, onChange, onUpload }: {
     return () => v.removeEventListener("volumechange", enforce);
   }, [cover?.src]);
 
+  /**
+   * Starts the cover once the loading screen is gone.
+   *
+   * autoPlay is deliberately NOT on the element: it fires the moment the
+   * video mounts, which is behind the overlay, so the opening seconds play
+   * to nobody and the visitor meets the cover already halfway through.
+   *
+   * This effect is declared AFTER the muted effect above and that order
+   * matters. Effects run in declaration order, and a browser rejects play()
+   * on a video it does not yet consider muted, so starting it first would
+   * fail every time and fail silently.
+   *
+   * The catch is required for the same reason: play() rejects in cases we
+   * cannot detect from here, such as a device in low power mode, and an
+   * unhandled rejection would surface in the console of anyone who opens
+   * dev tools on this site.
+   */
+  const ready = useSiteReady();
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || !ready) return;
+    v.play().catch(() => {});
+  }, [ready, cover?.src]);
+
   /* Fades the scroll cue out once the reader has taken the hint. */
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -39,6 +65,12 @@ export function ProjectCover({ project, editing, onChange, onUpload }: {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  /* The mark reads whichever cover is showing, video or image, and only
+     while the cover is under it. Once scrolled past, active goes false, the
+     attribute is cleared, and the mark returns to the theme ink. */
+  const isVideoCover = hasCover && cover?.kind === "video";
+  useCoverInk(isVideoCover ? videoRef : imgRef, hasCover && !scrolled);
 
   if (!hasCover && !editing) return null;
 
@@ -52,14 +84,14 @@ export function ProjectCover({ project, editing, onChange, onUpload }: {
             ref={videoRef}
             src={cover.src}
             poster={cover.poster || undefined}
-            autoPlay loop playsInline
+            loop playsInline
             muted
             controls={false}
             disablePictureInPicture
             preload="metadata"
           />
         ) : hasCover ? (
-          <img src={cover.src} alt="" />
+          <img ref={imgRef} src={cover.src} alt="" />
         ) : (
           <span className="t-label">Cover — image or video</span>
         )}

@@ -177,7 +177,7 @@
               {
                 "id": "zke2zfd3",
                 "kind": "image",
-                "src": "/uploads/1784447596830-2345.png",
+                "src": "/uploads/1784447596830-2345.webp",
                 "alt": "",
                 "caption": "",
                 "ratio": "wide",
@@ -219,7 +219,7 @@
               {
                 "id": "wxk35kcy",
                 "kind": "image",
-                "src": "/uploads/1784447880104-Group-26086301.png",
+                "src": "/uploads/1784447880104-Group-26086301.webp",
                 "alt": "",
                 "caption": "",
                 "ratio": "wide",
@@ -264,7 +264,7 @@
               {
                 "id": "qrmha8xl",
                 "kind": "image",
-                "src": "/uploads/1784448031142-IMG_8032-1.png",
+                "src": "/uploads/1784448031142-IMG_8032-1.webp",
                 "alt": "",
                 "caption": "",
                 "ratio": "wide",
@@ -349,6 +349,6 @@
       "icon": "reflection"
     }
   ],
-  "status": "draft",
-  "updatedAt": "2026-07-19T08:15:00.475Z"
+  "status": "published",
+  "updatedAt": "2026-07-20T20:19:04.353Z"
 }

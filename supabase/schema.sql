@@ -110,3 +110,56 @@ values (
   'draft'
 )
 on conflict (slug) do nothing;
+
+-- ============================================================
+-- ADDED: the tables the code actually queries.
+--
+-- lib/case-studies.ts reads and writes public.projects and a `media`
+-- table, but neither was defined here. Any table created by hand in the
+-- Supabase dashboard has RLS DISABLED by default, and the anon key is
+-- public and shipped to every browser. A missing policy file is not a
+-- missing feature, it is an open door: without the rows below, a stranger
+-- with the key from your JavaScript can read, edit and delete every
+-- project on the site.
+-- ============================================================
+
+create table if not exists public.projects (
+  id          uuid primary key default gen_random_uuid(),
+  slug        text unique not null,
+  name        text not null default '',
+  logo        text default '',
+  description text default '',
+  role        text default '',
+  period      text default '',
+  order_index int not null default 0,
+  created_at  timestamptz not null default now(),
+  updated_at  timestamptz not null default now()
+);
+
+alter table public.projects enable row level security;
+
+drop policy if exists "public reads projects" on public.projects;
+create policy "public reads projects"
+  on public.projects for select to anon using (true);
+
+drop policy if exists "owner writes projects" on public.projects;
+create policy "owner writes projects"
+  on public.projects for all to authenticated using (true) with check (true);
+
+-- Same treatment for the media table, if the code is using one.
+create table if not exists public.media (
+  id         uuid primary key default gen_random_uuid(),
+  path       text unique not null,
+  url        text not null default '',
+  created_at timestamptz not null default now()
+);
+
+alter table public.media enable row level security;
+
+drop policy if exists "public reads media rows" on public.media;
+create policy "public reads media rows"
+  on public.media for select to anon using (true);
+
+drop policy if exists "owner writes media rows" on public.media;
+create policy "owner writes media rows"
+  on public.media for all to authenticated using (true) with check (true);

@@ -26,6 +26,7 @@ const LINKS = [
  */
 export function SiteNav() {
   const [active, setActive] = useState("intro");
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const sections = LINKS
@@ -47,11 +48,35 @@ export function SiteNav() {
     return () => io.disconnect();
   }, []);
 
+  /* Escape closes the mobile menu, the expected shortcut once it is open. */
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
-    <header className="site-nav">
+    <header className="site-nav" data-open={open}>
       <Wordmark />
 
-      <nav aria-label="Sections">
+      {/* The toggle only exists on mobile (hidden by CSS on wider screens).
+          It is the same button throughout: the icon swaps between a menu and
+          an X via CSS on [aria-expanded], so there is one control to reason
+          about, not two that can disagree. */}
+      <button
+        type="button"
+        className="site-nav__toggle"
+        aria-expanded={open}
+        aria-controls="site-nav-links"
+        aria-label={open ? "Close menu" : "Open menu"}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span className="site-nav__toggle-bar" />
+        <span className="site-nav__toggle-bar" />
+      </button>
+
+      <nav aria-label="Sections" id="site-nav-links" className="site-nav__nav">
         <ul className="site-nav__list">
           {LINKS.map((l) => (
             <li key={l.id}>
@@ -60,6 +85,7 @@ export function SiteNav() {
                 className="t-label site-nav__link"
                 data-active={active === l.id}
                 aria-current={active === l.id ? "true" : undefined}
+                onClick={() => setOpen(false)}
               >
                 {l.label}
               </a>

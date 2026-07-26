@@ -1,0 +1,228 @@
+{
+  "slug": "dubai-police-aix-design-system",
+  "projectSlug": "dubai-police-aix",
+  "title": "Design System",
+  "sections": [
+    {
+      "id": "9oznzlnl",
+      "title": "Confidentiality",
+      "rows": [
+        {
+          "id": "yyvyw89p",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "hyn4e9kc",
+                "kind": "heading",
+                "level": 2,
+                "text": "Shown as method, not material"
+              },
+              {
+                "id": "69wcqv0j",
+                "kind": "paragraph",
+                "text": "This project was delivered under a signed non-disclosure agreement with Dubai Police. Out of respect for that agreement, this page carries no screens, no components, and no detail of how the system works. What follows is how I worked, not what the product does."
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ci9zhf38",
+      "title": "Context",
+      "rows": [
+        {
+          "id": "94yvkplq",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "uoj0xmy2",
+                "kind": "heading",
+                "level": 2,
+                "text": "A government AI service, mid-flight"
+              },
+              {
+                "id": "16ge0lpu",
+                "kind": "paragraph",
+                "text": "Dubai Police were building a conversational AI service for citizens, and it already had a design system in place. I was brought in as Senior UX/UI to strengthen the foundation the product was being built on, to Dubai Government Design (DDA) and WCAG accessibility standards, in Arabic and English."
+              },
+              {
+                "id": "kj5wtu06",
+                "kind": "paragraph",
+                "text": "I did not start this system from a blank file. I started from one that existed and had grown inconsistent, which is a harder and more common problem than a clean start."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "building"
+    },
+    {
+      "id": "g1nckrg3",
+      "title": "The evaluation",
+      "rows": [
+        {
+          "id": "c5mygcp4",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "qopk5uhn",
+                "kind": "heading",
+                "level": 2,
+                "text": "Read it before rebuilding it"
+              },
+              {
+                "id": "z3aabaxk",
+                "kind": "paragraph",
+                "text": "The first deliverable was not a design. It was a written evaluation of the existing system, followed by a solutions and recommendations report, each structured across ten areas:"
+              },
+              {
+                "id": "jihgw55k",
+                "kind": "list",
+                "items": [
+                  "Colours and colour token naming",
+                  "Libraries and platforms",
+                  "Typography",
+                  "Figma structure",
+                  "Design strategy and governance",
+                  "Components, patterns, and reusability",
+                  "Handover and versioning",
+                  "Project and sprint alignment",
+                  "Spacing and layout tokens"
+                ]
+              },
+              {
+                "id": "lt6qkcuc",
+                "kind": "paragraph",
+                "text": "Naming the problems in writing, before touching a single screen, is what let the rebuild be a decision instead of a preference."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "research"
+    },
+    {
+      "id": "zj29k6x0",
+      "title": "The rebuild",
+      "rows": [
+        {
+          "id": "zs2dvrip",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "15y8tn5q",
+                "kind": "heading",
+                "level": 2,
+                "text": "A system, from tokens up"
+              },
+              {
+                "id": "itzf72xt",
+                "kind": "paragraph",
+                "text": "From that evaluation I rebuilt the system to a new version, structured so that every layer feeds the one above it:"
+              },
+              {
+                "id": "ybi8y60i",
+                "kind": "list",
+                "items": [
+                  "Tokens: primitive values, then semantic tokens on top, with light and dark themes and a JSON export for developer handover",
+                  "Foundations: usage rules for colour, type, spacing and radius, plus layout, grid, and RTL / LTR handling",
+                  "Components: controls, containers, navigation, feedback, and media",
+                  "Component tokens: radius, spacing, typography, and elevation mapped per component",
+                  "Patterns: forms, content, and layout patterns",
+                  "Platform adaptation: web, iOS, and Android, with full Arabic RTL",
+                  "Documentation: do and don't, accessibility, token change process, versioning"
+                ]
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "layers"
+    },
+    {
+      "id": "oud7o2fw",
+      "title": "Benchmarking",
+      "rows": [
+        {
+          "id": "qu86wx79",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "un7or6tt",
+                "kind": "heading",
+                "level": 2,
+                "text": "Referenced, not copied"
+              },
+              {
+                "id": "3n6yz7xx",
+                "kind": "paragraph",
+                "text": "The system was built against established references rather than invented in isolation: Apple's Human Interface Guidelines for hierarchy and accessibility, Material for scalable state-driven design, IBM Carbon for enterprise-scale token architecture and governance, and Radix and shadcn for component state modelling and token-driven implementation. References as guiding principles, with every decision adapted to the client's brand, content, and context."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "compass"
+    },
+    {
+      "id": "i14jkwxv",
+      "title": "Proof of concept",
+      "rows": [
+        {
+          "id": "1cg1o0ra",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "yi0jbqts",
+                "kind": "heading",
+                "level": 2,
+                "text": "A system earns its keep in a real product"
+              },
+              {
+                "id": "ggbe3epo",
+                "kind": "paragraph",
+                "text": "A design system is worth nothing as documentation on a shelf. So I built a working proof of concept on the new system, assembling real product screens from its components and tokens, to validate responsiveness and the experience end to end before handover. The system was tested by being used, not by being described."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "check"
+    },
+    {
+      "id": "05mhznn1",
+      "title": "Standards",
+      "rows": [
+        {
+          "id": "xg12b2l0",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "a2vxybsb",
+                "kind": "heading",
+                "level": 2,
+                "text": "Held to a government bar"
+              },
+              {
+                "id": "19vru5pp",
+                "kind": "paragraph",
+                "text": "Everything was held to Dubai Government Design standards and WCAG accessibility, Arabic-first with full RTL, across web and mobile. On a public service, accessibility and clarity are not polish. They are the product."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "shield"
+    }
+  ],
+  "status": "published",
+  "updatedAt": "2026-07-26T08:19:51.519Z"
+}

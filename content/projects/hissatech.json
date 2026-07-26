@@ -1,15 +1,16 @@
 {
   "slug": "hissatech",
   "name": "Hissatech",
-  "logo": "/uploads/1784470170717-Hissatech.jpeg",
+  "logo": "/uploads/1784470170717-Hissatech.jpg",
   "description": "Hissatech lets someone in Saudi Arabia own a share of an income-generating property instead of the whole building. The share is registered, the rent arrives monthly, and the investing itself happens in an app.I designed the website. Its job is everything that has to happen before the app is ever downloaded: explaining an unfamiliar financial product, establishing that it is real and regulated, and making an abstract instrument feel as concrete as a title deed.",
   "slogan": "Fractional real estate, Saudi Arabia",
   "role": "Senior Product Designer",
   "period": "Dec 2025 – Jan 2026",
   "cover": {
     "kind": "image",
-    "src": "/uploads/1784569235193-MacBook-Air--2022-.png",
+    "src": "/uploads/1784924024887-Cover3.webp",
     "fit": "fit"
   },
-  "sections": []
+  "sections": [],
+  "order": 0
 }

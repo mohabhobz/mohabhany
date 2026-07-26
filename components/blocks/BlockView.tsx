@@ -21,6 +21,35 @@ import { useLightbox } from "@/components/ui/Lightbox";
  * screenshot that opens halfway down has hidden the header, which is the
  * part that says what screen this is.
  */
+/**
+ * Content scale, applied at render time rather than baked into the stored URL,
+ * so a change in the studio shows up immediately instead of rewriting every
+ * saved link.
+ *
+ * Figma splits this across two parameters. "Responsive" is `content-scaling`;
+ * everything else is `scaling` with `content-scaling` left at its default. The
+ * editor offers one list in Figma's own wording and this is where that single
+ * choice is turned back into the right parameter.
+ * https://developers.figma.com/docs/embeds/embed-figma-prototype/
+ */
+function protoSrc(src: string, scaling?: string): string {
+  try {
+    const u = new URL(src);
+    if (scaling === "responsive") {
+      u.searchParams.set("content-scaling", "responsive");
+      u.searchParams.delete("scaling");
+    } else if (scaling) {
+      u.searchParams.set("scaling", scaling);
+      u.searchParams.delete("content-scaling");
+    }
+    return u.toString();
+  } catch {
+    /* The caller already checks for https:// and shows its own warning, so a
+       URL that will not parse is handed back untouched rather than swallowed. */
+    return src;
+  }
+}
+
 function Frame({ ratio, fit, framed = true, focus, children }: {
   ratio?: string; fit?: "natural" | "crop"; framed?: boolean;
   focus?: "top" | "center" | "bottom";
@@ -89,7 +118,7 @@ function BeforeAfter({ before, after, fit = "natural", ratio = "wide" }: {
       onTouchMove={(e) => move(e.touches[0].clientX)}
     >
       {before ? (
-        <img src={before} alt="Before"
+        <img src={before} alt="Before" loading="lazy" decoding="async"
           style={natural
             ? { width: "100%", height: "auto", display: "block" }
             : { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
@@ -99,7 +128,7 @@ function BeforeAfter({ before, after, fit = "natural", ratio = "wide" }: {
 
       <div style={{ position: "absolute", inset: 0, clipPath: `inset(0 0 0 ${pos}%)` }}>
         {after ? (
-          <img src={after} alt="After"
+          <img src={after} alt="After" loading="lazy" decoding="async"
             style={{ width: "100%", height: "100%", objectFit: natural ? "fill" : "cover" }} />
         ) : (
           <div className="frame--empty" style={{ position: "absolute", inset: 0 }}>AFTER</div>
@@ -168,7 +197,7 @@ export function BlockView({ block }: { block: Block }) {
         <figure className={`figure img-${block.size ?? "column"}`}>
           <Frame ratio={block.ratio} fit={block.fit} framed={block.framed ?? true} focus={block.focus}>
             {block.src
-              ? <img src={block.src} alt={block.alt} className="zoomable"
+              ? <img src={block.src} alt={block.alt} className="zoomable" loading="lazy" decoding="async"
                      onClick={() => open({ src: block.src, alt: block.alt })} />
               : <div className="frame--empty" style={{ minHeight: 220 }}>IMAGE</div>}
           </Frame>
@@ -182,7 +211,7 @@ export function BlockView({ block }: { block: Block }) {
           <div className={block.items.length > 2 ? "grid-3" : "grid-2"}>
             {block.items.map((it, i) => (
               <Frame key={i} ratio={block.ratio} fit={block.fit}>
-                {it.src ? <img src={it.src} alt={it.alt} className="zoomable"
+                {it.src ? <img src={it.src} alt={it.alt} className="zoomable" loading="lazy" decoding="async"
                                onClick={() => open({ src: it.src, alt: it.alt })} />
                         : <div className="frame--empty" style={{ minHeight: 200 }}>IMAGE {i + 1}</div>}
               </Frame>
@@ -238,8 +267,18 @@ export function BlockView({ block }: { block: Block }) {
         <figure className="figure">
           <div style={{ border: "1px solid var(--color-line)", borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
             {/^https:\/\//i.test(block.src) ? (
-              <iframe title="Figma prototype" src={block.src}
-                style={{ width: "100%", height: 620, border: 0, display: "block" }}
+              /* A ratio, not a fixed height. The iframe is cross-origin, so
+                 nothing here can measure the Figma frame inside it; the ratio
+                 is set per block in the studio to match the frame it came
+                 from. A fixed height was wrong twice over: it letterboxed a
+                 phone flow and, at 620px on a 375px screen, left a desktop
+                 prototype unreadable. */
+              <iframe title="Figma prototype" src={protoSrc(block.src, block.scaling)}
+                style={{
+                  width: "100%",
+                  aspectRatio: block.ratio || "16 / 10",
+                  border: 0, display: "block",
+                }}
                 allowFullScreen loading="lazy" />
             ) : (
               <div className="frame--empty" style={{ height: 260 }}>
@@ -259,8 +298,7 @@ export function BlockView({ block }: { block: Block }) {
           border: "1px solid var(--color-line)", borderRadius: "var(--radius-md)",
           padding: "var(--space-6)", background: "var(--color-surface)", height: "100%",
         }}>
-          {/* Ink, not orange. A row of four orange numbers is orange as
-              decoration — and the system reserves it for one signal per view. */}
+          {/* Ink. Size and weight carry the emphasis here, not hue. */}
           <div style={{
             fontSize: "var(--text-h2)", fontWeight: "var(--weight-bold)",
             color: "var(--color-ink)", letterSpacing: "var(--tracking-tight)", lineHeight: 1.05,

@@ -131,7 +131,7 @@
               {
                 "id": "1ey0ripx",
                 "kind": "image",
-                "src": "/uploads/1784443954174-Group-26086295.png",
+                "src": "/uploads/1784443954174-Group-26086295.webp",
                 "alt": "",
                 "caption": "",
                 "ratio": "wide",
@@ -142,7 +142,7 @@
               {
                 "id": "jtyz4kf6",
                 "kind": "image",
-                "src": "/uploads/1784444219337-Group-26086298.png",
+                "src": "/uploads/1784444219337-Group-26086298.webp",
                 "alt": "",
                 "caption": "",
                 "ratio": "wide",
@@ -184,7 +184,7 @@
               {
                 "id": "8o2ljljt",
                 "kind": "image",
-                "src": "/uploads/1784444048214-Group-26086297fvc.png",
+                "src": "/uploads/1784444048214-Group-26086297fvc.webp",
                 "alt": "",
                 "caption": "",
                 "ratio": "wide",
@@ -282,6 +282,6 @@
       "icon": "layers"
     }
   ],
-  "status": "draft",
-  "updatedAt": "2026-07-19T08:16:03.640Z"
+  "status": "published",
+  "updatedAt": "2026-07-20T20:18:59.658Z"
 }

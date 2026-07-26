@@ -1,0 +1,321 @@
+{
+  "slug": "pleny-posting-videos-to-the-feed",
+  "projectSlug": "pleny",
+  "title": "Posting Videos to the Feed",
+  "sections": [
+    {
+      "id": "2gvx169m",
+      "title": "The task",
+      "rows": [
+        {
+          "id": "rwu3l7oc",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "62bfzsvt",
+                "kind": "heading",
+                "level": 2,
+                "text": "A challenge before the job"
+              },
+              {
+                "id": "ooairetb",
+                "kind": "paragraph",
+                "text": "Before Pleny hired me, they sent a design task: design the flow for adding portrait videos to a social post. It came with real constraints, and I have kept them here in the brief's own words because a problem stated by the client is worth more than one I could invent."
+              },
+              {
+                "id": "wqrsvi08",
+                "kind": "list",
+                "items": [
+                  "Select portrait videos from an Android device",
+                  "Preview multiple selected videos",
+                  "Trim each video to a five minute limit",
+                  "Show how the videos appear while creating the post",
+                  "Not every video is over five minutes, so handle both cases"
+                ]
+              },
+              {
+                "id": "v1bwib02",
+                "kind": "paragraph",
+                "text": "Android only, English, and dark mode was allowed."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "docs"
+    },
+    {
+      "id": "gm2l23h5",
+      "title": "Framing",
+      "rows": [
+        {
+          "id": "tx7uujtn",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "r5aahurj",
+                "kind": "heading",
+                "level": 2,
+                "text": "Where the real problem was"
+              },
+              {
+                "id": "vxg3rmc7",
+                "kind": "paragraph",
+                "text": "The brief looks like four screens. The actual problem is one sentence inside it: not every video is over five minutes. That single line decides whether the flow feels smart or clumsy, because a design that forces everyone through a trimmer punishes the person whose clip was already fine."
+              },
+              {
+                "id": "fesaqni2",
+                "kind": "paragraph",
+                "text": "I looked at how Facebook and Instagram handle video posting, and took one principle from both: never make the user do a step the content does not need."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "compass"
+    },
+    {
+      "id": "hh851oal",
+      "title": "User flow",
+      "rows": [
+        {
+          "id": "x5pwuual",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "thgl1ft1",
+                "kind": "heading",
+                "level": 2,
+                "text": "The logic before the pixels"
+              },
+              {
+                "id": "hbodjjya",
+                "kind": "paragraph",
+                "text": "I mapped the journey as a flow first, so the branching was a decision on paper rather than something discovered mid-design. The five minute rule became the one fork in the path: over the limit, trimming is required; under it, the user passes straight through and can still trim if they want to."
+              },
+              {
+                "id": "kxmqlehv",
+                "kind": "image",
+                "src": "/uploads/1784757652492-User-flow.webp",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "column"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "decision"
+    },
+    {
+      "id": "hjxxyy64",
+      "title": "Wireframes",
+      "rows": [
+        {
+          "id": "masah9jp",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "hwu9xnmw",
+                "kind": "heading",
+                "level": 2,
+                "text": "Structure before surface"
+              },
+              {
+                "id": "fdffb49g",
+                "kind": "paragraph",
+                "text": "Before any visual design, I laid the screens out as wireframes to settle hierarchy and step order without the distraction of colour or type. The question at this stage was only \"what is on each screen and in what order\", which is the cheapest question to answer wrong and the most expensive to fix late."
+              },
+              {
+                "id": "out4ephz",
+                "kind": "image",
+                "src": "/uploads/1784757472169-Wireframes.webp",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "column"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "structure"
+    },
+    {
+      "id": "b942iuu9",
+      "title": "The solution",
+      "rows": [
+        {
+          "id": "tf17hzij",
+          "layout": "2-1",
+          "cells": [
+            [
+              {
+                "id": "dgduoyb9",
+                "kind": "heading",
+                "level": 2,
+                "text": "Six screens, one clean line"
+              },
+              {
+                "id": "wxr5knl8",
+                "kind": "paragraph",
+                "text": "The final flow moves from the feed to a posted video without a wasted step:"
+              },
+              {
+                "id": "xpj3h88c",
+                "kind": "list",
+                "items": [
+                  "Feed: the plus button opens the flow",
+                  "Add Media: the gallery, with multi-select from the start, so a batch of clips is chosen at once rather than one at a time",
+                  "Edit Your Videos: preview and a trim timeline in the same screen, with the five minute limit shown inline as a rule rather than a blocking gate",
+                  "Create Post: caption and the attached videos",
+                  "Post: returns the user straight to the feed, processing in the background, and confirms with a toast once it is done"
+                ]
+              }
+            ],
+            [
+              {
+                "id": "uidha8f8",
+                "kind": "image",
+                "src": "/uploads/1784758727011-Feed-Light-One.webp",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "narrow"
+              }
+            ]
+          ]
+        },
+        {
+          "id": "pxfr1xy4",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "aix0n8rj",
+                "kind": "image",
+                "src": "/uploads/1784759100912-pleny-mobile-screen-designs2.webp",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "column"
+              },
+              {
+                "id": "6w6t8lro",
+                "kind": "image",
+                "src": "/uploads/1784759194670-pleny-mobile-screen-designs3.webp",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "narrow"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "mobile"
+    },
+    {
+      "id": "acfit2g4",
+      "title": "Key decisions",
+      "rows": [
+        {
+          "id": "y8pptexe",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "6i6grnfd",
+                "kind": "heading",
+                "level": 2,
+                "text": "Four choices that shaped it"
+              },
+              {
+                "id": "529luxx3",
+                "kind": "paragraph",
+                "text": "Write the thinking here — what you decided and why."
+              },
+              {
+                "id": "bmr9y8qb",
+                "kind": "list",
+                "items": [
+                  "Trimming lives inside the edit screen, not a separate step. The brief asked for fewer clicks, so the trimmer is where the preview already is.",
+                  "The five minute limit is a rule on the screen, not a wall in the flow. It is shown where trimming happens, so it guides rather than interrupts.",
+                  "Multi-select from the first screen. Posting is usually more than one clip, so the flow is built for a batch, not repeated for each video.",
+                  "Processing was moved to the background. Instead of holding the user on an upload screen, pressing Post returns them to the feed immediately and a toast confirms when the videos are live. Their time back is worth more than a progress bar."
+                ]
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "target"
+    },
+    {
+      "id": "1shedfvw",
+      "title": "Outcome",
+      "rows": [
+        {
+          "id": "t5t8zh1g",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "wlhp1inm",
+                "kind": "heading",
+                "level": 2,
+                "text": "The result"
+              },
+              {
+                "id": "scry57bh",
+                "kind": "paragraph",
+                "text": "Pleny hired me after this task, and I went on to work on the app itself. The strongest thing a design task can prove is not a screen. It is that the thinking behind the screen was worth betting a role on."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "flag"
+    },
+    {
+      "id": "q9cs3mqc",
+      "title": "Prototype",
+      "rows": [
+        {
+          "id": "g5ci6oof",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "bt8iqta0",
+                "kind": "figma",
+                "src": "https://embed.figma.com/proto/yGAMMKGYB6fhE9ieKHwtGo/Pleny?node-id=28-7286&p=f&viewport=605%2C569%2C0.15&starting-point-node-id=28%3A7286&page-id=28%3A7285&embed-host=share&footer=false",
+                "caption": "Prototype is view-only.",
+                "ratio": "1440 / 1300",
+                "scaling": "contain"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "eye"
+    }
+  ],
+  "status": "published",
+  "updatedAt": "2026-07-22T22:37:59.838Z"
+}

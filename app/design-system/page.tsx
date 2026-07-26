@@ -52,9 +52,11 @@ export default function DesignSystemPage() {
           </p>
           <p className="t-body" style={{ marginTop: "var(--space-3)" }}>
             Toggle the theme above: every swatch below is rendering the live token.
-            Note <code style={{ color: "var(--color-accent-text)" }}>--color-accent-text</code>{" "}
-            darkens in light mode — the brand orange fails contrast on a light
-            background, so accent-as-text is a separate token.
+            The palette carries no hue on purpose. Emphasis is done with contrast,
+            weight and space, so the only saturated thing on any page is the work
+            itself. <code style={{ color: "var(--color-accent-text)" }}>--color-accent-text</code>{" "}
+            survives as a token because state still needs a name, even when that
+            state is expressed in ink.
           </p>
         </Reveal>
         <div className="grid-2" style={{ marginTop: "var(--space-8)" }}>
@@ -91,7 +93,7 @@ export default function DesignSystemPage() {
         <Reveal delay={1}>
           <p className="t-body" style={{ marginTop: "var(--space-4)" }}>
             Space Grotesk for everything you read. Space Mono for labels and numbers.
-            IBM Plex Sans Arabic for Arabic. Two weights: 500 and 700. Never 600.
+            Two weights: 500 and 700. Never 600.
           </p>
         </Reveal>
         <div style={{ marginTop: "var(--space-8)" }}>
@@ -111,14 +113,6 @@ export default function DesignSystemPage() {
               </div>
             </Reveal>
           ))}
-          <Reveal>
-            <div style={{ borderTop: "1px solid var(--color-line)", paddingBlock: "var(--space-6)" }}>
-              <span className="t-label">.t-arabic</span>
-              <p className="t-h2 t-arabic" style={{ marginTop: "var(--space-3)" }} dir="rtl">
-                تصميم مقيس<span className="dot">.</span>
-              </p>
-            </div>
-          </Reveal>
         </div>
       </section>
 

@@ -1,45 +1,49 @@
-# Hobz Portfolio
+# mohabhany.com
 
-Personal portfolio for Mohab Hany (Hobz). Next.js + Supabase, deployed to Vercel.
+Portfolio of Mohab Hany, product designer. Next.js, deployed on Vercel.
 
-## Run it locally
+## Running it
 
 ```bash
 npm install
-npm run dev
+npm run dev          # http://localhost:3000
 ```
 
-Then open **http://localhost:3000** — and **http://localhost:3000/design-system**
-to see every token in the system.
+## Adding a case study
 
-## Stack — and why
+Content lives in `content/` as JSON. There is no database and no CMS.
 
-| Choice | Reason |
-|---|---|
-| **Next.js 15 (App Router)** | Static-first rendering = very fast. Native home on Vercel. Great SEO out of the box. |
-| **TypeScript** | Catches mistakes before they ship. |
-| **Tailwind v4** | CSS-first config: the design tokens ARE the config, so nothing can drift. |
-| **Motion** | Scroll animation on transform/opacity only — 60fps, respects reduced motion. |
-| **Supabase** | Free Postgres for content. Swappable without touching the UI. |
-| **next/font** | Fonts self-hosted at build time: no network request, no layout shift. |
+1. `npm run dev`
+2. Open `/projects`. This is the studio: create a project, add a case study,
+   write it, upload images.
+3. It writes to `content/projects/*.json` and `content/case-studies/*.json`.
+4. Commit and push. Vercel rebuilds and the change is live in about a minute.
 
-## Supabase
+`/projects` only exists in development. In production the whole segment
+returns 404 and every write action refuses to run, so the editor cannot be
+reached from the internet.
 
-Copy `.env.local.example` to `.env.local` and fill in your project URL and anon key
-(Supabase → Project Settings → API).
+## Media
+
+`public/uploads/` is committed with the code, so images ship with the repo and
+cannot 404 in production. Keep them compressed: images are resized to 2400px
+and saved as WebP, video is H.264 MP4 at CRF 20. The whole folder is 23MB and
+should stay in that range.
+
+`public/` root holds site assets that are not uploads (the portrait, the OG
+image). Do not put those in `uploads/`: a collector removes any file there
+that no content JSON references, and it cannot see references made from code.
+
+## Structure
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=...
-NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+app/            routes. page.tsx is the landing page.
+components/     ui/ is public, editor/ is the studio, blocks/ renders case studies.
+content/        the site's data
+lib/            storage router, types, motion helpers
+styles/         tokens.css is the source of truth for every value
+public/         media
 ```
 
-## Deploying
-
-Push to GitHub, import the repo in Vercel, add the two env vars, deploy.
-Buy the domain (`hobz.design`) last and point it at the project.
-
-## The rule
-
-**Nothing may use a value that isn't in `styles/tokens.css`.**
-If you need something new, add it to the tokens first, then use it.
-`/design-system` is the living proof of what exists.
+Nothing may use a raw colour, size or duration that is not defined in
+`styles/tokens.css`.

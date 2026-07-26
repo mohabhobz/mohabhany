@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Space_Mono, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { Space_Grotesk, Space_Mono } from "next/font/google";
 import "../styles/globals.css";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LoadingProvider } from "@/components/ui/Loading";
+import { loadingLabels } from "@/lib/loading-labels";
 
 /* Self-hosted by Next — no network request, no layout shift. */
 const display = Space_Grotesk({
@@ -16,14 +18,20 @@ const mono = Space_Mono({
   variable: "--font-space-mono",
   display: "swap",
 });
-const arabic = IBM_Plex_Sans_Arabic({
-  subsets: ["arabic"],
-  weight: ["400", "500", "700"],
-  variable: "--font-plex-arabic",
-  display: "swap",
-});
+/* No Arabic face. IBM Plex Sans Arabic was loaded here in three weights and
+   used by nothing except one demo row on the design system page, so every
+   visitor was downloading a script the site does not set. Add it back the day
+   there is Arabic content, not before. */
 
 export const metadata: Metadata = {
+  /* Without this, Next cannot turn a relative OG image path into the
+     absolute URL that LinkedIn and WhatsApp require, and every shared link
+     previews with no image at all. */
+  metadataBase: new URL("https://mohabhany.com"),
+  /* One canonical address. Without it the same page is reachable at the
+     apex, at www, and on the vercel.app subdomain, and search engines treat
+     those as three sites competing with each other. */
+  alternates: { canonical: "/" },
   title: "Hobz — Mohab Hany, Product Designer",
   description:
     "Product and UX designer working across design systems, RTL, and AI-native tools.",
@@ -32,7 +40,9 @@ export const metadata: Metadata = {
     description:
       "Product and UX designer working across design systems, RTL, and AI-native tools.",
     type: "website",
+    images: ["/og.jpg"],
   },
+  twitter: { card: "summary_large_image", images: ["/og.jpg"] },
 };
 
 /**
@@ -46,7 +56,12 @@ const noFlashTheme = `
 }catch(e){}})();
 `;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  /* Read once, on the server, and handed down as a plain object. The loader
+     needs a project name the instant a link is clicked, and a fetch at that
+     moment would arrive after the sentence had already started typing. */
+  const labels = await loadingLabels();
+
   return (
     /* suppressHydrationWarning: the theme script below sets data-theme on
        <html> before React hydrates, so this one element legitimately differs
@@ -62,14 +77,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
          which is why opening a project arrived at the logo instead of the
          top of the page. */
       data-scroll-behavior="smooth"
-      className={`${display.variable} ${mono.variable} ${arabic.variable}`}
+      className={`${display.variable} ${mono.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: noFlashTheme }} />
       </head>
       <body>
-        {children}
-        <ThemeToggle />
+        <LoadingProvider labels={labels}>
+          {children}
+          <ThemeToggle />
+        </LoadingProvider>
       </body>
     </html>
   );

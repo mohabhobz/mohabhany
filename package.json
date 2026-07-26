@@ -1,12 +1,13 @@
 {
-  "name": "hobz-portfolio",
+  "name": "mohabhany",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "publish": "git add -A && git commit -m \"Content update\" && git push"
   },
   "dependencies": {
     "next": "16.2.10",

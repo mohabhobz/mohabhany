@@ -1,0 +1,12 @@
+{
+  "slug": "pleny",
+  "name": "Pleny",
+  "logo": "/uploads/1784757667997-pleny_logo.webp",
+  "description": "",
+  "cover": {
+    "kind": "image",
+    "src": "/uploads/1784757904174-Pleny_Cover.jpg",
+    "fit": "fit"
+  },
+  "order": 4
+}

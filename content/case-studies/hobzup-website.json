@@ -1,0 +1,247 @@
+{
+  "slug": "hobzup-website",
+  "projectSlug": "hobzup",
+  "title": "Website",
+  "sections": [
+    {
+      "id": "0aulcp2x",
+      "title": "The exercise",
+      "rows": [
+        {
+          "id": "oe5hbctq",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "2j5vieo6",
+                "kind": "heading",
+                "level": 2,
+                "text": "No client, on purpose"
+              },
+              {
+                "id": "gbu08vvv",
+                "kind": "paragraph",
+                "text": "I set myself a challenge: design a full sportswear e-commerce landing page, from hero to footer, with no brief and no one to please but the work. The goal was not a portfolio piece. It was to push a louder, higher-energy visual direction than my product work usually calls for, and to see if I could hold it across a whole page."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "flag"
+    },
+    {
+      "id": "rx5cy5ns",
+      "title": "The direction",
+      "rows": [
+        {
+          "id": "zzi913gi",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "2dzu4tqh",
+                "kind": "heading",
+                "level": 2,
+                "text": "Loud on purpose"
+              },
+              {
+                "id": "kuviyvgm",
+                "kind": "paragraph",
+                "text": "Sportswear lives on energy, so I built the page around it: a red and black palette, hard diagonal motion, and large confident type. Red carries the action and nothing else, so a single accent word or button pulls the eye exactly where it should go on a page that is otherwise dark and still. The restraint is what keeps the energy from turning into noise."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "compass"
+    },
+    {
+      "id": "6wimw0mx",
+      "title": "The build ",
+      "rows": [
+        {
+          "id": "veq4fe1x",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "qknnkiuf",
+                "kind": "heading",
+                "level": 2,
+                "text": "A full page, not a poster"
+              },
+              {
+                "id": "4iutygk7",
+                "kind": "paragraph",
+                "text": "I designed the whole journey a real store needs, not just a pretty hero:"
+              },
+              {
+                "id": "d0d9v46e",
+                "kind": "list",
+                "items": [
+                  "A hero that states the attitude before the product",
+                  "New arrivals as product cards, each with its own name and price",
+                  "A feature band for apparel, with motion built into the layout",
+                  "An interactive category row that reveals its copy on hover",
+                  "A gallery of training shots",
+                  "Email capture and a complete footer"
+                ]
+              },
+              {
+                "id": "ijz4zokv",
+                "kind": "paragraph",
+                "text": "Designing every section, including the boring ones, is where an exercise stops being a mood board and starts being a product."
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4uik49g8",
+      "title": "The Design",
+      "rows": [
+        {
+          "id": "nyig8d46",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "d9gwvers",
+                "kind": "image",
+                "src": "/uploads/1784801692265-Hobzup-Sports-Landing-page.webp",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "column",
+                "focus": "top"
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cwghktr4",
+      "title": "Prototype",
+      "rows": [
+        {
+          "id": "khrpm4j3",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "rw1hdn6h",
+                "kind": "heading",
+                "level": 2,
+                "text": "See it move"
+              },
+              {
+                "id": "fojg7o4n",
+                "kind": "paragraph",
+                "text": "Screens do not show interaction, and this page has a lot of it: the category row reveals its copy on hover, the diagonals and running figures carry motion through the layout, and the product cards respond as you move across them. The prototype is where the energy the design is built on actually reads."
+              },
+              {
+                "id": "8jylnelq",
+                "kind": "figma",
+                "src": "https://embed.figma.com/proto/ZzmAJhae18meKoB4Dq5TNI/HOBZUP?node-id=2023-1663&viewport=254%2C242%2C0.4&starting-point-node-id=2023%3A1663&page-id=2023%3A1662&embed-host=share&footer=false",
+                "caption": "Prototype is view-only.",
+                "ratio": "1280 / 708",
+                "scaling": "scale-down-width"
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ok6gr75s",
+      "title": "What I practiced ",
+      "rows": [
+        {
+          "id": "6e9o44kr",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "6h636ocq",
+                "kind": "heading",
+                "level": 2,
+                "text": "What I took from it"
+              },
+              {
+                "id": "pa1a3fo6",
+                "kind": "list",
+                "items": [
+                  "Holding one accent colour. Keeping red for action only, across a whole page, was harder and more useful than adding more colour would have been.",
+                  "Motion as layout. The diagonals and the running figures make the page feel like it is moving before anything animates.",
+                  "Interaction with restraint. The category row hides its detail until hover, so the page stays calm until you ask it for more.",
+                  "Copy is part of the design. The first pass reused one line everywhere, and rewriting each section to stand on its own taught me that filler text undoes good layout faster than a bad grid does."
+                ]
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "insight"
+    },
+    {
+      "id": "9bll4mx0",
+      "title": "Honest note",
+      "rows": [
+        {
+          "id": "hnzbr0a0",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "o5miwn1s",
+                "kind": "heading",
+                "level": 2,
+                "text": "For the record"
+              },
+              {
+                "id": "wj18m8xq",
+                "kind": "paragraph",
+                "text": "HOBZ UP is a concept I designed for myself, not a real store and not client work. Everything here, brand and all, is mine, made to practice a direction I do not get to use every day."
+              },
+              {
+                "id": "pfpmkjdq",
+                "kind": "image",
+                "src": "/uploads/1784803363044-Screenshot-2026-07-23-at-1.40.15-PM.webp",
+                "alt": "",
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": false,
+                "size": "column"
+              },
+              {
+                "id": "zs31ec1j",
+                "kind": "gallery",
+                "items": [
+                  {
+                    "src": "/uploads/1784803313041-Screenshot-2026-07-23-at-1.40.41-PM.webp",
+                    "alt": ""
+                  },
+                  {
+                    "src": "/uploads/1784803320899-Screenshot-2026-07-23-at-1.40.59-PM.webp",
+                    "alt": ""
+                  }
+                ],
+                "caption": "",
+                "ratio": "wide",
+                "fit": "natural"
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "lock"
+    }
+  ],
+  "status": "published",
+  "updatedAt": "2026-07-23T10:44:46.307Z"
+}

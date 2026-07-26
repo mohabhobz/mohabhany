@@ -1724,24 +1724,41 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 @media (prefers-reduced-motion: reduce) { .line-more { transition: none; } }
 
-/* The one button on the page, so it should not look like one. A label in
-   the same mono the section headings use, underlined because that is the
-   only thing that reads as pressable on a page with no colour. */
+/* Borrows the site's one button shape: pill, hairline border, mono label, an
+   arrow that turns. Underlining it was wrong — an underline says "link, goes
+   somewhere", and this goes nowhere, it opens the rest of the list in place. */
 .list-more {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   margin-top: var(--space-8);
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-pill);
+  background: transparent;
   color: var(--color-muted);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 1px;
   cursor: pointer;
-  transition: color var(--duration-base) var(--ease-out);
+  transition: color var(--duration-base) var(--ease-out),
+              border-color var(--duration-base) var(--ease-out);
 }
 .list-more:hover,
-.list-more:focus-visible { color: var(--color-ink); }
+.list-more:focus-visible {
+  color: var(--color-ink);
+  border-color: var(--color-ink);
+}
+
+/* Down to open, up to close. Rotating one glyph beats swapping two: no
+   reflow, and the turn reads as the same control changing state. */
+.list-more__arrow {
+  transition: transform var(--duration-base) var(--ease-out);
+}
+.list-more[aria-expanded="true"] .list-more__arrow {
+  transform: rotate(180deg);
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .list-more { transition: none; }
+  .list-more,
+  .list-more__arrow { transition: none; }
 }
 
 /* ---- Case study body ---------------------------------------------

@@ -60,6 +60,7 @@ export function ClientList({ items, initial = 4 }: { items: Item[]; initial?: nu
           aria-expanded={open}
         >
           {open ? "Show less" : `Show all ${items.length}`}
+          <span className="list-more__arrow" aria-hidden="true">↓</span>
         </button>
       )}
     </>

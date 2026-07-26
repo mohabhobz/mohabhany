@@ -1683,3 +1683,13 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
     transition: none;
   }
 }
+
+/* The scroll cue loses its word on a phone.
+
+   "Scroll" is an instruction for a mouse. On a touch screen scrolling is the
+   only thing the surface does, so the label states the obvious in the one
+   place with the least room for it. The line stays: it says there is more
+   below without spending a word on it. */
+@media (max-width: 720px) {
+  .scroll-cue .t-label { display: none; }
+}

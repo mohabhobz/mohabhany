@@ -965,22 +965,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .site-nav__nav { transition: none; }
 }
 
-/* No hover on a touch screen, so the grey would be permanent. A state the
-   visitor has no way to leave should not be the state they arrive in.
 
-   This covers every mark on the page that waits for a pointer: the portrait,
-   the client logos, and the marks beside each role. On a phone those were a
-   wall of grey squares that never resolved, and the colour was the whole
-   point of showing a client's logo. */
-@media (hover: none) {
-  .contact-portrait,
-  .client-cell img,
-  .entry__mark img {
-    filter: none;
-    opacity: 1;
-    transition: none;
-  }
-}
 
 @media (max-width: 900px) {
   /* Stacked, and the face is capped so it does not become a poster on a
@@ -1679,3 +1664,22 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
    The image still reacts. See .card:hover .card__media img below. */
 
+/* ================================================================
+   TOUCH: no hover, so nothing may rest in a state only a pointer
+   can undo.
+   ================================================================
+   This lives at the END of the file on purpose. Every rule it
+   overrides has the same specificity it does, so the only thing
+   deciding the winner is source order. It sat above those rules
+   and lost silently: the grid changed on a phone, the colour did
+   not, and nothing in the CSS looked wrong.
+*/
+@media (hover: none) {
+  .contact-portrait,
+  .client-cell img,
+  .entry__mark img {
+    filter: none;
+    opacity: 1;
+    transition: none;
+  }
+}

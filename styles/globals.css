@@ -1724,17 +1724,26 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 @media (prefers-reduced-motion: reduce) { .line-more { transition: none; } }
 
-/* Borrows the site's one button shape: pill, hairline border, mono label, an
-   arrow that turns. Underlining it was wrong — an underline says "link, goes
-   somewhere", and this goes nowhere, it opens the rest of the list in place. */
+/* Show all.
+
+   Not a pill. --radius-pill appears twice in this sheet, both times on
+   lightbox chrome, and nowhere in the language the pages are actually built
+   from: cards, tiles and plates are all --radius-md. A 999px control was
+   borrowing a shape the design does not use. --radius-sm is the small-control
+   end of the same scale.
+
+   align-self matters as much as the radius. .section-block is a column flex
+   container, and a flex child stretches across the cross axis unless told not
+   to, so an inline-flex button still came out the full width of the page. */
 .list-more {
+  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   margin-top: var(--space-8);
   padding: var(--space-3) var(--space-6);
   border: 1px solid var(--color-line-strong);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-sm);
   background: transparent;
   color: var(--color-muted);
   cursor: pointer;

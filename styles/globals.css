@@ -992,7 +992,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .client-grid {
   list-style: none; padding: 0; margin: var(--heading-gap) 0 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(170px, 100%), 1fr));
   gap: var(--space-10) var(--space-4);
 }
 
@@ -1065,7 +1065,12 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .work-board {
   margin-top: var(--heading-gap);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  /* min(360px, 100%) rather than a bare 360px. The first value in minmax is
+     a floor, so on a container narrower than 360px the track stays 360 and
+     the grid overflows its parent. body has overflow-x: clip, so that does
+     not show up as a scrollbar; it shows up as the right gutter silently
+     disappearing, which is exactly what it looked like on a phone. */
+  grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
   /* start, not stretch. Every column is 1fr so every tile is the same width,
      and the aspect-ratio on .card turns that one width into one height. With
      stretch, a grid item is instead sized to the tallest track and the
@@ -1323,7 +1328,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   }
 
   .client-grid {
-    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(96px, 100%), 1fr));
     gap: var(--space-8) var(--space-4);
     margin-top: var(--space-10);
   }

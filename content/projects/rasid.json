@@ -1,15 +1,15 @@
 {
   "slug": "rasid",
-  "name": "Rasid\n\n",
+  "name": "Rasid",
   "logo": "/uploads/1784896422629-Rasid-logo.webp",
-  "description": "Personal work, no client and no brief. Framed honestly as practice, which is the strength here, not something to hide. Screens go in after the copy is set in Figma. No prices or metrics are claimed. No em dashes.",
+  "description": "Rasid is a fintech concept I set myself: a complete money experience, from a phone and OTP login to a dashboard that shows balance, spending, investments and upcoming bills. Built as a system in light and dark, across web, tablet and mobile, on one set of tokens.",
   "cover": {
     "kind": "image",
     "src": "/uploads/1784897113083-Cover8.webp",
     "fit": "fit"
   },
   "order": 6,
-  "slogan": "A self-directed fintech dashboard concept ",
+  "slogan": "A self-directed fintech dashboard concept",
   "period": "Aug 2025",
   "role": "Product and Interaction Designer",
   "sections": []

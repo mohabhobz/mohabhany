@@ -37,14 +37,21 @@ export async function generateMetadata(
   const data = await load(slug);
   if (!data) return {};
   const { doc, project } = data;
+  const title = doc.seo?.title || `${project.name} — ${doc.title}`;
+  const description = doc.seo?.description || project.description;
+  /* Its own address, not the one inherited from the layout. A page that
+     names the home page as its canonical is asking not to be indexed. */
+  const url = `/case-study/${doc.slug}`;
+  /* Falls back to the site card rather than nothing: a case study shared
+     with no image is a grey box in every chat app. */
+  const image = doc.seo?.ogImage || project.card?.src || "/og.jpg";
+
   return {
-    title: doc.seo?.title || `${project.name} — ${doc.title}`,
-    description: doc.seo?.description || project.description,
-    openGraph: {
-      title: doc.seo?.title || `${project.name} — ${doc.title}`,
-      description: doc.seo?.description || project.description,
-      images: doc.seo?.ogImage ? [doc.seo.ogImage] : undefined,
-    },
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url, type: "article", images: [image] },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
   };
 }
 

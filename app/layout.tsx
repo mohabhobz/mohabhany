@@ -28,10 +28,10 @@ export const metadata: Metadata = {
      absolute URL that LinkedIn and WhatsApp require, and every shared link
      previews with no image at all. */
   metadataBase: new URL("https://mohabhany.com"),
-  /* One canonical address. Without it the same page is reachable at the
-     apex, at www, and on the vercel.app subdomain, and search engines treat
-     those as three sites competing with each other. */
-  alternates: { canonical: "/" },
+  /* No canonical here. It was set to "/" and metadata is inherited, so every
+     case study told search engines its real address was the home page, which
+     is an instruction to drop them from the index. Each page declares its
+     own below. */
   title: "Hobz — Mohab Hany, Product Designer",
   description:
     "Product and UX designer working across design systems, RTL, and AI-native tools.",

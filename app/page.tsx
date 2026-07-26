@@ -12,6 +12,10 @@ import { SocialIcon } from "@/components/ui/SocialIcon";
    request time that a build cannot do just as well. force-dynamic used to
    sit here and it meant every visitor waited for a fresh server render of
    content that changes a few times a month. Rebuild to publish. */
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
+
 export const dynamic = "force-static";
 
 /* Copy lives in content/site.json so the landing page can be edited without

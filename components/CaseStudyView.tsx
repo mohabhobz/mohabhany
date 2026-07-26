@@ -45,7 +45,7 @@ export function CaseStudyView({
       <ProjectCover project={project} editing={false} onChange={noop} onUpload={noUpload} />
 
       <div className="glass-sheet">
-        <article className="prose" style={{ paddingBlock: "var(--space-24)" }}>
+        <article className="prose study-body">
           <ProjectShell
             project={project}
             studies={siblings}

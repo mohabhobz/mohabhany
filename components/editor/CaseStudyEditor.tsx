@@ -138,7 +138,7 @@ export function CaseStudyEditor({ initial, project, siblings = [] }: {
 
       {/* The sheet that rides over the pinned cover. */}
       <div className="glass-sheet">
-      <article className="prose" style={{ paddingBlock: "var(--space-24)" }}>
+      <article className="prose study-body">
         {/* project identity → composable project sections → tabs */}
         <ProjectShell
           project={project}

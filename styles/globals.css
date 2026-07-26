@@ -1691,7 +1691,9 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
    place with the least room for it. The line stays: it says there is more
    below without spending a word on it. */
 @media (max-width: 720px) {
-  .scroll-cue .t-label { display: none; }
+  /* The cue in full: word and bar. A touch device does not need to be told
+     a page scrolls, and the bar alone read as a stray mark with no meaning. */
+  .scroll-cue { display: none; }
 }
 
 /* ---- Long lists, folded ------------------------------------------
@@ -1730,4 +1732,15 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 @media (prefers-reduced-motion: reduce) {
   .list-more { transition: none; }
+}
+
+/* ---- Case study body ---------------------------------------------
+   96px of air above the first block is right on a desktop, where the
+   column is 880px wide and the space reads as margin. On a 390px phone
+   the same value is a third of the screen before a word appears, and it
+   does not match the 32px at the sides. Square it off. */
+.study-body { padding-block: var(--space-24); }
+
+@media (max-width: 720px) {
+  .study-body { padding-block: var(--gutter); }
 }

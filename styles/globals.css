@@ -1679,20 +1679,3 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
    The image still reacts. See .card:hover .card__media img below. */
 
-/* Keyboard reaches it too. A hover-only affordance is invisible to anyone
-   tabbing through the board. */
-
-/* Touch has no hover, so the veil would never appear and the board would be
-   a wall of unlabelled images. Show it always there instead, already
-   arrived: there is no pointer entering, so there is nothing to animate
-   from, and leaving the lines offset would just render them 12px low. */
-@media (prefers-reduced-motion: reduce) {
-  /* The rise is removed, not merely un-transitioned. A transform with no
-     transition still jumps 12px in one frame, which is exactly the motion
-     this setting asks us not to make. The text simply appears. */
-}
-
-/* ---- Freelance / consulting intro mark --------------------------
-   A circular badge holding the Hobz mark, echoing a role entry's mark
-   column at a larger size. The SVG already carries its own dark tile, so
-   the circle just clips it. */

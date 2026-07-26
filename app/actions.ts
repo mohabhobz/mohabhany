@@ -40,6 +40,20 @@ function assertLocal() {
   }
 }
 
+/* WRITES are guarded, reads are not, and the split is deliberate.
+ *
+ * The first version of this guard covered every function including the
+ * readers, which broke the production build: generateStaticParams calls
+ * listStudies to find out which case studies exist, and that runs with
+ * NODE_ENV=production, so the build threw before it could render a page.
+ *
+ * Reading was never the risk. These files are the published site; their
+ * contents are served to every visitor by design, and drafts 404 at the
+ * route regardless. What had to be stopped was a stranger being able to
+ * WRITE: save, create, delete, upload, and the collector that removes
+ * files. Those all still refuse.
+ */
+
 /**
  * A slug is used to build a file path, so it is untrusted input in the most
  * literal sense: "../../../etc/x" would have escaped the content directory on
@@ -125,13 +139,11 @@ export async function localGcUploads(): Promise<{ removed: number; freed: number
 /* ---------- projects ---------- */
 
 export async function localListProjects(): Promise<Project[]> {
-  assertLocal();
   const all = await readAll<Project>(P_DIR);
   return all.sort((a, b) => (a.order ?? 0) - (b.order ?? 0) || a.name.localeCompare(b.name));
 }
 
 export async function localGetProject(slug: string): Promise<Project | null> {
-  assertLocal();
   return readOne<Project>(P_DIR, slug);
 }
 
@@ -168,14 +180,12 @@ export async function localDeleteProject(slug: string): Promise<string | null> {
 /* ---------- case studies ---------- */
 
 export async function localListStudies(projectSlug?: string): Promise<CaseStudy[]> {
-  assertLocal();
   const all = await readAll<CaseStudy>(C_DIR);
   const list = projectSlug ? all.filter((c) => c.projectSlug === projectSlug) : all;
   return list.sort((a, b) => (a.order ?? 0) - (b.order ?? 0) || a.slug.localeCompare(b.slug));
 }
 
 export async function localGetStudy(slug: string): Promise<CaseStudy | null> {
-  assertLocal();
   return readOne<CaseStudy>(C_DIR, slug);
 }
 

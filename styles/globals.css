@@ -1734,7 +1734,9 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
    align-self matters as much as the radius. .section-block is a column flex
    container, and a flex child stretches across the cross axis unless told not
-   to, so an inline-flex button still came out the full width of the page. */
+   to, so an inline-flex button still came out the full width of the page.
+   Which is wanted on a phone and not on a desktop, so the stretch comes back
+   under the media query at the end of this block. */
 .list-more {
   align-self: flex-start;
   display: inline-flex;
@@ -1756,18 +1758,20 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   border-color: var(--color-ink);
 }
 
-/* Down to open, up to close. Rotating one glyph beats swapping two: no
-   reflow, and the turn reads as the same control changing state. */
-.list-more__arrow {
-  transition: transform var(--duration-base) var(--ease-out);
-}
-.list-more[aria-expanded="true"] .list-more__arrow {
-  transform: rotate(180deg);
+@media (prefers-reduced-motion: reduce) {
+  .list-more { transition: none; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .list-more,
-  .list-more__arrow { transition: none; }
+@media (max-width: 720px) {
+  /* Full width on a phone. A 140px control floating at the left of a 326px
+     column reads as leftover, and the thumb wants the whole row anyway.
+     display:flex, not inline-flex, or the box still shrinks to its label. */
+  .list-more {
+    align-self: stretch;
+    display: flex;
+    justify-content: center;
+    padding-block: var(--space-4);
+  }
 }
 
 /* ---- Case study body ---------------------------------------------

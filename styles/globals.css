@@ -965,10 +965,21 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .site-nav__nav { transition: none; }
 }
 
-/* No hover on a touch screen, so the grey would be permanent. Anything that
-   cannot be undone by the visitor should not be the resting state. */
+/* No hover on a touch screen, so the grey would be permanent. A state the
+   visitor has no way to leave should not be the state they arrive in.
+
+   This covers every mark on the page that waits for a pointer: the portrait,
+   the client logos, and the marks beside each role. On a phone those were a
+   wall of grey squares that never resolved, and the colour was the whole
+   point of showing a client's logo. */
 @media (hover: none) {
-  .contact-portrait { filter: none; }
+  .contact-portrait,
+  .client-cell img,
+  .entry__mark img {
+    filter: none;
+    opacity: 1;
+    transition: none;
+  }
 }
 
 @media (max-width: 900px) {
@@ -1659,95 +1670,26 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 /* ---- Work card hover --------------------------------------------
-   Darkens the tile and names the project. */
-.card__veil {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: var(--space-2);
-  padding: var(--space-6);
-  /* A gradient, not a flat wash. A flat scrim dims the whole image evenly
-     and the artwork goes muddy; weighting it towards the bottom keeps the
-     top of the screenshot readable while still giving the text something
-     solid to sit on. */
-  background: linear-gradient(
-    to top,
-    rgb(8 8 8 / .82) 0%,
-    rgb(8 8 8 / .62) 38%,
-    rgb(8 8 8 / .28) 68%,
-    rgb(8 8 8 / 0) 100%
-  );
-  opacity: 0;
-  transition: opacity var(--duration-reveal) var(--ease-out);
-}
+   The tile is the whole thing: one image, no caption, no scrim. What used to
+   live here was a gradient veil holding the project name and the words "Case
+   Study", both revealed on hover. Three problems with it, and the third is
+   the one that settled it: the name was already in the cover artwork, "Case
+   Study" repeated the section heading, and hover does not exist on a phone,
+   so on half the traffic the caption never appeared at all.
 
-/* The lines rise as the veil arrives.
-   Transformed, not animated with keyframes, so the motion reverses cleanly
-   when the pointer leaves partway through instead of snapping back.
-
-   The kind lags the name. Simultaneous movement reads as one block sliding;
-   a small offset reads as two lines arriving, which is what they are. */
-.card__name,
-.card__kind {
-  transform: translateY(12px);
-  /* Same duration as the veil behind it. They must match exactly: when the
-     text ran longer than the scrim, the card read as two separate reactions
-     rather than one. */
-  transition:
-    transform var(--duration-reveal) var(--ease-out),
-    opacity   var(--duration-reveal) var(--ease-out);
-  opacity: 0;
-}
-/* 90ms, up from 60. The stagger has to stay legible against the duration it
-   sits inside: at 200ms a 60ms gap was a third of the animation and clearly
-   two arrivals, at 600ms the same gap is a tenth and the lines read as
-   simultaneous again. */
-.card__kind { transition-delay: 120ms; }
-
-.card:hover .card__name,
-.card:hover .card__kind,
-.card:focus-visible .card__name,
-.card:focus-visible .card__kind {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-/* Fixed light values, not theme tokens: this text sits on a darkened
-   screenshot in both themes, so it must not follow the page. */
-.card__name {
-  font-family: var(--font-display);
-  font-size: var(--text-h3);
-  font-weight: var(--weight-bold);
-  letter-spacing: var(--tracking-tight);
-  line-height: 1.1;
-  color: #FFFFFF;
-}
-.card__kind { color: rgb(255 255 255 / .72); }
+   The image still reacts. See .card:hover .card__media img below. */
 
 /* Keyboard reaches it too. A hover-only affordance is invisible to anyone
    tabbing through the board. */
-.card:hover .card__veil,
-.card:focus-visible .card__veil { opacity: 1; }
 
 /* Touch has no hover, so the veil would never appear and the board would be
    a wall of unlabelled images. Show it always there instead, already
    arrived: there is no pointer entering, so there is nothing to animate
    from, and leaving the lines offset would just render them 12px low. */
-@media (hover: none) {
-  .card__veil { opacity: 1; }
-  .card__name,
-  .card__kind { transform: none; opacity: 1; }
-}
-
 @media (prefers-reduced-motion: reduce) {
   /* The rise is removed, not merely un-transitioned. A transform with no
      transition still jumps 12px in one frame, which is exactly the motion
      this setting asks us not to make. The text simply appears. */
-  .card__veil,
-  .card__name,
-  .card__kind { transition: none; transform: none; }
 }
 
 /* ---- Freelance / consulting intro mark --------------------------

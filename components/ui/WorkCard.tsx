@@ -24,7 +24,6 @@ export function WorkCard({ project, studies }: { project: Project; studies: Case
   /* `studies` arrives already filtered to published, so this counts what the
      visitor can actually reach. Counting every study would promise pages that
      do not exist yet. */
-  const label = `Case ${studies.length === 1 ? "Study" : "Studies"}`;
   /* The dedicated card asset if there is one, otherwise the project cover.
      The fallback matters: without it a project shows an empty tile until
      someone remembers to upload a second image, and a board full of
@@ -56,16 +55,16 @@ export function WorkCard({ project, studies }: { project: Project; studies: Case
         )}
       </span>
 
-      {/* The name is here rather than under the tile because a permanent
-          caption made every card look the same regardless of the work in it.
-          On hover it is information; underneath it was furniture.
+      {/* No overlay, no name, no label.
 
-          aria-hidden: the Link already carries aria-label={project.name}, and
-          without this a screen reader reads the name twice. */}
-      <span className="card__veil" aria-hidden="true">
-        <span className="card__name">{project.name}</span>
-        <span className="card__kind t-label">{label}</span>
-      </span>
+          The name was on the tile twice: once in this caption and once in the
+          cover artwork, which carries the client's own logo. The word "Case
+          Study" was a third thing, saying what a link under a heading that
+          reads "Selected projects" already says.
+
+          It also could not work on a phone. The caption only appeared on
+          hover, so on touch it was invisible, and the accessible name of the
+          link never depended on it: the Link carries aria-label already. */}
     </Link>
   );
 }

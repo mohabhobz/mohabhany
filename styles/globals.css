@@ -1300,6 +1300,46 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .site-nav__toggle-bar { transition: none; }
 }
 
+/* ---- Phones ------------------------------------------------------
+   Three things the desktop layout does that a phone should not.
+
+   1. Sections are at least a full viewport tall so each one lands as its
+      own screen. On a 812px phone that turns seven sections into 5,700px
+      of minimum height before a single word of content, and most of it is
+      empty. Let them size to what they hold.
+
+   2. The client grid asks for columns of at least 170px. A phone has 311px
+      of usable width, so two columns never fit and fourteen logos become
+      fourteen full rows. At 96px it is three across and the section is a
+      block again rather than a corridor.
+
+   3. The work cards sit 4px apart, which reads as one mosaic on a wide
+      screen. In a single column it reads as images glued together, so they
+      get real space between them. */
+@media (max-width: 720px) {
+  .section-block {
+    min-height: 0;
+    padding-block: var(--space-16);
+  }
+
+  .client-grid {
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: var(--space-8) var(--space-4);
+    margin-top: var(--space-10);
+  }
+
+  .work-board {
+    gap: var(--space-4);
+    margin-top: var(--space-10);
+  }
+
+  .entries { margin-top: var(--space-10); }
+
+  /* The heading-to-content gap is a 64px beat designed for a wide page.
+     On a phone it is a third of the screen. */
+  :root { --heading-gap: var(--space-10); }
+}
+
 @media (max-width: 720px) {
   .site-nav { gap: var(--space-2); padding-block: var(--space-3); }
   .site-nav__toggle { display: block; }

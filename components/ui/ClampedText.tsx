@@ -2,59 +2,102 @@
 
 import { useEffect, useRef, useState } from "react";
 
+const MOBILE = "(max-width: 720px)";
+const LINES = 2;
+const MORE = "See more";
+const LESS = "See less";
+
 /**
- * A paragraph that clamps, and only offers "See more" when it actually clamped.
+ * Two lines, then "See more" sitting at the end of the sentence.
  *
- * The clamp itself lives in CSS and only applies below 720px, so on a desktop
- * this measures no overflow and renders no button. That is the point of doing
- * it by measurement rather than by string length: the same component is
- * correct at every width, and nothing has to guess where the text wraps.
+ * CSS line-clamp cannot do this. It hides the overflow and draws its own
+ * ellipsis, and there is no position inside that ellipsis where a button can
+ * be placed and still survive a reflow. So the cut is measured and the string
+ * is actually shortened, which puts the link in the text where it belongs.
  *
- * The measurement is scrollHeight against clientHeight. A -webkit-box clamp
- * leaves the full text in the box and hides the overflow, so the two differ
- * by exactly the hidden lines. One pixel of slack absorbs sub-pixel line
- * heights, which are common with a clamp() type scale.
+ * The measuring happens in a detached copy at the same width and font, never
+ * on the visible paragraph, so nothing flickers through intermediate states
+ * while the binary search runs. It costs about seven layout reads per entry,
+ * once, on mount.
+ *
+ * The link is styled in body type on purpose: measuring "…text… See more" as
+ * one plain string is only accurate if the whole string is one font.
  */
 export function ClampedText({ children }: { children: string }) {
   const ref = useRef<HTMLParagraphElement>(null);
+  const [cut, setCut] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
-  const [clipped, setClipped] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
+    const mq = window.matchMedia(MOBILE);
+
     const measure = () => {
-      // While open the box is its full height and nothing overflows, so the
-      // answer would always be "no". Leave the last collapsed reading alone.
-      if (open) return;
-      setClipped(el.scrollHeight > el.clientHeight + 1);
+      if (!mq.matches) {
+        setCut(null); // desktop has the room; no cut, no link
+        return;
+      }
+
+      const cs = getComputedStyle(el);
+      const lh = parseFloat(cs.lineHeight) || parseFloat(cs.fontSize) * 1.5;
+      const max = lh * LINES + 1; // a pixel of slack for sub-pixel line heights
+      const width = el.clientWidth;
+      if (!width) return;
+
+      // A copy, laid out but not painted, at the paragraph's exact width and
+      // type. visibility:hidden still lays out; display:none would not.
+      const probe = document.createElement("div");
+      probe.style.cssText = `position:absolute;visibility:hidden;pointer-events:none;top:0;left:-9999px;width:${width}px;font:${cs.font};letter-spacing:${cs.letterSpacing};line-height:${cs.lineHeight};white-space:normal;`;
+      document.body.appendChild(probe);
+
+      const fits = (s: string) => {
+        probe.textContent = s;
+        return probe.scrollHeight <= max;
+      };
+
+      try {
+        if (fits(children)) {
+          setCut(null);
+          return;
+        }
+        // Largest prefix where prefix + the link still fits two lines.
+        let lo = 0;
+        let hi = children.length;
+        while (lo < hi) {
+          const mid = Math.ceil((lo + hi) / 2);
+          if (fits(children.slice(0, mid) + `… ${MORE}`)) lo = mid;
+          else hi = mid - 1;
+        }
+        setCut(lo);
+      } finally {
+        probe.remove();
+      }
     };
 
     measure();
 
-    // Rotating the phone or resizing the window changes where the text wraps,
-    // and crossing 720px turns the clamp on or off entirely.
     const ro = new ResizeObserver(measure);
     ro.observe(el);
-    return () => ro.disconnect();
-  }, [open, children]);
+    mq.addEventListener("change", measure);
+    return () => {
+      ro.disconnect();
+      mq.removeEventListener("change", measure);
+    };
+  }, [children]);
+
+  // No cut needed, or not measured yet: the full sentence, which is also what
+  // the server renders and what a reader without JS gets.
+  if (cut === null) return <p ref={ref} className="t-body entry__line">{children}</p>;
 
   return (
-    <>
-      <p ref={ref} className={`t-body entry__line${open ? " is-open" : ""}`}>
-        {children}
-      </p>
-      {clipped && (
-        <button
-          type="button"
-          className="t-label line-more"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-        >
-          {open ? "See less" : "See more"}
-        </button>
-      )}
-    </>
+    <p ref={ref} className="t-body entry__line">
+      {open ? children : children.slice(0, cut).trimEnd()}
+      {open ? " " : "… "}
+      <button type="button" className="line-more" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
+        {open ? LESS : MORE}
+      </button>
+    </p>
   );
 }

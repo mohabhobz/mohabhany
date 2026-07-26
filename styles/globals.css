@@ -1697,36 +1697,21 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 /* ---- Long lists, folded ------------------------------------------
-   Two lines of description, then a word.
+   Two lines of description on a phone, then a link.
 
    The entry line ran to four or five lines for the wordier clients, and in
    a list of eleven that is most of the section. Two lines is enough to say
    what the product was; the case study is where the rest belongs.
 
-   line-clamp needs the -webkit- prefixed box even in 2026: the unprefixed
-   `line-clamp` is still not what browsers implement for this. */
-@media (max-width: 720px) {
-  .entry__line {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  /* Opened. -webkit-box has to go, not just the line count: leaving the box
-     display on keeps the text in a flex-ish layout that breaks nothing here
-     but means the clamp can silently come back. */
-  .entry__line.is-open {
-    display: block;
-    overflow: visible;
-  }
-}
+   There is no CSS here doing the cutting. line-clamp draws its own ellipsis
+   and hides everything past it, which leaves nowhere to put a link — so the
+   cut is measured in JS and made in the string. See ClampedText. */
 
-/* The word that finishes a cut sentence. Sits under the text rather than
-   inside the ellipsis, because there is no way to place a button at the
-   clamp point that survives a reflow. */
+/* The link that finishes a cut sentence. Body type, not label type: the cut
+   is found by measuring the sentence and this link as one string, and that
+   measurement is only right if they share a font. See ClampedText. */
 .line-more {
-  display: inline-block;
-  margin-top: var(--space-2);
+  font: inherit;
   color: var(--color-muted);
   text-decoration: underline;
   text-underline-offset: 3px;

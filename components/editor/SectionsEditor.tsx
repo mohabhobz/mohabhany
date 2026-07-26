@@ -180,7 +180,13 @@ export function SectionsEditor({ sections, onChange, editing, onUpload, addLabel
 
           {s.rows.map((r, ri) => (
             <div key={r.id} className="ed-row" style={{ marginTop: "var(--space-8)" }}>
-              <div style={{ display: "grid", gridTemplateColumns: GRID_FOR_LAYOUT[r.layout], gap: "var(--space-6)" }}>
+              {/* The column split rides on a custom property, not on
+                  grid-template-columns directly. An inline
+                  grid-template-columns cannot be overridden by a media query,
+                  which is why every multi-column row stayed multi-column on a
+                  phone and squeezed body text into a 90px stripe. */}
+              <div className="row-grid" data-layout={r.layout}
+                   style={{ ["--cols" as string]: GRID_FOR_LAYOUT[r.layout] }}>
                 {r.cells.map((cell, ci) => (
                   <div key={ci} className={editing ? "ed-cell" : undefined} style={{
                     minHeight: editing ? 72 : undefined,

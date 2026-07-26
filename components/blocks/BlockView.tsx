@@ -332,16 +332,18 @@ export function BlockView({ block }: { block: Block }) {
 
     case "table":
       return (
-        <table style={{ width: "100%", borderCollapse: "collapse", border: "1px solid var(--color-line)", borderRadius: "var(--radius-md)", overflow: "hidden" }}>
+        /* Styled from the sheet, not inline: cell padding has to shrink on a
+           phone, and three columns of 16px padding is 96px of a 326px line. */
+        <table className="t-table">
           <thead>
             <tr>{block.head.map((h, i) => (
-              <th key={i} className="t-label" style={{ textAlign: "left", padding: "var(--space-4)", background: "var(--color-surface)", borderBottom: "1px solid var(--color-line)" }}>{h}</th>
+              <th key={i} className="t-label">{h}</th>
             ))}</tr>
           </thead>
           <tbody>
             {block.rows.map((r, ri) => (
               <tr key={ri}>{r.map((c, ci) => (
-                <td key={ci} className="t-small" style={{ padding: "var(--space-4)", borderBottom: "1px solid var(--color-line)", verticalAlign: "top" }}>{c}</td>
+                <td key={ci} className="t-small">{c}</td>
               ))}</tr>
             ))}
           </tbody>

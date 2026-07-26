@@ -1754,3 +1754,65 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 @media (max-width: 720px) {
   .study-body { padding-block: var(--gutter); }
 }
+
+/* ---- Case study rows ---------------------------------------------
+   A row's columns come from --cols, set inline per row, so this rule can
+   still take them away at a narrow width. That was the whole bug: the split
+   was written straight into style={{gridTemplateColumns}}, and an inline
+   declaration beats every media query in the sheet. */
+.row-grid {
+  display: grid;
+  grid-template-columns: var(--cols, 1fr);
+  gap: var(--space-6);
+}
+
+/* A cell must be allowed to be narrower than its contents, or a wide image
+   or a long unbroken string sets the column width and pushes the row past
+   the viewport. */
+.row-grid > * { min-width: 0; }
+
+/* Thirds and quarters are unreadable at tablet width long before they are
+   unreadable at phone width. Pair them up first. */
+@media (max-width: 1024px) {
+  .row-grid[data-layout="1-1-1"],
+  .row-grid[data-layout="1-1-1-1"] { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 760px) {
+  /* One column, all layouts. The gap grows because stacked blocks need more
+     separation than side-by-side ones to read as separate. */
+  .row-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+}
+
+@media (max-width: 720px) {
+  /* 96px between sections is a third of the screen. */
+  .section { padding-block: var(--space-12); }
+
+  /* 32px of indent for an 8px bullet costs a tenth of the line on a phone. */
+  .t-list li { padding-left: var(--space-6); }
+}
+
+/* ---- Case study table --------------------------------------------- */
+.t-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.t-table th {
+  text-align: left;
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-line);
+}
+.t-table td {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+  vertical-align: top;
+}
+
+@media (max-width: 720px) {
+  .t-table th,
+  .t-table td { padding: var(--space-3); }
+}

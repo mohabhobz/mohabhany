@@ -7,6 +7,7 @@ import { SiteNav } from "@/components/ui/SiteNav";
 import { WorkCard } from "@/components/ui/WorkCard";
 import { DrawnMark } from "@/components/ui/DrawnMark";
 import { SocialIcon } from "@/components/ui/SocialIcon";
+import { ClientList } from "@/components/ui/ClientList";
 
 /* Static. This page is built from JSON on disk, so there is nothing at
    request time that a build cannot do just as well. force-dynamic used to
@@ -211,26 +212,8 @@ export default async function Home() {
           )}
         </Reveal>
 
-        <ul className="entries">
-          {site.consulting.items.map((c, i) => (
-            <Reveal as="li" key={c.name} delay={(i % 3) as 0 | 1 | 2}>
-              <div className="entry">
-                {/* The column keeps its width with or without a file, so
-                    rows stay aligned while logos are still being found. */}
-                <div className="entry__mark">
-                  {c.logo && <img src={c.logo} alt="" />}
-                </div>
-                <div className="entry__body">
-                  <p className="t-h3">{c.name}</p>
-                  <p className="t-body entry__line">{c.line}</p>
-                  <p className="t-label entry__meta">
-                    {[c.place, c.period].filter(Boolean).join(" · ")}
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </ul>
+        {/* Four, then a word. See ClientList. */}
+        <ClientList items={site.consulting.items} initial={4} />
       </section>
 
       {/* ---------------- CONTACT ---------------- */}

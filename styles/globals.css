@@ -1693,3 +1693,41 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 @media (max-width: 720px) {
   .scroll-cue .t-label { display: none; }
 }
+
+/* ---- Long lists, folded ------------------------------------------
+   Two lines of description, then a word.
+
+   The entry line ran to four or five lines for the wordier clients, and in
+   a list of eleven that is most of the section. Two lines is enough to say
+   what the product was; the case study is where the rest belongs.
+
+   line-clamp needs the -webkit- prefixed box even in 2026: the unprefixed
+   `line-clamp` is still not what browsers implement for this. */
+@media (max-width: 720px) {
+  .entry__line {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* The one button on the page, so it should not look like one. A label in
+   the same mono the section headings use, underlined because that is the
+   only thing that reads as pressable on a page with no colour. */
+.list-more {
+  display: inline-block;
+  margin-top: var(--space-8);
+  color: var(--color-muted);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  cursor: pointer;
+  transition: color var(--duration-base) var(--ease-out);
+}
+.list-more:hover,
+.list-more:focus-visible { color: var(--color-ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .list-more { transition: none; }
+}

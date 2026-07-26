@@ -1712,7 +1712,32 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  /* Opened. -webkit-box has to go, not just the line count: leaving the box
+     display on keeps the text in a flex-ish layout that breaks nothing here
+     but means the clamp can silently come back. */
+  .entry__line.is-open {
+    display: block;
+    overflow: visible;
+  }
 }
+
+/* The word that finishes a cut sentence. Sits under the text rather than
+   inside the ellipsis, because there is no way to place a button at the
+   clamp point that survives a reflow. */
+.line-more {
+  display: inline-block;
+  margin-top: var(--space-2);
+  color: var(--color-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  cursor: pointer;
+  transition: color var(--duration-base) var(--ease-out);
+}
+.line-more:hover,
+.line-more:focus-visible { color: var(--color-ink); }
+
+@media (prefers-reduced-motion: reduce) { .line-more { transition: none; } }
 
 /* The one button on the page, so it should not look like one. A label in
    the same mono the section headings use, underlined because that is the

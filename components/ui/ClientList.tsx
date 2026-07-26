@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
+import { ClampedText } from "@/components/ui/ClampedText";
 
 type Item = {
   name: string;
@@ -41,7 +42,7 @@ export function ClientList({ items, initial = 4 }: { items: Item[]; initial?: nu
               </div>
               <div className="entry__body">
                 <p className="t-h3">{c.name}</p>
-                {c.line && <p className="t-body entry__line">{c.line}</p>}
+                {c.line && <ClampedText>{c.line}</ClampedText>}
                 <p className="t-label entry__meta">
                   {[c.place, c.period].filter(Boolean).join(" · ")}
                 </p>

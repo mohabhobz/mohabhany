@@ -8,6 +8,7 @@ import { WorkCard } from "@/components/ui/WorkCard";
 import { DrawnMark } from "@/components/ui/DrawnMark";
 import { SocialIcon } from "@/components/ui/SocialIcon";
 import { ClientList } from "@/components/ui/ClientList";
+import { ClampedText } from "@/components/ui/ClampedText";
 
 /* Static. This page is built from JSON on disk, so there is nothing at
    request time that a build cannot do just as well. force-dynamic used to
@@ -139,7 +140,7 @@ export default async function Home() {
                 <div className="entry__body">
                   <p className="t-h3">{r.company}</p>
                   <p className="t-small entry__sub">{r.title} · {r.place}</p>
-                  <p className="t-body entry__line">{r.line}</p>
+                  <ClampedText>{r.line}</ClampedText>
                   <p className="t-label entry__meta">{r.period}</p>
                 </div>
               </div>
@@ -181,7 +182,7 @@ export default async function Home() {
                       </a>
                     ) : a.name}
                   </p>
-                  <p className="t-body entry__line">{a.line}</p>
+                  <ClampedText>{a.line}</ClampedText>
                 </div>
               </div>
             </Reveal>

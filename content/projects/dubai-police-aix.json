@@ -3,11 +3,12 @@
   "name": "Dubai Police AIX",
   "logo": "/uploads/1784739355311-Dubai-Police-Logo.webp",
   "description": "NDA-safe. Method and role only. No screens, no system internals, no security\nfunctions, no internal system names. Cover = client logo, uploaded by Mohab.\nNo image blocks anywhere.\n\n",
-  "role": "Senior Product and Interaction Design ",
+  "role": "Senior Product and Interaction Design",
   "cover": {
     "kind": "image",
     "src": "/uploads/1784740227827-Dubai-police-Cover.webp",
     "fit": "fill"
   },
-  "order": 2
+  "order": 2,
+  "slogan": "Conversational AI as a government service, UAE"
 }

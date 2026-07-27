@@ -2,7 +2,7 @@
   "slug": "dubai-police-aix",
   "name": "Dubai Police AIX",
   "logo": "/uploads/1784739355311-Dubai-Police-Logo.webp",
-  "description": "NDA-safe. Method and role only. No screens, no system internals, no security\nfunctions, no internal system names. Cover = client logo, uploaded by Mohab.\nNo image blocks anywhere.\n\n",
+  "description": "Dubai Police were building a conversational AI service for citizens on a design system that had already grown inconsistent. I evaluated it in writing, rebuilt it from tokens up to Dubai Government and WCAG standards, Arabic-first with full RTL across web, iOS and Android, and proved it in a working product before handover.",
   "role": "Senior Product and Interaction Design",
   "cover": {
     "kind": "image",

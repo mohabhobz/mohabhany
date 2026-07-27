@@ -123,32 +123,6 @@ export default async function Home() {
 
       </section>
 
-      {/* ---------------- BACKGROUND ---------------- */}
-      <section id="background" className="page section-block">
-        <Reveal>
-          <h2 className="t-label">{site.career.label}</h2>
-          <p className="t-section-title section-title">{site.career.title}</p>
-        </Reveal>
-
-        <ol className="entries">
-          {site.career.roles.map((r, i) => (
-            <Reveal as="li" key={`${r.company}-${r.period}`} delay={(i % 3) as 0 | 1 | 2}>
-              <div className="entry">
-                <div className="entry__mark">
-                  {r.logo && <img src={r.logo} alt="" />}
-                </div>
-                <div className="entry__body">
-                  <p className="t-h3">{r.company}</p>
-                  <p className="t-small entry__sub">{r.title} · {r.place}</p>
-                  <ClampedText>{r.line}</ClampedText>
-                  <p className="t-label entry__meta">{r.period}</p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </ol>
-      </section>
-
       {/* ---------------- AI ---------------- */}
       <section id="ai" className="page section-block">
         <Reveal>
@@ -188,6 +162,32 @@ export default async function Home() {
             </Reveal>
           ))}
         </ul>
+      </section>
+
+      {/* ---------------- BACKGROUND ---------------- */}
+      <section id="background" className="page section-block">
+        <Reveal>
+          <h2 className="t-label">{site.career.label}</h2>
+          <p className="t-section-title section-title">{site.career.title}</p>
+        </Reveal>
+
+        <ol className="entries">
+          {site.career.roles.map((r, i) => (
+            <Reveal as="li" key={`${r.company}-${r.period}`} delay={(i % 3) as 0 | 1 | 2}>
+              <div className="entry">
+                <div className="entry__mark">
+                  {r.logo && <img src={r.logo} alt="" />}
+                </div>
+                <div className="entry__body">
+                  <p className="t-h3">{r.company}</p>
+                  <p className="t-small entry__sub">{r.title} · {r.place}</p>
+                  <ClampedText>{r.line}</ClampedText>
+                  <p className="t-label entry__meta">{r.period}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </ol>
       </section>
 
       {/* ---------------- CONSULTING ---------------- */}

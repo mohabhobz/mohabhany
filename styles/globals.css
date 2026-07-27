@@ -1073,34 +1073,57 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
      risk. Letting each card size itself from its ratio makes identical
      heights a fact of the geometry, not a hope. */
   align-items: start;
-  gap: 4px;
+  /* 4px was right when a tile was pure image and the board read as one solid
+     block. With a caption under each one, 4px puts a name against the next
+     tile's artwork. */
+  gap: var(--space-8) var(--space-4);
 }
 
-/* No border, no radius, no frame. The card IS the image.
+/* No border, no radius, no frame. The image, then two lines under it.
 
-   The old hover lifted the whole tile and cast a shadow. With gaps that
-   read as a card picking itself up; with none, the tile slides over its
-   neighbour and the shadow lands on the artwork next to it. So the motion
-   moved inside: the frame holds still and the image scales within it. */
+   The old hover lifted the whole tile and cast a shadow, which read as the
+   card picking itself up. The motion moved inside instead: the frame holds
+   still and the image scales within it. That still holds now the tile has a
+   caption, and it matters more, because a caption that moved with the image
+   would drag text under a moving picture. */
 .card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The ratio moved from the card to the media when the caption arrived. It
+   still does the same job: every column is 1fr, so one width becomes one
+   height, and every tile in a row lines up. The caption then adds a fixed
+   block beneath, so the cards stay identical in total height too.
+
+   position: relative because next/image `fill` needs a positioned ancestor. */
+.card__media {
+  position: relative;
   display: block;
   overflow: hidden;
-  position: relative;
-  /* The ratio lives on the CARD, not the media. The card is the grid item,
-     so this is what the equal 1fr width is measured against, and every card
-     ends up exactly width x 10/16 tall. The media just fills it. */
   aspect-ratio: 16 / 10;
-}
-
-/* Fills the card exactly. position: absolute (a positioned ancestor for
-   next/image `fill`) with inset: 0 pins it to all four edges, so its height
-   is the card's height rather than something it computes on its own. */
-.card__media {
-  position: absolute;
-  inset: 0;
-  display: block;
   background: var(--color-surface);
 }
+
+/* Under the image, not on it. min-height reserves two lines for the slogan so
+   a one-line card and a two-line card are still the same height, which is
+   what keeps the rows of this grid honest. */
+.card__caption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-4) var(--space-1) 0;
+}
+.card__name { color: var(--color-ink); }
+.card__line {
+  color: var(--color-muted);
+  min-height: calc(2 * 1.5em);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card:hover .card__line { color: var(--color-ink); }
 .card__media img,
 .card__media video {
   width: 100%; height: 100%;

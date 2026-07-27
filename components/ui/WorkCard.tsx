@@ -3,12 +3,17 @@ import Image from "next/image";
 import type { Project, CaseStudy } from "@/lib/types";
 
 /**
- * A project on the board: the media, and nothing else.
+ * A project on the board: the media, then a name and one line under it.
  *
- * No logo, no title, no tags. The cover already says which project this is,
- * and repeating it underneath was three labels competing with the one thing
- * worth looking at, which made every card the same regardless of the work
- * inside it.
+ * The tile used to be the image and nothing else, on the reasoning that the
+ * cover already names the client. It does, but only to someone who recognises
+ * the logo. A visitor scrolling six covers could not tell what any of them
+ * were, which of them were case studies, or what he did on them, so the
+ * strongest pages on this site sat behind an unlabelled picture.
+ *
+ * The caption is OUTSIDE the media, not an overlay on it. The old overlay
+ * only appeared on hover, which made it invisible on a phone, and it sat on
+ * top of the artwork, which is the one thing worth looking at.
  *
  * Every tile is 16/10, cropped from the centre. Tiles used to take their own
  * shape, measured from the file once it loaded, but the board is gapless now
@@ -55,16 +60,15 @@ export function WorkCard({ project, studies }: { project: Project; studies: Case
         )}
       </span>
 
-      {/* No overlay, no name, no label.
-
-          The name was on the tile twice: once in this caption and once in the
-          cover artwork, which carries the client's own logo. The word "Case
-          Study" was a third thing, saying what a link under a heading that
-          reads "Selected projects" already says.
-
-          It also could not work on a phone. The caption only appeared on
-          hover, so on touch it was invisible, and the accessible name of the
-          link never depended on it: the Link carries aria-label already. */}
+      {/* Name, then the project's own one-line slogan. No "Case Study" label:
+          under a heading that reads "Selected projects", a link saying it is
+          a case study says nothing a reader has not worked out. */}
+      <span className="card__caption">
+        <span className="card__name t-body">{project.name}</span>
+        {project.slogan && (
+          <span className="card__line t-small">{project.slogan}</span>
+        )}
+      </span>
     </Link>
   );
 }

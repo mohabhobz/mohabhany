@@ -1864,46 +1864,55 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 /* ---- The statement -----------------------------------------------
    One sentence on its own screen, and the only section here without a label
-   or a heading. That absence is the point: the page runs the same three-part
-   opening six times, and a reader who has learned the pattern skims it.
+   or a heading. That absence is the whole point: the page runs the same
+   three-part opening six times, and a reader who has learned the pattern
+   skims it. Something that does not open that way is the only thing that
+   can interrupt.
 
-   Left, on the same axis as everything else. It was centred at first, on the
-   reasoning that two departures at once (no heading, new axis) would read as
-   deliberate. In practice the broken axis just read as a mistake: this page
-   has a strict left column, and a section of plain text that ignores it looks
-   like an error, not an idea. The size and the missing heading do the
-   interrupting on their own. */
+   Centred, unlike every other section, which are all left-aligned in the
+   first column. Two departures at once (no heading, different axis) is what
+   makes this read as deliberate rather than as a section missing its title. */
 .statement {
   min-height: 70svh;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  align-items: flex-start;
-  gap: var(--space-6);
+  gap: var(--space-8);
+  text-align: center;
   padding-block: var(--space-24);
 }
 
 .statement__quote {
   margin: 0;
-  /* Wider than the centred version could be, now that it starts at the margin
-     and runs into the empty right half instead of straddling the page. */
-  max-width: 30ch;
+  max-width: 24ch;              /* short measure: this is meant to be read as
+                                   a statement, not as a paragraph */
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 4rem);
-  line-height: 1.05;
+  font-size: clamp(2rem, 4.4vw, 3.5rem);
+  line-height: 1.1;
   letter-spacing: var(--tracking-tight);
   color: var(--color-ink);
-  text-wrap: balance;
+  text-wrap: balance;           /* stops a two-word orphan on the last line */
 }
 
-/* Not a link. A statement that sends you somewhere is a teaser; one that just
-   sits there is a statement. */
-.statement__source { color: var(--color-muted); }
+.statement__source {
+  color: var(--color-muted);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 1px;
+  transition: color var(--duration-base) var(--ease-out);
+}
+.statement__source:hover,
+.statement__source:focus-visible { color: var(--color-ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .statement__source { transition: none; }
+}
 
 @media (max-width: 720px) {
   .statement {
     min-height: 0;
     padding-block: var(--space-16);
   }
-  .statement__quote { max-width: 18ch; }
+  .statement__quote { max-width: 20ch; }
 }

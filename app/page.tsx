@@ -26,7 +26,7 @@ type Site = {
   intro: { eyebrow: string; headline: string; lead: string; note: string };
   clients: { label: string; title: string; note: string; items: { name: string; logo: string }[] };
   work: { label: string; title: string };
-  statement: { quote: string; source: string };
+  statement: { quote: string; source: string; href: string };
   ai: {
     label: string; title: string; note: string;
     items: { name: string; href: string; logo: string; line: string }[];
@@ -130,16 +130,12 @@ export default async function Home() {
 
           Every other section opens identically: mono label, large heading,
           content, six times over. By the third a reader has the pattern and
-          starts skimming. This one has no label and no heading.
+          starts skimming. This section has no label and no heading, takes the
+          full measure instead of the left column, and carries one sentence.
 
-          It used to be centred as well, on the theory that two departures at
-          once read as deliberate. They do not. A page with a strict left
-          column has an axis, and breaking the axis once, in a section that is
-          nothing but text on black, reads as a mistake rather than a decision.
-          Scale and the missing heading are enough to interrupt.
-
-          No link either. A statement that sends you somewhere is a teaser; one
-          that just sits there is a statement. */}
+          The sentence is from a case study, and it is doing a job the landing
+          page otherwise defers entirely to a click: showing how he thinks
+          rather than listing what he shipped. */}
       <section className="page statement">
         <Reveal>
           <blockquote className="statement__quote">
@@ -147,7 +143,9 @@ export default async function Home() {
           </blockquote>
         </Reveal>
         <Reveal delay={1}>
-          <p className="t-label statement__source">{site.statement.source}</p>
+          <a href={site.statement.href} className="t-label statement__source">
+            {site.statement.source}
+          </a>
         </Reveal>
       </section>
 

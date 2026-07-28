@@ -26,6 +26,7 @@ type Site = {
   intro: { eyebrow: string; headline: string; lead: string; note: string };
   clients: { label: string; title: string; note: string; items: { name: string; logo: string }[] };
   work: { label: string; title: string };
+  statement: { quote: string; source: string; href: string };
   ai: {
     label: string; title: string; note: string;
     items: { name: string; href: string; logo: string; line: string }[];
@@ -121,6 +122,31 @@ export default async function Home() {
             ))}
         </div>
 
+      </section>
+
+      {/* ---------------- STATEMENT ----------------
+
+          The one place the page breaks its own pattern.
+
+          Every other section opens identically: mono label, large heading,
+          content, six times over. By the third a reader has the pattern and
+          starts skimming. This section has no label and no heading, takes the
+          full measure instead of the left column, and carries one sentence.
+
+          The sentence is from a case study, and it is doing a job the landing
+          page otherwise defers entirely to a click: showing how he thinks
+          rather than listing what he shipped. */}
+      <section className="page statement">
+        <Reveal>
+          <blockquote className="statement__quote">
+            {site.statement.quote}
+          </blockquote>
+        </Reveal>
+        <Reveal delay={1}>
+          <a href={site.statement.href} className="t-label statement__source">
+            {site.statement.source}
+          </a>
+        </Reveal>
       </section>
 
       {/* ---------------- AI ---------------- */}

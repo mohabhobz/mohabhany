@@ -340,49 +340,8 @@
       ]
     },
     {
-      "id": "s-find-alias",
-      "title": "Finding 1",
-      "rows": [
-        {
-          "id": "r14",
-          "layout": "1",
-          "cells": [
-            [
-              {
-                "id": "a-h",
-                "kind": "heading",
-                "level": 2,
-                "text": "The aliasing layer was missing from its own defaults"
-              },
-              {
-                "id": "a-p1",
-                "kind": "paragraph",
-                "text": "I audited what already shipped before adding anything. The seeded palettes were named primary, secondary, neutral, warning, info, success and danger. The semantic definitions looked up pink.500, blue.600, green.600, navy, red and yellow. Only neutral existed in both lists."
-              },
-              {
-                "id": "a-stat",
-                "kind": "stat",
-                "value": "34 of 41",
-                "label": "semantic colours resolved to a hardcoded hex and referenced nothing"
-              },
-              {
-                "id": "a-p2",
-                "kind": "paragraph",
-                "text": "A user who changed their brand colour saw nothing move. Aliasing is not a feature of this product, it is the product, and it was absent from the default state every new workspace started from."
-              },
-              {
-                "id": "a-p3",
-                "kind": "paragraph",
-                "text": "The fix was not to correct the names. A semantic token never carries a literal value now: it carries a key naming the primitive it references, and the seeder resolves it. If a key does not resolve, seeding fails rather than falling back to a hex. That rule is enforced at build time, so the class of bug cannot return."
-              }
-            ]
-          ]
-        }
-      ]
-    },
-    {
       "id": "s-find-arabic",
-      "title": "Finding 2",
+      "title": "Finding 1",
       "rows": [
         {
           "id": "r16",
@@ -433,7 +392,7 @@
     },
     {
       "id": "s-find-check",
-      "title": "Finding 3",
+      "title": "Finding 2",
       "rows": [
         {
           "id": "r17",
@@ -477,7 +436,7 @@
     },
     {
       "id": "s-find-sync",
-      "title": "Finding 4",
+      "title": "Finding 3",
       "rows": [
         {
           "id": "r18",
@@ -576,6 +535,41 @@
                 "caption": "",
                 "ratio": "square",
                 "fit": "crop"
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s-import",
+      "title": "Bring your own system",
+      "rows": [
+        {
+          "id": "r-imp",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "im-h",
+                "kind": "heading",
+                "level": 2,
+                "text": "A team that already has a system is not the empty case"
+              },
+              {
+                "id": "im-p1",
+                "kind": "paragraph",
+                "text": "Designbag is not only for the team starting from nothing. An organisation that already has a foundation can import it, edit it inside the tool, connect from there, and from that point every change is a sync rather than a rebuild. The defaults are a bundle rather than a code path, and that is what makes the swap possible at all: a team replaces the seed with its own, and everything downstream, the roles, the modes, the Figma variables, keeps working without being told."
+              },
+              {
+                "id": "im-p2",
+                "kind": "paragraph",
+                "text": "Doing this in an interface rather than a token file is the point, not a convenience. A JSON file tells you what a value is and never why it is there. Editing in a view that shows the role, the theme it resolves in and the surface it lands on keeps the intent attached to the value, which is the thing that goes missing first when a system is maintained by hand."
+              },
+              {
+                "id": "im-pull",
+                "kind": "pullquote",
+                "text": "A token file records decisions. An interface is where they are still being made."
               }
             ]
           ]
@@ -707,11 +701,6 @@
                 "id": "rf-p1",
                 "kind": "paragraph",
                 "text": "The finding I did not expect: the interesting problems in a generator are not in the generating. They are in the second run, the empty state, and the difference between a claim and a test."
-              },
-              {
-                "id": "rf-p2",
-                "kind": "paragraph",
-                "text": "And the finding I did not expect: the interesting problems in a generator are not in the generating. They are in the second run, the empty state, and the difference between a claim and a test."
               },
               {
                 "id": "6w6099pb",

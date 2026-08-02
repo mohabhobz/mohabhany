@@ -84,7 +84,7 @@
               {
                 "id": "i6n9g4vr",
                 "kind": "paragraph",
-                "text": "A web visitor can arrive from a search result, scroll once, and leave — the cost of showing up is nearly zero, and so is the signal. Installing an app costs the user something: storage, a decision, a step. Every user who paid that cost and then went searching was telling the sales team something a web session never could. App conversions produced the highest-quality leads in the funnel."
+                "text": "A web visitor can arrive from a search result, scroll once, and leave. The cost of showing up is nearly zero, and so is the signal. Installing an app costs the user something: storage, a decision, a step. Every user who paid that cost and then went searching was telling the sales team something a web session never could. App conversions produced the highest-quality leads in the funnel."
               }
             ]
           ]
@@ -110,7 +110,7 @@
               {
                 "id": "wvrqtjdj",
                 "kind": "paragraph",
-                "text": "A first release fails by trying to match the website. We scoped v1 to the shortest complete path a buyer actually walks — from \"I'm looking\" to \"I want to talk to someone about this unit\" — and shipped nothing that sat outside it."
+                "text": "A first release fails by trying to match the website. We scoped v1 to the shortest complete path a buyer actually walks, from \"I'm looking\" to \"I want to talk to someone about this unit\", and shipped nothing that sat outside it."
               },
               {
                 "id": "wem9n470",
@@ -174,12 +174,12 @@
               {
                 "id": "u20b394i",
                 "kind": "paragraph",
-                "text": "Developers got their own entry point. On the website, a developer was metadata — a name attached to a compound. On mobile we made it a way in: browse developers, pick one, land in their compounds."
+                "text": "Developers got their own entry point. On the website, a developer was metadata, a name attached to a compound. On mobile we made it a way in: browse developers, pick one, land in their compounds."
               },
               {
                 "id": "3hquz1ws",
                 "kind": "paragraph",
-                "text": "This came from how buyers actually talk. In an off-plan market, the developer's name is the credibility. People do not say \"I want a compound in New Cairo\" — they say \"I want something by SODIC.\" The website structure had no answer to that sentence. The app did."
+                "text": "This came from how buyers actually talk. In an off-plan market, the developer's name is the credibility. People do not say \"I want a compound in New Cairo\". They say \"I want something by SODIC.\" The website structure had no answer to that sentence. The app did."
               },
               {
                 "id": "8o2ljljt",
@@ -221,7 +221,7 @@
               {
                 "id": "md11vuhy",
                 "kind": "paragraph",
-                "text": "The difference is not layout, it is what survives. Designing down forces you to decide what is essential and then add; designing wide lets you defer that decision until the screen makes it for you — badly."
+                "text": "The difference is not layout, it is what survives. Designing down forces you to decide what is essential and then add; designing wide lets you defer that decision until the screen makes it for you, badly."
               }
             ]
           ]

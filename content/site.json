@@ -101,17 +101,17 @@
     "label": "Background",
     "roles": [
       {
-        "company": "b_labs — B.TECH Group",
+        "company": "b_labs, B.TECH Group",
         "title": "Senior Product Designer, Mylo",
-        "period": "Oct 2025 — Present",
+        "period": "Oct 2025 - Present",
         "place": "Cairo",
         "line": "Fintech. Customer onboarding end to end across mobile and tablet, an AI-driven routing flow deciding who completes digitally and who goes in-branch, and the internal risk and fraud tools behind it.",
         "logo": "/logos/mylo.webp"
       },
       {
-        "company": "b_labs — B.TECH Group",
+        "company": "b_labs, B.TECH Group",
         "title": "Senior Product Designer, Marketplace & Pricing",
-        "period": "Nov 2024 — Oct 2025",
+        "period": "Nov 2024 - Oct 2025",
         "place": "Cairo",
         "line": "Rebuilt the marketplace off legacy Magento with a unified catalog and independent seller pricing. Contributed to 2.5× GMV growth.",
         "logo": "/logos/b-labs.webp"
@@ -119,15 +119,15 @@
       {
         "company": "Nawy",
         "title": "Senior Product Designer",
-        "period": "Oct 2022 — Oct 2024",
+        "period": "Oct 2022 - Oct 2024",
         "place": "Cairo",
         "line": "Largest proptech in Africa. Grew monthly actives from 50K to 500K, 750K at campaign peak, lifted conversion from 1% to 3.5%, and built the design system serving four products.",
         "logo": "/logos/nawy.webp"
       },
       {
-        "company": "G2K Group — now ServiceNow",
+        "company": "G2K Group, now ServiceNow",
         "title": "UI/UX Designer → Senior UI/UX Designer",
-        "period": "Apr 2017 — Oct 2022",
+        "period": "Apr 2017 - Oct 2022",
         "place": "Cairo",
         "line": "Six national-scale platforms for government and enterprise, including ticketing for the Grand Egyptian Museum and Tazkarti. Also wrote production front-end, which is why hand-off is not a guess.",
         "logo": "/logos/g2k.webp"

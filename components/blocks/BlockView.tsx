@@ -170,7 +170,11 @@ export function BlockView({ block }: { block: Block }) {
     case "pullquote":
       return (
         <p style={{
-          borderLeft: "2px solid var(--color-accent)", paddingLeft: "var(--space-6)",
+          /* Logical, not physical. In Arabic the rule belongs on the right,
+             and a pullquote whose rule stays on the left reads as a bug to
+             every reader of the language the page is now in. */
+          borderInlineStart: "2px solid var(--color-accent)",
+          paddingInlineStart: "var(--space-6)",
           fontSize: "var(--text-h3)", fontWeight: "var(--weight-medium)",
           lineHeight: 1.35, letterSpacing: "var(--tracking-snug)",
           maxWidth: "30ch", marginBlock: "var(--space-8)",

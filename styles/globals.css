@@ -794,6 +794,13 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   grid-area: mark;
   white-space: nowrap;
   display: inline-flex;
+
+  /* Each letter is its own flex item, so in an RTL document the flex
+     container reverses them and "Hobz" renders as "zboH". The bidi
+     algorithm cannot save it: there is no text run to reorder, only four
+     boxes. Pinning the direction is also correct on its own terms. A
+     wordmark is a mark, and a mark does not mirror with the language. */
+  direction: ltr;
 }
 
 .wordmark__ch {

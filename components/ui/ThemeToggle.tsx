@@ -34,25 +34,7 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
       title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-      style={{
-        /* Parked bottom-left: always reachable, never in the way of the
-           reading column, and below the lightbox so it can't sit over it. */
-        position: "fixed",
-        left: "var(--space-6)",
-        bottom: "var(--space-6)",
-        zIndex: 50,
-        width: 44,
-        height: 44,
-        display: "grid",
-        placeItems: "center",
-        border: "1px solid var(--color-line)",
-        borderRadius: "var(--radius-pill)",
-        color: "var(--color-muted)",
-        background: "color-mix(in srgb, var(--color-surface) 88%, transparent)",
-        backdropFilter: "blur(10px)",
-        transition: `color var(--duration-fast) var(--ease-out),
-                     border-color var(--duration-fast) var(--ease-out)`,
-      }}
+      className="switch-btn"
     >
       {theme === "light" ? (
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">

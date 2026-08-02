@@ -1,0 +1,26 @@
+{
+  "slug": "designbag",
+  "name": "Designbag",
+  "logo": "/logos/designbag.webp",
+  "logoFill": true,
+  "slogan": "A design system generator, built solo",
+  "description": "Every project starts the same way: the client wants screens, and the right first move is a design system nobody is paying two weeks for. Designbag removes the choice. You give it a brand colour and a typeface; it generates the whole foundation and syncs it into Figma as real Variables and Text Styles. 319 tokens across nine collections, two themes, Latin and Arabic. Designed, coded and shipped solo, and in use by my team at b_labs.",
+  "role": "AI-Product design, and front end to database",
+  "period": "2026",
+  "tags": [
+    "ai",
+    "solo"
+  ],
+  "order": 0,
+  "card": {
+    "kind": "video",
+    "src": "/uploads/cover-designbag-v2.mp4",
+    "poster": "/uploads/cover-designbag-v2.webp"
+  },
+  "cover": {
+    "kind": "video",
+    "src": "/uploads/cover-designbag-v2.mp4",
+    "poster": "/uploads/cover-designbag-v2.webp",
+    "fit": "fit"
+  }
+}

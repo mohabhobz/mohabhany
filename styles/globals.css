@@ -478,7 +478,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 .t-list li {
   position: relative;
-  padding-left: var(--space-8);
+  padding-inline-start: var(--space-8);
   margin-bottom: var(--space-4);
   color: var(--color-muted);
   line-height: var(--leading-body);
@@ -487,7 +487,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .t-list li::before {
   content: "";
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   top: 0.62em;                 /* optical centre of the first line */
   width: 8px;
   height: 8px;
@@ -589,7 +589,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 .lb__close {
-  position: fixed; top: var(--space-6); right: var(--space-6);
+  position: fixed; top: var(--space-6); inset-inline-end: var(--space-6);
   width: 44px; height: 44px;
   display: grid; place-items: center;
   border-radius: var(--radius-pill);
@@ -1834,7 +1834,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .section { padding-block: var(--space-12); }
 
   /* 32px of indent for an 8px bullet costs a tenth of the line on a phone. */
-  .t-list li { padding-left: var(--space-6); }
+  .t-list li { padding-inline-start: var(--space-6); }
 }
 
 /* ---- Case study table --------------------------------------------- */
@@ -1846,7 +1846,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   overflow: hidden;
 }
 .t-table th {
-  text-align: left;
+  text-align: start;
   padding: var(--space-4);
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-line);
@@ -1860,4 +1860,176 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 @media (max-width: 720px) {
   .t-table th,
   .t-table td { padding: var(--space-3); }
+}
+
+
+/* ============================================================
+   THE SWITCH PAIR
+
+   Theme and language, parked together bottom-start. One cluster
+   rather than two floating buttons, so they read as a single
+   control strip and mirror as a unit when the page flips.
+   ============================================================ */
+
+.switch-rail {
+  position: fixed;
+  inset-inline-start: var(--space-6);
+  bottom: var(--space-6);
+  z-index: 50;
+  display: flex;
+  /* Stacked, not side by side. Two round buttons in a row read as a pair
+     of equals competing for the same corner; in a column they read as one
+     control strip, and the strip stays clear of the reading measure on a
+     narrow screen instead of creeping into it. Reversed so the theme
+     switch, the one used far more often, keeps the bottom position closest
+     to the thumb. */
+  flex-direction: column-reverse;
+  gap: var(--space-3);
+}
+
+.switch-btn,
+.lang-toggle {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  color: var(--color-muted);
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  backdrop-filter: blur(10px);
+  transition: color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out);
+}
+.switch-btn:hover,
+.lang-toggle:hover {
+  color: var(--color-ink);
+  border-color: var(--color-line-strong);
+}
+
+/* The glyph does the work here, so it needs to be readable rather than
+   quiet: mono at label size renders "ع" too small to recognise. */
+.lang-toggle {
+  font-family: var(--font-arabic), var(--font-mono);
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+html[dir="rtl"] .lang-toggle {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: var(--tracking-label);
+}
+
+/* ============================================================
+   ARABIC
+
+   Not the Latin scale with a different face. Arabic has no single
+   x-height, so a line height tuned for Latin sits too tight; these
+   add roughly 15%. And tracking is removed outright, because Arabic
+   is a connected script and pulling joined letters apart damages the
+   word rather than opening it up.
+   ============================================================ */
+
+html[lang="ar"] body {
+  font-family: var(--font-arabic), var(--font-display), system-ui, sans-serif;
+}
+
+html[lang="ar"] .t-display,
+html[lang="ar"] .t-section-title,
+html[lang="ar"] .t-h1,
+html[lang="ar"] .t-h2,
+html[lang="ar"] .t-h3,
+html[lang="ar"] .t-lead,
+html[lang="ar"] .t-body,
+html[lang="ar"] .t-small,
+html[lang="ar"] .t-label {
+  font-family: var(--font-arabic), system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+html[lang="ar"] .t-display     { line-height: 1.22; }
+html[lang="ar"] .t-section-title { line-height: 1.32; }
+html[lang="ar"] .t-lead        { line-height: 1.75; }
+html[lang="ar"] .t-body        { line-height: 1.85; }
+html[lang="ar"] .t-small       { line-height: 1.8; }
+html[lang="ar"] .t-h3          { line-height: 1.4; }
+
+/* The measure has to shrink with the language. Arabic sets denser per
+   character, so a 58ch line that reads well in English runs long. */
+html[lang="ar"] .t-lead,
+html[lang="ar"] .t-body { max-width: 46ch; }
+
+/* Numbers and Latin product names inside Arabic prose keep the Latin
+   face, so "430K" and "Figma" do not fall back to a shaped glyph. */
+html[lang="ar"] .lat { font-family: var(--font-display); letter-spacing: normal; }
+
+/* The mark is a wordmark, not a word. It stays as drawn in both. */
+html[lang="ar"] .wordmark,
+html[lang="ar"] .t-mono,
+html[lang="ar"] code,
+html[lang="ar"] .site-footer__credit { font-family: var(--font-mono); }
+
+/* Arrows point at where the reader is going, so they turn round too. */
+html[dir="rtl"] .entry__link [aria-hidden="true"],
+html[dir="rtl"] .card__go { transform: scaleX(-1); }
+
+/* ---- Card tags -----------------------------------------------------
+   What kind of work a project was, under the line rather than on the
+   artwork. Quiet by default: a row of loud badges turns a board of
+   work into a board of labels. */
+/* Sitting on the media, not under the caption. Two reasons: they are
+   metadata about the tile so that is where they belong, and only some
+   projects have them, which was making tiles in the same row different
+   heights.
+
+   The gradient exists only behind them, and only as far up as they reach,
+   so the artwork is untouched everywhere else. A flat scrim over the whole
+   tile would dim the one thing worth looking at. */
+.card__tags {
+  position: absolute;
+  inset-inline-start: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  /* Rides the same hover as the image: the tile scales up 4% and the tags
+     lift with it, so they read as part of the artwork rather than as
+     labels pinned on top of something that moved underneath them. */
+  transition: transform var(--duration-slow) var(--ease-out),
+              opacity var(--duration-fast) var(--ease-out);
+}
+.card:hover .card__tags { transform: translateY(-4px); }
+
+.card__media::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 42%;
+  background: linear-gradient(to top,
+    color-mix(in srgb, #000 62%, transparent),
+    transparent);
+  pointer-events: none;
+}
+/* No tags, no scrim: a tile with nothing to say should not be darkened. */
+.card__media:not(:has(.card__tags))::after { display: none; }
+
+.card__tag {
+  padding: 3px 9px;
+  border: 1px solid color-mix(in srgb, #fff 26%, transparent);
+  border-radius: var(--radius-sm);
+  /* Fixed white rather than a token: this sits on artwork, not on the page,
+     so it has to hold against whatever the image happens to be, in both
+     themes. */
+  color: color-mix(in srgb, #fff 78%, transparent);
+  background: color-mix(in srgb, #000 34%, transparent);
+  backdrop-filter: blur(6px);
+  line-height: 1.6;
+}
+.card__tag[data-accent] {
+  border-color: color-mix(in srgb, #fff 44%, transparent);
+  color: #fff;
 }

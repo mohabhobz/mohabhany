@@ -1,0 +1,802 @@
+{
+  "slug": "designbag-token-foundation",
+  "projectSlug": "designbag",
+  "title": "The Foundation",
+  "status": "published",
+  "order": 0,
+  "seo": {
+    "title": "Designbag – the design system you do not have to build",
+    "description": "A generator that turns a brand colour and a typeface into 319 tokens, two themes and a Figma library. The findings that shaped it, including a token that could not exist."
+  },
+  "sections": [
+    {
+      "id": "s-problem",
+      "title": "The problem",
+      "rows": [
+        {
+          "id": "r1",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "p-head",
+                "kind": "heading",
+                "level": 2,
+                "text": "Two weeks nobody is paying for"
+              },
+              {
+                "id": "p-1",
+                "kind": "paragraph",
+                "text": "A designer takes a new client. Everyone agrees there should be a design system. Nobody has two weeks, and nobody is paying for them."
+              },
+              {
+                "id": "p-2",
+                "kind": "paragraph",
+                "text": "So one of two things happens. They skip it, and by the third screen the greys have drifted and there are four button heights. Or they build it, and discover that consistency is not something you can see while you are making it: the system looks finished, and falls apart at handoff when a developer asks which of the three greys is the border grey."
+              },
+              {
+                "id": "p-3",
+                "kind": "paragraph",
+                "text": "Both roads end in the same place. The only difference is how much time was spent getting there."
+              }
+            ]
+          ]
+        },
+        {
+          "id": "r2",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "p-quotes-head",
+                "kind": "heading",
+                "level": 3,
+                "text": "What designers actually say "
+              },
+              {
+                "id": "p-q1",
+                "kind": "quote",
+                "text": "I know how to design. I do not know how to build a design system.",
+                "attribution": "The sentence I heard most"
+              },
+              {
+                "id": "p-q2",
+                "kind": "quote",
+                "text": "AI gets me most of the way and never all the way. It gets the styles right and breaks the effects. Then I am debugging something I did not build.",
+                "attribution": ""
+              },
+              {
+                "id": "p-q3",
+                "kind": "quote",
+                "text": "The client is paying for a designer who starts solving their problem. Not for someone who spends the first two weeks on foundations they will never see.",
+                "attribution": ""
+              },
+              {
+                "id": "p-4",
+                "kind": "paragraph",
+                "text": "That last one is the part most tools miss. This is not only a skills problem, it is a commercial one. The two weeks are unbillable, invisible to the client, and they come out of the designer's own margin."
+              }
+            ]
+          ]
+        },
+        {
+          "id": "r3",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "p-cost",
+                "kind": "paragraph",
+                "text": "And it is expensive enough that organisations hire for it. In Sparkbox's 2022 survey, 60% of teams that had run a design system for a year or more had headcount dedicated to maintaining it. A freelancer has no headcount. That gap is the whole product."
+              }
+            ]
+          ]
+        }
+      ],
+      "icon": "problem"
+    },
+    {
+      "id": "s-goal",
+      "title": "The goal",
+      "rows": [
+        {
+          "id": "r4",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "g-pull",
+                "kind": "pullquote",
+                "text": "Press one button, get a foundation. Connect it to Figma once. Then start designing, without ever reading a number."
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s-existing",
+      "title": "Why the existing answers fall short",
+      "rows": [
+        {
+          "id": "r5",
+          "layout": "1-1",
+          "cells": [
+            [
+              {
+                "id": "e-ai-h",
+                "kind": "heading",
+                "level": 3,
+                "text": "AI stops short"
+              },
+              {
+                "id": "e-ai-p",
+                "kind": "paragraph",
+                "text": "AI can generate a colour ramp and write a type scale. What it does not do is hold the whole surface at once. The failure is partial rather than total, which is worse: the output looks complete and the gap is somewhere you were not looking."
+              }
+            ],
+            [
+              {
+                "id": "e-pl-h",
+                "kind": "heading",
+                "level": 3,
+                "text": "The plugins break in three places"
+              },
+              {
+                "id": "e-pl-p",
+                "kind": "paragraph",
+                "text": "Tokens arrive unscoped, so a spacing value shows up in the colour picker. Primitives arrive published, so the designer is choosing from raw palette values again. Text and effect styles arrive unlinked from the variables underneath them."
+              }
+            ]
+          ]
+        },
+        {
+          "id": "r6",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "e-ts",
+                "kind": "paragraph",
+                "text": "Tokens Studio is the closest comparison and better than this at token management: 23 token types against Figma's four, git sync, W3C compliant. Its own documentation is also explicit that it cannot control Figma's scoping or hide-from-publishing, and suggests setting them by hand in Figma. By hand, 319 times, and again after every change."
+              },
+              {
+                "id": "e-pull",
+                "kind": "pullquote",
+                "text": "Tokens Studio manages a design system. Designbag causes one to exist. Those are consecutive problems, not competing ones."
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s-flow",
+      "title": "The flow",
+      "rows": [
+        {
+          "id": "r7",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "f-p",
+                "kind": "paragraph",
+                "text": "Five steps, and four of them happen once, ever."
+              }
+            ]
+          ]
+        },
+        {
+          "id": "r8",
+          "layout": "1-1-1",
+          "cells": [
+            [
+              {
+                "id": "f-1",
+                "kind": "stat",
+                "value": "01",
+                "label": "Choose a brand colour, a typeface, a direction"
+              }
+            ],
+            [
+              {
+                "id": "f-2",
+                "kind": "stat",
+                "value": "02",
+                "label": "Generate the full foundation and themes"
+              }
+            ],
+            [
+              {
+                "id": "f-3",
+                "kind": "stat",
+                "value": "03",
+                "label": "Connect Figma once with a key and the plugin"
+              }
+            ]
+          ]
+        },
+        {
+          "id": "r9",
+          "layout": "1-1",
+          "cells": [
+            [
+              {
+                "id": "f-4",
+                "kind": "stat",
+                "value": "04",
+                "label": "Sync: variables, styles, modes, aliases, scopes"
+              }
+            ],
+            [
+              {
+                "id": "f-5",
+                "kind": "stat",
+                "value": "05",
+                "label": "Design. The designer has not read a number"
+              }
+            ]
+          ]
+        },
+        {
+          "id": "r10",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "f-shot-1",
+                "kind": "image",
+                "src": "/uploads/1785621864868-Screenshot-2026-08-02-at-1.04.16-AM.png",
+                "alt": "The Designbag workspace",
+                "caption": "Every brand is a workspace: its own design system, its own assets, its own projects, with no values bleeding between them.",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": true,
+                "size": "narrow"
+              }
+            ]
+          ]
+        },
+        {
+          "id": "r11",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "f-shot-2",
+                "kind": "image",
+                "src": "/uploads/1785621963632-Screenshot-2026-08-02-at-1.05.55-AM.png",
+                "alt": "Token overview",
+                "caption": "319 tokens across nine collections. Every row carries a description, because a token with nothing to say about itself did not get made.",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": true,
+                "size": "column"
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s-layers",
+      "title": "Primitives, then roles",
+      "rows": [
+        {
+          "id": "r12",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "l-h",
+                "kind": "heading",
+                "level": 2,
+                "text": "The decision that shapes everything else"
+              },
+              {
+                "id": "l-p1",
+                "kind": "paragraph",
+                "text": "Two layers, not one. Primitives are the whole palette, eleven steps per hue, and a designer never picks from them. Semantic tokens are named for the job they do: background/default, border/focus, content/subtle. Each one points at a primitive, once per theme."
+              },
+              {
+                "id": "l-p2",
+                "kind": "paragraph",
+                "text": "That is what makes light and dark free. background/default resolves to neutral.50 in light and neutral.950 in dark, from the same scale, so a designer picks one token and both themes are already correct. It is also what makes the system fit any brand: swap the primitives and the roles do not move."
+              }
+            ]
+          ]
+        },
+        {
+          "id": "r13",
+          "layout": "1-1",
+          "cells": [
+            [
+              {
+                "id": "l-shot-1",
+                "kind": "image",
+                "src": "/uploads/1785622042765-Screenshot-2026-08-02-at-1.06.52-AM.png",
+                "alt": "Primitive colours",
+                "caption": "143 primitives. The full palette, and the layer a designer never picks from.",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": true
+              }
+            ],
+            [
+              {
+                "id": "l-shot-2",
+                "kind": "image",
+                "src": "/uploads/1785622047533-Screenshot-2026-08-02-at-1.07.07-AM.png",
+                "alt": "Semantic colours",
+                "caption": "176 semantic roles. Each points at a primitive, per theme, with Figma scopes attached.",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": true
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s-find-alias",
+      "title": "Finding 1",
+      "rows": [
+        {
+          "id": "r14",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "a-h",
+                "kind": "heading",
+                "level": 2,
+                "text": "The aliasing layer was missing from its own defaults"
+              },
+              {
+                "id": "a-p1",
+                "kind": "paragraph",
+                "text": "I audited what already shipped before adding anything. The seeded palettes were named primary, secondary, neutral, warning, info, success and danger. The semantic definitions looked up pink.500, blue.600, green.600, navy, red and yellow. Only neutral existed in both lists."
+              },
+              {
+                "id": "a-stat",
+                "kind": "stat",
+                "value": "34 of 41",
+                "label": "semantic colours resolved to a hardcoded hex and referenced nothing"
+              },
+              {
+                "id": "a-p2",
+                "kind": "paragraph",
+                "text": "A user who changed their brand colour saw nothing move. Aliasing is not a feature of this product, it is the product, and it was absent from the default state every new workspace started from."
+              },
+              {
+                "id": "a-p3",
+                "kind": "paragraph",
+                "text": "The fix was not to correct the names. A semantic token never carries a literal value now: it carries a key naming the primitive it references, and the seeder resolves it. If a key does not resolve, seeding fails rather than falling back to a hex. That rule is enforced at build time, so the class of bug cannot return."
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s-find-contrast",
+      "title": "Finding 2",
+      "rows": [
+        {
+          "id": "r15",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "c-h",
+                "kind": "heading",
+                "level": 2,
+                "text": "A token that could not exist"
+              },
+              {
+                "id": "c-p1",
+                "kind": "paragraph",
+                "text": "I proposed a semantic called text.on-status: white, for text on any solid status fill. Clean, symmetrical, one token instead of four. Then I measured it."
+              },
+              {
+                "id": "c-table",
+                "kind": "table",
+                "head": [
+                  "Pair",
+                  "Measured",
+                  "WCAG 2.2 asks for"
+                ],
+                "rows": [
+                  [
+                    "White on the amber warning fill",
+                    "2.15:1",
+                    "4.5:1"
+                  ],
+                  [
+                    "neutral.950 on the same fill",
+                    "8.8:1",
+                    "4.5:1"
+                  ]
+                ]
+              },
+              {
+                "id": "c-p2",
+                "kind": "paragraph",
+                "text": "The token was structurally wrong, not badly valued. There is no shade of amber that is still recognisably amber where white works. Symmetry was hiding a colour that behaves differently from the others, so text.on-warning exists as its own token, and its description says why, so the next person does not simplify it back."
+              },
+              {
+                "id": "c-p3",
+                "kind": "paragraph",
+                "text": "The audit surfaced twelve failing pairs. Nine were defects in values I had proposed myself. border.focus-inverse, the focus ring for saturated fills, measured 2.54:1 in dark mode against the exact fill it exists to sit on. And background.brand sat at shade 500, where white is 4.47:1 and fails AA by a hair; it moved to 600, and 500 stayed as the identity anchor for borders and selected states, where the bar is 3:1."
+              },
+              {
+                "id": "c-pull",
+                "kind": "pullquote",
+                "text": "A contrast audit is not a QA step at the end. It is a design tool, and it will tell you that a token you were proud of should not exist."
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s-find-arabic",
+      "title": "Finding 3",
+      "rows": [
+        {
+          "id": "r16",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "ar-h",
+                "kind": "heading",
+                "level": 2,
+                "text": "Arabic is not Latin with a different font"
+              },
+              {
+                "id": "ar-p1",
+                "kind": "paragraph",
+                "text": "Most bilingual systems are a Latin scale with an Arabic face swapped in. That is not a shortcut, it is a defect. Arabic has no single x-height: where a Latin face has one mean line, a Naskh face has several, and in place of one descender there may be two or three."
+              },
+              {
+                "id": "ar-p2",
+                "kind": "paragraph",
+                "text": "So a line height tuned for Latin is always wrong for Arabic. The system carries two parallel line-height ramps, paired by size, with every resolved value landing on the 4px grid so vertical rhythm survives a language switch. That is the thing that usually breaks and that nobody can name when they see it."
+              },
+              {
+                "id": "ar-pull",
+                "kind": "pullquote",
+                "text": "Material 3 ships +0.5px tracking on body text. It is the most copied type scale in the industry, and every Arabic interface that inherited it is carrying a value that was never meant for it."
+              },
+              {
+                "id": "ar-p3",
+                "kind": "paragraph",
+                "text": "Arabic is a connected script. The W3C Arabic Layout Requirements are explicit that moving joined characters apart produces undesirable results, and justification uses kashida rather than tracking. So tracking here is Latin only, and the constraint lives in the token description rather than in someone's memory."
+              },
+              {
+                "id": "ar-shot",
+                "kind": "image",
+                "src": "/uploads/1785622211086-Screenshot-2026-08-02-at-1.10.02-AM.png",
+                "alt": "Arabic typography",
+                "caption": "Text styles previewed in Arabic, per device. Parallel line-height ramps, and tracking that is Latin only.",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": true,
+                "size": "column"
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s-find-check",
+      "title": "Finding 4",
+      "rows": [
+        {
+          "id": "r17",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "k-h",
+                "kind": "heading",
+                "level": 2,
+                "text": "Proving completeness instead of claiming it"
+              },
+              {
+                "id": "k-p1",
+                "kind": "paragraph",
+                "text": "\"I covered every property\" is a claim, and a claim about three hundred rows across nine collections cannot be checked by reading. I did not trust myself."
+              },
+              {
+                "id": "k-p2",
+                "kind": "paragraph",
+                "text": "So the token set is not a JSON file. It is data, plus a materialiser that expands it into complete rows, plus a checker that walks all ten authored columns on every row and throws on the first gap. It asserts every description present and inside the database's 240-character limit, no duplicate names or sort orders, primitives unpublished and unscoped, every reference resolving including the ones buried inside gradient stops, and every semantic colour carrying a dark-theme row."
+              },
+              {
+                "id": "k-list",
+                "kind": "list",
+                "items": [
+                  "A spacing semantic pointed at a 20px primitive I had excluded from the ramp. I added 20px rather than distorting the ramp to hide it.",
+                  "Fourteen descriptions were over the 240-character limit, which would have failed at insert, one row at a time, in production.",
+                  "An anatomy reference pointed at a node that exists in only one state. That one was a bug in the checker rather than the data, and finding it was the check earning its keep."
+                ]
+              },
+              {
+                "id": "k-pull",
+                "kind": "pullquote",
+                "text": "\"I covered everything\" is a claim. I turned it into a test, and the test caught me three times."
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s-find-sync",
+      "title": "Finding 5",
+      "rows": [
+        {
+          "id": "r18",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "s-h",
+                "kind": "heading",
+                "level": 2,
+                "text": "The second sync is harder than the first"
+              },
+              {
+                "id": "s-p1",
+                "kind": "paragraph",
+                "text": "The first sync lands in a blank Figma file, so anything works. The second arrives at a file where a designer has spent two weeks binding components to variables. A naive push replaces those variables and every binding dies. The designer loses two weeks and never opens the plugin again."
+              },
+              {
+                "id": "s-dec",
+                "kind": "decision",
+                "considered": {
+                  "title": "Push the set",
+                  "body": "Simple, and correct exactly once. Every subsequent sync silently destroys the work done between them."
+                },
+                "chosen": {
+                  "title": "Read, diff, apply the difference",
+                  "body": "The plugin reads what is already in the file and applies only what changed. Existing variables keep their identity, so every binding a designer made survives the update."
+                },
+                "tradeoff": "More work in the plugin, and a slower sync. Both are worth it: the alternative is a tool that is used once."
+              },
+              {
+                "id": "s-pull",
+                "kind": "pullquote",
+                "text": "A generator is used once at the start of a project. A tool has to survive the project."
+              },
+              {
+                "id": "a7sns54n",
+                "kind": "gallery",
+                "items": [
+                  {
+                    "src": "/uploads/1785622494828-Screenshot-2026-08-02-at-1.12.37-AM.png",
+                    "alt": "Paste the key once. After that it is one button, and the settings screen is never opened again."
+                  },
+                  {
+                    "src": "/uploads/1785622500252-Screenshot-2026-08-02-at-1.13.41-AM.png",
+                    "alt": ""
+                  }
+                ],
+                "caption": "",
+                "ratio": "square",
+                "fit": "crop"
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s-figma",
+      "title": "What lands in Figma",
+      "rows": [
+        {
+          "id": "r19",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "fg-p",
+                "kind": "paragraph",
+                "text": "Not a document describing variables. The variables themselves: semantic names against primitive references, every mode across, scopes and publish visibility already set. A designer opens this file and starts working."
+              },
+              {
+                "id": "fg-shot",
+                "kind": "image",
+                "src": "/uploads/1785622647920-Screenshot-2026-07-31-at-12.06.12-PM.png",
+                "alt": "Figma variables",
+                "caption": "Real Figma Variables. Semantic names on the left, primitive references on the right, modes across.",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": true,
+                "size": "column"
+              },
+              {
+                "id": "njjovl4z",
+                "kind": "gallery",
+                "items": [
+                  {
+                    "src": "/uploads/1785622693339-Screenshot-2026-07-31-at-12.05.47-PM.png",
+                    "alt": ""
+                  },
+                  {
+                    "src": "/uploads/1785622710940-Screenshot-2026-07-31-at-12.06.26-PM.png",
+                    "alt": ""
+                  }
+                ],
+                "caption": "",
+                "ratio": "square",
+                "fit": "crop"
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s-shipped",
+      "title": "What shipped",
+      "rows": [
+        {
+          "id": "r20",
+          "layout": "1-1-1",
+          "cells": [
+            [
+              {
+                "id": "sh-1",
+                "kind": "stat",
+                "value": "319",
+                "label": "tokens, 143 primitive and 176 semantic"
+              }
+            ],
+            [
+              {
+                "id": "sh-2",
+                "kind": "stat",
+                "value": "9",
+                "label": "collections, color through motion"
+              }
+            ],
+            [
+              {
+                "id": "sh-3",
+                "kind": "stat",
+                "value": "2",
+                "label": "themes, every color with an explicit dark row"
+              }
+            ]
+          ]
+        },
+        {
+          "id": "r21",
+          "layout": "1-1-1",
+          "cells": [
+            [
+              {
+                "id": "sh-4",
+                "kind": "stat",
+                "value": "3",
+                "label": "breakpoints, carried by Figma modes"
+              }
+            ],
+            [
+              {
+                "id": "sh-5",
+                "kind": "stat",
+                "value": "16",
+                "label": "text styles, Latin and Arabic"
+              }
+            ],
+            [
+              {
+                "id": "sh-6",
+                "kind": "stat",
+                "value": "319",
+                "label": "descriptions, one per token, each a reason"
+              }
+            ]
+          ]
+        },
+        {
+          "id": "r22",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "sh-p",
+                "kind": "paragraph",
+                "text": "And one thing that is not a number: the defaults are a file, not a code path. Seeding a new workspace is loading a bundle, the same bundle a user can export, edit and re-import. The defaults have to travel through the same door as any other token set, or the two drift apart."
+              },
+              {
+                "id": "sh-live",
+                "kind": "paragraph",
+                "text": "In use by my team at b_labs."
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s-next",
+      "title": "What is next",
+      "rows": [
+        {
+          "id": "r23",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "n-p",
+                "kind": "paragraph",
+                "text": "Shipped above, planned below. The three are one continuous problem, worked through in order."
+              },
+              {
+                "id": "n-list",
+                "kind": "list",
+                "items": [
+                  "A component library. Every component and pattern a designer needs across web, mobile and tablet, bound to the same tokens and delivered the same way.",
+                  "Brand direction. The system understands the direction before it generates anything, so components arrive already pointing where the company needs rather than being corrected afterwards. The hardest of the three, and still in study.",
+                  "An API, so the system can take a brief and propose the screens a product needs. The designer's job becomes editing, choosing and auditing, which is where the judgement lives anyway."
+                ]
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s-reflection",
+      "title": "Reflection",
+      "rows": [
+        {
+          "id": "r24",
+          "layout": "1",
+          "cells": [
+            [
+              {
+                "id": "rf-p1",
+                "kind": "paragraph",
+                "text": "I would run the contrast audit before authoring the tokens rather than after. Nine of my own proposed values were wrong and I only found out because I checked, which means every project where nobody checks is shipping the same nine."
+              },
+              {
+                "id": "rf-p2",
+                "kind": "paragraph",
+                "text": "And the finding I did not expect: the interesting problems in a generator are not in the generating. They are in the second run, the empty state, and the difference between a claim and a test."
+              },
+              {
+                "id": "6w6099pb",
+                "kind": "video",
+                "src": "/uploads/designbag-walkthrough.mp4",
+                "poster": "/uploads/designbag-walkthrough-poster.webp",
+                "caption": ""
+              },
+              {
+                "id": "pa3ttrcd",
+                "kind": "image",
+                "src": "/uploads/1785622960367-Dashboard-Analytics.png",
+                "alt": "",
+                "caption": "Design Used all tokens and style that generated by Designbag studio",
+                "ratio": "wide",
+                "fit": "natural",
+                "framed": true,
+                "size": "column"
+              }
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "updatedAt": "2026-08-02T07:14:26.226Z"
+}

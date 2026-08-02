@@ -78,16 +78,10 @@
     "note": "Discovery at work is AI-native: I frame a problem against comparable systems in minutes, produce wireframes live in the same session with the PM, then run an agent that audits the designs against the requirement before hand-off. The things below are what came out of working that way.",
     "items": [
       {
-        "name": "This site",
-        "href": "",
-        "logo": "hobz",
-        "line": "Designed and built solo with AI, from the design system to the code: content model, editor, image pipeline, and deploy. You are looking at it."
-      },
-      {
-        "name": "Design-System Generator",
-        "href": "",
-        "logo": "dsg",
-        "line": "Generates a complete design system from brand input: tokens, components, themes. A canvas turns a written business request into on-brand screens, and exports in one click to Figma and to code on GitHub. In use by my team at b_labs."
+        "name": "Designbag",
+        "href": "/case-study/designbag-token-foundation",
+        "logo": "/logos/designbag.webp",
+        "line": "Generates a design system foundation from brand input and syncs it into Figma as real Variables and Text Styles, with scopes and publish visibility intact. 319 tokens, two themes, Latin and Arabic. In use by my team at b_labs."
       },
       {
         "name": "Agarly",

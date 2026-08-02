@@ -96,6 +96,33 @@ export function ProjectShell({
                   : p.slogan}
               </p>
             )}
+
+            {/* Tags. Two checkboxes rather than a section to file the
+                project under, because a project is often both and the
+                board should not have to ask. Studio only: on the public
+                page they appear on the card, not here. */}
+            {editing && (
+              <div style={{ display: "flex", gap: "var(--space-5)", marginTop: "var(--space-4)" }}>
+                {(["solo", "ai"] as const).map((tag) => {
+                  const on = p.tags?.includes(tag) ?? false;
+                  return (
+                    <label key={tag} className="t-label" style={{ display: "flex", gap: 6, alignItems: "center", cursor: "pointer" }}>
+                      <input
+                        type="checkbox"
+                        checked={on}
+                        onChange={() => {
+                          const next = on
+                            ? (p.tags ?? []).filter((x) => x !== tag)
+                            : [...(p.tags ?? []), tag];
+                          persistProject({ ...p, tags: next.length ? next : undefined });
+                        }}
+                      />
+                      {tag === "solo" ? "Built solo" : "AI"}
+                    </label>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
 

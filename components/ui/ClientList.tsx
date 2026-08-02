@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { ClampedText } from "@/components/ui/ClampedText";
+import { useUI } from "@/lib/lang";
 
 type Item = {
   name: string;
@@ -26,6 +27,7 @@ type Item = {
  */
 export function ClientList({ items, initial = 4 }: { items: Item[]; initial?: number }) {
   const [open, setOpen] = useState(false);
+  const t = useUI();
   const shown = open ? items : items.slice(0, initial);
   const hidden = items.length - initial;
 
@@ -59,7 +61,7 @@ export function ClientList({ items, initial = 4 }: { items: Item[]; initial?: nu
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
         >
-          {open ? "Show less" : `Show all ${items.length}`}
+          {open ? t("showLess") : `${t("showAll")} ${items.length}`}
         </button>
       )}
     </>

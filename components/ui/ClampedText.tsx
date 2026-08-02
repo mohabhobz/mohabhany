@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLang, useUI } from "@/lib/lang";
 
 const MOBILE = "(max-width: 720px)";
 const LINES = 2;
-const MORE = "See more";
-const LESS = "See less";
+/* The label is measured into the cut, so it has to be the one that will
+   actually be printed. Arabic is longer here, and a cut computed against
+   the English would overflow the second line the moment the page flips. */
 
 /**
  * Two lines, then "See more" sitting at the end of the sentence.
@@ -27,6 +29,10 @@ export function ClampedText({ children }: { children: string }) {
   const ref = useRef<HTMLParagraphElement>(null);
   const [cut, setCut] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
+  const { lang } = useLang();
+  const t = useUI();
+  const MORE = t("more");
+  const LESS = t("showLess");
 
   useEffect(() => {
     const el = ref.current;
@@ -85,7 +91,10 @@ export function ClampedText({ children }: { children: string }) {
       ro.disconnect();
       mq.removeEventListener("change", measure);
     };
-  }, [children]);
+    /* lang is in here on purpose: switching changes the words, the
+       typeface and the line height at once, so a cut measured against
+       the other language is wrong in both directions. */
+  }, [children, lang, MORE]);
 
   // No cut needed, or not measured yet: the full sentence, which is also what
   // the server renders and what a reader without JS gets.

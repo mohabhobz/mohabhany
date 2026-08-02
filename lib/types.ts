@@ -29,7 +29,12 @@ export type Block =
   | { id: string; kind: "gallery";   items: { src: string; alt: string }[]; caption: string; ratio: Ratio;
       fit?: "natural" | "crop"; focus?: "top" | "center" | "bottom" }
   | { id: string; kind: "beforeAfter"; before: string; after: string; caption: string; ratio?: Ratio; fit?: "natural" | "crop" }
-  | { id: string; kind: "video";     src: string; poster: string; caption: string }
+  /** fit "natural" (default) lets the file set its own height, so a square
+      or portrait recording is not cropped to a 16:9 band. "crop" forces the
+      ratio, for a clip deliberately composed to it. Same two knobs as an
+      image, so there is one idea to learn rather than two. */
+  | { id: string; kind: "video";     src: string; poster: string; caption: string;
+      ratio?: Ratio; fit?: "natural" | "crop" }
   | { id: string; kind: "pdf";       src: string; label: string }
   | { id: string; kind: "figma";     src: string; caption: string; ratio?: string; scaling?: string }
   | { id: string; kind: "stat";      value: string; label: string }
@@ -98,6 +103,15 @@ export type Project = {
     /** "fill" crops to a band; "fit" shows the whole frame. */
     fit?: "fill" | "fit";
   };
+  /** What kind of work this was, shown on the card.
+
+      Deliberately a flag rather than a separate section. A project is
+      often several of these at once: Designbag is an AI product, a
+      design system, and something I built alone. A taxonomy that makes
+      you pick one is the wrong taxonomy, and it forces a decision every
+      time a project is added. */
+  tags?: ("ai" | "solo")[];
+
   /** One line beside the logo — what the company is. */
   slogan?: string;
   /** The longer paragraph, full width below. */

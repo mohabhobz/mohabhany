@@ -4,6 +4,7 @@ import {
   createContext, useCallback, useContext, useEffect, useRef, useState,
 } from "react";
 import { usePathname } from "next/navigation";
+import { useLang } from "@/lib/lang";
 
 /**
  * The loading screen, and the readiness signal the rest of the site reads.
@@ -66,7 +67,8 @@ export function useSiteReady() {
 }
 
 /** slug of a case study → the sentence to show while it opens. */
-export type LoadingLabels = Record<string, string>;
+/** One label per study, in both languages. Built on the server. */
+export type LoadingLabels = Record<string, { en: string; ar: string }>;
 
 /**
  * Types the sentence, adds three dots, holds, and starts again if the page is
@@ -132,6 +134,7 @@ export function LoadingProvider({ labels = {}, children }: {
   const [ready, setReady] = useState(false);
   const pathname = usePathname();
   const first = useRef(true);
+  const { lang } = useLang();
 
   /* Where a click is taking us, set the instant the link is pressed and
      cleared once the route actually arrives. This is what lets the overlay
@@ -152,8 +155,10 @@ export function LoadingProvider({ labels = {}, children }: {
      back to the plain word rather than inventing a name for a project. */
   const messageFor = useCallback((path: string) => {
     const s = path.startsWith("/case-study/") ? path.split("/")[2] : "";
-    return (s && labels[s]) || "Loading";
-  }, [labels]);
+    const hit = s ? labels[s] : undefined;
+    if (hit) return hit[lang];
+    return lang === "ar" ? "جاري التحميل" : "Loading";
+  }, [labels, lang]);
 
   const target = navPath ?? pathname;
   const message = messageFor(target);
@@ -215,11 +220,21 @@ export function LoadingProvider({ labels = {}, children }: {
     if (navPath && pathname === navPath) setNavPath(null);
   }, [pathname, navPath]);
 
+  /* The sentence as it stood at mount. The first-paint effect below reads
+     this rather than `message`, because `message` is not stable: the stored
+     language arrives after hydration, and a dependency that changes once
+     would re-run an effect whose body is guarded to run only once. The
+     cleanup would fire, clearing both timers, and the guard would then
+     return before starting new ones. The overlay would sit there forever
+     with nothing left to lift it. */
+  const mountMessage = useRef(message);
+
   useEffect(() => {
     /* First paint only. Route changes are handled by the click listener
        above, so this effect no longer runs its body for them. */
     if (!first.current) return;
     first.current = false;
+    const message = mountMessage.current;
     setReady(false);
     setAssetsDone(false);
     const clearFloor = startFloor(floorFor(message));
@@ -241,7 +256,8 @@ export function LoadingProvider({ labels = {}, children }: {
     const ceiling = setTimeout(done, Math.max(CEILING, floorFor(message)));
     Promise.all([fonts, loaded]).then(done);
     return () => { clearTimeout(ceiling); clearFloor(); };
-  }, [startFloor, message]);
+    /* No `message` here on purpose. See mountMessage above. */
+  }, [startFloor]);
 
   useEffect(() => {
     if (assetsDone && floorDone) setReady(true);

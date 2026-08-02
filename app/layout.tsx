@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Space_Mono } from "next/font/google";
+import { Space_Grotesk, Space_Mono, IBM_Plex_Sans_Arabic } from "next/font/google";
 import "../styles/globals.css";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LoadingProvider } from "@/components/ui/Loading";
+import { LangProvider } from "@/lib/lang";
+import { LangToggle } from "@/components/ui/LangToggle";
 import { loadingLabels } from "@/lib/loading-labels";
 
 /* Self-hosted by Next — no network request, no layout shift. */
@@ -18,10 +20,16 @@ const mono = Space_Mono({
   variable: "--font-space-mono",
   display: "swap",
 });
-/* No Arabic face. IBM Plex Sans Arabic was loaded here in three weights and
-   used by nothing except one demo row on the design system page, so every
-   visitor was downloading a script the site does not set. Add it back the day
-   there is Arabic content, not before. */
+/* The Arabic face, back now that there is Arabic content to set. Three
+   weights, matching the Latin ones, because the whole site is available in
+   both and a heading that loses its weight on switching reads as a
+   different page rather than the same one in another language. */
+const arabic = IBM_Plex_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["400", "500", "700"],
+  variable: "--font-arabic",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   /* Without this, Next cannot turn a relative OG image path into the
@@ -51,8 +59,15 @@ export const metadata: Metadata = {
  */
 const noFlashTheme = `
 (function(){try{
+  var d=document.documentElement;
   var t=localStorage.getItem('hobz-theme');
-  if(t){document.documentElement.setAttribute('data-theme',t);}
+  if(t){d.setAttribute('data-theme',t);}
+  /* Same reasoning for language. Without this the page paints in
+     English and left-to-right, then flips after hydration, which is a
+     far louder flash than a colour change because the whole layout
+     moves. */
+  var l=localStorage.getItem('hobz-lang');
+  if(l==='ar'){d.setAttribute('lang','ar');d.setAttribute('dir','rtl');}
 }catch(e){}})();
 `;
 
@@ -69,6 +84,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
        anywhere else still surface. */
     <html
       lang="en"
+      dir="ltr"
       suppressHydrationWarning
       /* Tells Next this page opts into smooth scrolling, so it disables it
          for the duration of a route change. Without it, Next's scroll-to-top
@@ -77,16 +93,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
          which is why opening a project arrived at the logo instead of the
          top of the page. */
       data-scroll-behavior="smooth"
-      className={`${display.variable} ${mono.variable}`}
+      className={`${display.variable} ${mono.variable} ${arabic.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: noFlashTheme }} />
       </head>
       <body>
-        <LoadingProvider labels={labels}>
-          {children}
-          <ThemeToggle />
-        </LoadingProvider>
+        <LangProvider>
+          <LoadingProvider labels={labels}>
+            {children}
+            <div className="switch-rail">
+              <ThemeToggle />
+              <LangToggle />
+            </div>
+          </LoadingProvider>
+        </LangProvider>
       </body>
     </html>
   );

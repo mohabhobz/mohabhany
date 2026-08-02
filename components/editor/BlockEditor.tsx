@@ -271,7 +271,36 @@ export function BlockEditor({ block, onChange, onUpload }: {
         )}
       </>
     );
-    case "video":     return <><F label="Video URL" value={block.src} onChange={(v) => set({ src: v })} />{up("video", (v) => set({ src: v }))}<F label="Poster image" value={block.poster} onChange={(v) => set({ poster: v })} />{up("poster", (v) => set({ poster: v }))}<F label="Caption" value={block.caption} onChange={(v) => set({ caption: v })} /></>;
+    case "video": return (
+      <>
+        <F label="Video URL" value={block.src} onChange={(v) => set({ src: v })} />
+        {up("video", (v) => set({ src: v }))}
+        <F label="Poster image" value={block.poster} onChange={(v) => set({ poster: v })} />
+        {up("poster", (v) => set({ poster: v }))}
+        <F label="Caption" value={block.caption} onChange={(v) => set({ caption: v })} />
+        {/* The same two controls an image gets, and for the same reason: a
+            recording is whatever shape it was recorded at, and forcing it
+            into a band cuts the top and bottom off. */}
+        <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center", marginTop: "var(--space-2)" }}>
+          <span className="t-label">Frame:</span>
+          <Btn tone={(block.fit ?? "natural") === "natural" ? "accent" : undefined}
+               title="The video's own shape, nothing cropped"
+               onClick={() => set({ fit: "natural" })}>Whole video</Btn>
+          <Btn tone={block.fit === "crop" ? "accent" : undefined}
+               title="Force a fixed ratio, crops to fill"
+               onClick={() => set({ fit: "crop" })}>Crop</Btn>
+        </div>
+        {block.fit === "crop" && (
+          <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center", marginTop: "var(--space-2)" }}>
+            <span className="t-label">Ratio:</span>
+            {(["wide", "page", "square", "phone"] as const).map((r) => (
+              <Btn key={r} tone={block.ratio === r ? "accent" : undefined}
+                   onClick={() => set({ ratio: r })}>{r}</Btn>
+            ))}
+          </div>
+        )}
+      </>
+    );
     case "beforeAfter": return (
       <>
         <F label="Before image" value={block.before} onChange={(v) => set({ before: v })} />

@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import type { Project, CaseStudy } from "@/lib/types";
+import { useUI } from "@/lib/lang";
 
 /**
  * A project on the board: the media, then a name and one line under it.
@@ -25,6 +28,7 @@ import type { Project, CaseStudy } from "@/lib/types";
  * tile rather than the full-resolution asset the project page uses.
  */
 export function WorkCard({ project, studies }: { project: Project; studies: CaseStudy[] }) {
+  const t = useUI();
   const href = `/case-study/${studies[0].slug}`;
   /* `studies` arrives already filtered to published, so this counts what the
      visitor can actually reach. Counting every study would promise pages that
@@ -34,7 +38,11 @@ export function WorkCard({ project, studies }: { project: Project; studies: Case
      someone remembers to upload a second image, and a board full of
      placeholders is worse than a board of covers that are merely not
      ideally cropped. */
-  const card = project.card ?? project.cover;
+  /* Fall back on the SRC, not on the object. The editor writes an empty
+     { kind, src: "" } when a card is removed or never set, and `card ??
+     cover` treats that as a card, so a project with a cover and no card
+     showed a blank tile with no way to tell why. */
+  const card = project.card?.src ? project.card : project.cover;
 
   return (
     <Link href={href} className="card" aria-label={project.name}>
@@ -57,6 +65,21 @@ export function WorkCard({ project, studies }: { project: Project; studies: Case
           />
         ) : (
           <span className="card__media--empty" />
+        )}
+
+        {/* On the media, bottom left, over a gradient that only exists where
+            they sit. They are metadata about the tile, so they belong on the
+            tile; under the caption they pushed every card taller and only
+            some cards had them, which broke the row heights. */}
+        {!!project.tags?.length && (
+          <span className="card__tags">
+            {project.tags.includes("solo") && (
+              <span className="card__tag t-label">{t("builtSolo")}</span>
+            )}
+            {project.tags.includes("ai") && (
+              <span className="card__tag t-label" data-accent>{t("usesAI")}</span>
+            )}
+          </span>
         )}
       </span>
 

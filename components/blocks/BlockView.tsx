@@ -229,25 +229,36 @@ export function BlockView({ block }: { block: Block }) {
         </figure>
       );
 
-    case "video":
+    case "video": {
+      /* Natural by default: the file sets its own height and nothing is
+         cropped. A 16:9 band was hardcoded here, which quietly cut the top
+         and bottom off every recording that was not 16:9, including screen
+         captures of a desktop app. */
+      const natural = (block.fit ?? "natural") === "natural";
       return (
         <figure className="figure">
-          <div className="frame ratio-wide">
+          <div className={natural ? "frame frame--natural" : `frame ratio-${block.ratio ?? "wide"}`}>
             {block.src ? (
-              /* preload=none + poster: the video costs nothing until played */
               <video
                 src={block.src}
                 poster={block.poster || undefined}
                 controls
-                preload="none"
+                /* metadata, not none, when the box has no ratio of its own:
+                   without the header the browser does not know the shape and
+                   the element collapses to nothing until someone presses
+                   play. It is a few kilobytes, not the video. */
+                preload={natural && !block.poster ? "metadata" : "none"}
                 playsInline
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                style={natural
+                  ? { width: "100%", height: "auto", display: "block" }
+                  : { width: "100%", height: "100%", objectFit: "cover" }}
               />
-            ) : <div className="frame--empty" style={{ height: "100%" }}>VIDEO</div>}
+            ) : <div className="frame--empty" style={{ minHeight: 220 }}>VIDEO</div>}
           </div>
           {block.caption && <figcaption className="caption">{block.caption}</figcaption>}
         </figure>
       );
+    }
 
     case "pdf":
       return (

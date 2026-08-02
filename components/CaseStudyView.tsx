@@ -7,6 +7,8 @@ import { ProjectShell } from "@/components/editor/ProjectShell";
 import { SectionsEditor } from "@/components/editor/SectionsEditor";
 import { Wordmark } from "@/components/ui/Wordmark";
 import { useState } from "react";
+import { useLang } from "@/lib/lang";
+import { translateProject, translateStudy, type DocAr } from "@/lib/i18n-doc";
 
 /**
  * The public case study. Read only.
@@ -20,10 +22,26 @@ import { useState } from "react";
  * a navigation: every published sibling is already on the page.
  */
 export function CaseStudyView({
-  initial, project, siblings,
-}: { initial: CaseStudy; project: Project; siblings: CaseStudy[] }) {
+  initial, project, siblings, ar,
+}: {
+  initial: CaseStudy; project: Project; siblings: CaseStudy[];
+  /** Arabic for each sibling, keyed by slug. Missing is allowed. */
+  ar?: Record<string, DocAr | null>;
+}) {
   const [slug, setSlug] = useState(initial.slug);
-  const doc = siblings.find((s) => s.slug === slug) ?? initial;
+  const { lang } = useLang();
+  const raw = siblings.find((s) => s.slug === slug) ?? initial;
+
+  /* The Arabic is laid over the English rather than replacing it, so a
+     study translated halfway reads as one page in two languages instead
+     of a page with holes in it. */
+  const tr = lang === "ar" ? ar?.[slug] ?? null : null;
+  const doc = translateStudy(raw, tr);
+  const proj = translateProject(project, tr);
+
+  /* Titles in the tab strip come from each sibling's own file. */
+  const sibs = siblings.map((c) =>
+    lang === "ar" ? translateStudy(c, ar?.[c.slug] ?? null) : c);
 
   const goTo = (next: string) => {
     if (next === slug) return;
@@ -42,13 +60,13 @@ export function CaseStudyView({
         <Wordmark href="/" />
       </header>
 
-      <ProjectCover project={project} editing={false} onChange={noop} onUpload={noUpload} />
+      <ProjectCover project={proj} editing={false} onChange={noop} onUpload={noUpload} />
 
       <div className="glass-sheet">
         <article className="prose study-body">
           <ProjectShell
-            project={project}
-            studies={siblings}
+            project={proj}
+            studies={sibs}
             currentSlug={doc.slug}
             currentTitle={doc.title}
             editing={false}

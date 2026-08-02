@@ -2,15 +2,18 @@
 
 import { useEffect, useState } from "react";
 import { Wordmark } from "@/components/ui/Wordmark";
+import { useUI, type UIKey } from "@/lib/lang";
 
-const LINKS = [
-  { id: "intro",      label: "Intro" },
-  { id: "worked",     label: "Worked with" },
-  { id: "work",       label: "Work" },
-  { id: "ai",         label: "AI" },
-  { id: "background", label: "Background" },
-  { id: "consulting", label: "Consulting" },
-  { id: "contact",    label: "Contact" },
+/* The label is a key, not a word. One list, two languages, and no way
+   for the two to drift out of step. */
+const LINKS: { id: string; key: UIKey }[] = [
+  { id: "intro",      key: "navIntro" },
+  { id: "worked",     key: "navWorked" },
+  { id: "work",       key: "navWork" },
+  { id: "ai",         key: "usesAI" },
+  { id: "background", key: "navBackground" },
+  { id: "consulting", key: "navConsulting" },
+  { id: "contact",    key: "navContact" },
 ];
 
 /**
@@ -27,6 +30,7 @@ const LINKS = [
 export function SiteNav() {
   const [active, setActive] = useState("intro");
   const [open, setOpen] = useState(false);
+  const t = useUI();
 
   useEffect(() => {
     const sections = LINKS
@@ -69,14 +73,14 @@ export function SiteNav() {
         className="site-nav__toggle"
         aria-expanded={open}
         aria-controls="site-nav-links"
-        aria-label={open ? "Close menu" : "Open menu"}
+        aria-label={open ? t("closeMenu") : t("openMenu")}
         onClick={() => setOpen((v) => !v)}
       >
         <span className="site-nav__toggle-bar" />
         <span className="site-nav__toggle-bar" />
       </button>
 
-      <nav aria-label="Sections" id="site-nav-links" className="site-nav__nav">
+      <nav aria-label={t("sections")} id="site-nav-links" className="site-nav__nav">
         <ul className="site-nav__list">
           {LINKS.map((l) => (
             <li key={l.id}>
@@ -87,7 +91,7 @@ export function SiteNav() {
                 aria-current={active === l.id ? "true" : undefined}
                 onClick={() => setOpen(false)}
               >
-                {l.label}
+                {t(l.key)}
               </a>
             </li>
           ))}

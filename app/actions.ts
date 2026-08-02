@@ -71,7 +71,11 @@ function safeSlug(slug: string): string {
 async function readAll<T>(dir: string): Promise<T[]> {
   try {
     await ensure(dir);
-    const files = (await fs.readdir(dir)).filter((f) => f.endsWith(".json"));
+    /* `.ar.json` sits beside its English original and holds words only,
+       not a document. Without this filter it is read as a case study with
+       no slug, and the first sort that touches one throws. */
+    const files = (await fs.readdir(dir))
+      .filter((f) => f.endsWith(".json") && !f.endsWith(".ar.json"));
     return await Promise.all(
       files.map(async (f) => JSON.parse(await fs.readFile(path.join(dir, f), "utf8")) as T),
     );

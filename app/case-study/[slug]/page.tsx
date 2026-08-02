@@ -2,6 +2,21 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { CaseStudyView } from "@/components/CaseStudyView";
 import { getProject, getStudy, listStudies } from "@/lib/storage";
+import { promises as fs } from "node:fs";
+import path from "node:path";
+import type { DocAr } from "@/lib/i18n-doc";
+import { readProjectAr } from "@/lib/project-ar";
+
+/* The Arabic for one study, if it has been written. Absent is a normal
+   state, not an error: a study with no Arabic file simply stays English
+   when the page is switched, rather than emptying out. */
+async function readAr(slug: string): Promise<DocAr | null> {
+  try {
+    const raw = await fs.readFile(
+      path.join(process.cwd(), "content", "case-studies", `${slug}.ar.json`), "utf8");
+    return JSON.parse(raw) as DocAr;
+  } catch { return null; }
+}
 
 /* Prerendered, one file per published study. generateStaticParams below
    lists them at build time, so a case study arrives from the CDN as HTML
@@ -27,7 +42,22 @@ async function load(slug: string) {
   if (!project) return null;
 
   const siblings = (await listStudies(doc.projectSlug)).filter((c) => c.status === "published");
-  return { doc, project, siblings };
+  /* One file per sibling, because switching between studies inside a
+     project is a local state swap and the Arabic has to already be on
+     the page for that to stay instant. */
+  const studyAr = Object.fromEntries(
+    await Promise.all(siblings.map(async (c) => [c.slug, await readAr(c.slug)] as const)),
+  ) as Record<string, DocAr | null>;
+
+  /* The project header is the same words as the card on the landing page,
+     so it is read from the project file rather than repeated in each of
+     that project's studies. Merged in here so the view sees one object. */
+  const projectAr = await readProjectAr(doc.projectSlug);
+  const ar = Object.fromEntries(
+    Object.entries(studyAr).map(([slug, d]) => [slug, { ...(d ?? {}), project: projectAr ?? undefined }]),
+  ) as Record<string, DocAr | null>;
+
+  return { doc, project, siblings, ar };
 }
 
 export async function generateMetadata(
@@ -62,5 +92,5 @@ export default async function CaseStudyPage({
   const data = await load(slug);
   if (!data) notFound();
 
-  return <CaseStudyView initial={data.doc} project={data.project} siblings={data.siblings} />;
+  return <CaseStudyView initial={data.doc} project={data.project} siblings={data.siblings} ar={data.ar} />;
 }

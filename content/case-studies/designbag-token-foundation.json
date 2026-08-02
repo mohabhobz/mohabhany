@@ -381,69 +381,8 @@
       ]
     },
     {
-      "id": "s-find-contrast",
-      "title": "Finding 2",
-      "rows": [
-        {
-          "id": "r15",
-          "layout": "1",
-          "cells": [
-            [
-              {
-                "id": "c-h",
-                "kind": "heading",
-                "level": 2,
-                "text": "A token that could not exist"
-              },
-              {
-                "id": "c-p1",
-                "kind": "paragraph",
-                "text": "I proposed a semantic called text.on-status: white, for text on any solid status fill. Clean, symmetrical, one token instead of four. Then I measured it."
-              },
-              {
-                "id": "c-table",
-                "kind": "table",
-                "head": [
-                  "Pair",
-                  "Measured",
-                  "WCAG 2.2 asks for"
-                ],
-                "rows": [
-                  [
-                    "White on the amber warning fill",
-                    "2.15:1",
-                    "4.5:1"
-                  ],
-                  [
-                    "neutral.950 on the same fill",
-                    "8.8:1",
-                    "4.5:1"
-                  ]
-                ]
-              },
-              {
-                "id": "c-p2",
-                "kind": "paragraph",
-                "text": "The token was structurally wrong, not badly valued. There is no shade of amber that is still recognisably amber where white works. Symmetry was hiding a colour that behaves differently from the others, so text.on-warning exists as its own token, and its description says why, so the next person does not simplify it back."
-              },
-              {
-                "id": "c-p3",
-                "kind": "paragraph",
-                "text": "The audit surfaced twelve failing pairs. Nine were defects in values I had proposed myself. border.focus-inverse, the focus ring for saturated fills, measured 2.54:1 in dark mode against the exact fill it exists to sit on. And background.brand sat at shade 500, where white is 4.47:1 and fails AA by a hair; it moved to 600, and 500 stayed as the identity anchor for borders and selected states, where the bar is 3:1."
-              },
-              {
-                "id": "c-pull",
-                "kind": "pullquote",
-                "text": "A contrast audit is not a QA step at the end. It is a design tool, and it will tell you that a token you were proud of should not exist."
-              }
-            ]
-          ]
-        }
-      ]
-    },
-    {
       "id": "s-find-arabic",
-      "title": "Finding 3",
+      "title": "Finding 2",
       "rows": [
         {
           "id": "r16",
@@ -494,7 +433,7 @@
     },
     {
       "id": "s-find-check",
-      "title": "Finding 4",
+      "title": "Finding 3",
       "rows": [
         {
           "id": "r17",
@@ -538,7 +477,7 @@
     },
     {
       "id": "s-find-sync",
-      "title": "Finding 5",
+      "title": "Finding 4",
       "rows": [
         {
           "id": "r18",
@@ -767,7 +706,7 @@
               {
                 "id": "rf-p1",
                 "kind": "paragraph",
-                "text": "I would run the contrast audit before authoring the tokens rather than after. Nine of my own proposed values were wrong and I only found out because I checked, which means every project where nobody checks is shipping the same nine."
+                "text": "The finding I did not expect: the interesting problems in a generator are not in the generating. They are in the second run, the empty state, and the difference between a claim and a test."
               },
               {
                 "id": "rf-p2",
